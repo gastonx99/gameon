@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <appender name="CONSOLE_APPENDER" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Om property saknas sätts ERROR som default -->
+    <!-- Property sätts till DEBUG via maven profilen 'intellij' -->
+    <logger name="se.dandel.gameon" level="${logback.application.default.level:-ERROR}" additivity="false">
+        <appender-ref ref="CONSOLE_APPENDER"/>
+    </logger>
+
+    <logger name="liquibase" level="INFO"/>
+
+    <!-- Loggnivå kan vara: TRACE, DEBUG, INFO, WARN, ERROR, ALL eller OFF -->
+    <root level="ERROR">
+        <appender-ref ref="CONSOLE_APPENDER"/>
+    </root>
+</configuration>
