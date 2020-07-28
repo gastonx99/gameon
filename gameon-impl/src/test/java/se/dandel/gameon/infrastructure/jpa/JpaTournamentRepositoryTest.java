@@ -1,11 +1,13 @@
 package se.dandel.gameon.infrastructure.jpa;
 
+import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,44 +19,35 @@ import org.slf4j.LoggerFactory;
 
 import se.dandel.gameon.datamodel.test.jpa.JpaTestManager;
 import se.dandel.gameon.datamodel.test.jpa.JpaTestManagerExtension;
-import se.dandel.gameon.domain.model.Game;
+import se.dandel.gameon.domain.model.Match;
+import se.dandel.gameon.domain.model.Team;
+import se.dandel.gameon.domain.model.TestTournamentFactory;
+import se.dandel.gameon.domain.model.Tournament;
 
 @ExtendWith(JpaTestManagerExtension.class)
 @EnableWeld
-class JpaGameRepositoryTest {
+class JpaTournamentRepositoryTest {
 
     Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Inject
-    JpaGameRepository repository;
-
-    @Test
-    void persist(JpaTestManager jpaTestManager) {
-        // Given
-        Game persisted = new Game();
-        persisted.setName("Gurka");
-
-        // When
-        repository.persist(persisted);
-        jpaTestManager.getEntityManager().flush();
-
-        // Then
-        assertThat(persisted.getPk(), is(greaterThan(0L)));
-    }
+    JpaTournamentRepository repository;
 
     @Test
     void findAll(JpaTestManager jpaTestManager) {
         // Given
-        Game expected = new Game();
-        expected.setName("Gurka");
+        Tournament expected = TestTournamentFactory.createTournament();
+        List<Team> teams = expected.getSeasons().stream().flatMap(t -> t.getTeams().stream()).collect(toList());
+        teams.forEach(team -> repository.persist(team));
         repository.persist(expected);
 
         // When
-        Collection<Game> actuals = repository.findAll();
+        jpaTestManager.reset();
+        Collection<Match> actualMatches = repository.findAllMatches();
 
         // Then
-        assertThat(actuals.size(), is(equalTo(1)));
-        Game actual = actuals.iterator().next();
+        assertThat(actualMatches.size(), is(equalTo(1)));
+        Match actual = actualMatches.iterator().next();
         assertThat(actual.getPk(), is(greaterThan(0L)));
 
     }

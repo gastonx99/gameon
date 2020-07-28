@@ -3,13 +3,71 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet id="create-table-game" author="Anders Lundberg">
-        <createTable tableName="GAME">
+    <changeSet id="create-table-team" author="Anders Lundberg">
+        <createTable tableName="TEAM">
             <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">
-                <constraints primaryKey="true" primaryKeyName="PK_GAME" />
+                <constraints primaryKey="true" primaryKeyName="PK_TEAM"/>
+            </column>
+            <column name="KEY" type="VARCHAR(512)">
+                <constraints nullable="false"/>
             </column>
             <column name="NAME" type="VARCHAR(512)">
                 <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-table-tournament" author="Anders Lundberg">
+        <createTable tableName="TOURNAMENT">
+            <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">
+                <constraints primaryKey="true" primaryKeyName="PK_TOURNAMENT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-table-season" author="Anders Lundberg">
+        <createTable tableName="SEASON">
+            <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">
+                <constraints primaryKey="true" primaryKeyName="PK_SEASON"/>
+            </column>
+            <column name="TOURNAMENT_PK" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="FK_SEASON_TOURNAMENT" referencedTableName="TOURNAMENT"
+                             referencedColumnNames="PK"/>
+            </column>
+            <column name="NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-table-match" author="Anders Lundberg">
+        <createTable tableName="MATCH">
+            <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">
+                <constraints primaryKey="true" primaryKeyName="PK_MATCH"/>
+            </column>
+            <column name="SEASON_PK" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="FK_MATCH_SEASON" referencedTableName="SEASON"
+                             referencedColumnNames="PK"/>
+            </column>
+            <column name="HOMETEAM_PK" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="FK_MATCH_HOMETEAM" referencedTableName="TEAM"
+                             referencedColumnNames="PK"/>
+            </column>
+            <column name="AWAYTEAM_PK" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="FK_MATCH_AWAYTEAM" referencedTableName="TEAM"
+                             referencedColumnNames="PK"/>
+            </column>
+            <column name="ZONEDDATETIME" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VENUE" type="VARCHAR(512)">
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>

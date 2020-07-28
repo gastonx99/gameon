@@ -3,7 +3,7 @@ package se.dandel.gameon.infrastructure.jpa;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import se.dandel.gameon.domain.model.Game;
+import se.dandel.gameon.domain.model.Match;
 
 public class JpaAbstractRepository {
 
@@ -18,7 +18,7 @@ public class JpaAbstractRepository {
         entityManager.persist(entity);
     }
 
-    public void refresh(Game entity) {
+    public void refresh(Match entity) {
         getEntityManager().refresh(entity);
     }
 }

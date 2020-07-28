@@ -50,6 +50,10 @@ public class JpaTestManager {
         if (factory != null) {
             commitAndClose();
         }
+        if (em != null) {
+            em.close();
+            em = null;
+        }
     }
 
     public void reset() {
@@ -68,27 +72,6 @@ public class JpaTestManager {
     public DataSource getDataSource() throws SQLException {
         when(dataSource.getConnection()).thenReturn(connection);
         return dataSource;
-    }
-
-    public void startTransactionIfNotActive() {
-        LOG.debug("Begin transaction");
-        if (!em.getTransaction().isActive()) {
-            em.getTransaction().begin();
-        }
-    }
-
-    public void commitTransaction() {
-        if (tx.isActive()) {
-            if (tx.getRollbackOnly()) {
-                LOG.debug("Transaction rolled back");
-                tx.rollback();
-            } else {
-                LOG.debug("Commit transaction");
-                em.flush();
-                tx.commit();
-            }
-        }
-        em.clear();
     }
 
     /**
@@ -115,11 +98,12 @@ public class JpaTestManager {
             }
         }
         if (em != null) {
-            try {
-                em.close();
-            } finally {
-                em = null;
-            }
+            //            try {
+            //                em.close();
+            //            } finally {
+            //                em = null;
+            //            }
+            em.clear();
         }
     }
 
@@ -128,13 +112,15 @@ public class JpaTestManager {
      */
     private void createAndBegin() {
         LOG.debug("createAndBegin");
-        if (em != null || tx != null) {
-            throw new IllegalStateException("Manager " + em + " and tx " + tx + " should all be null");
-        }
+        //        if (em != null || tx != null) {
+        //            throw new IllegalStateException("Manager " + em + " and tx " + tx + " should all be null");
+        //        }
         if (System.getProperty("oracle.net.tns_admin") == null) {
             System.setProperty("oracle.net.tns_admin", System.getenv("TNS_ADMIN"));
         }
-        em = factory.createEntityManager();
+        if (em == null) {
+            em = factory.createEntityManager();
+        }
         tx = em.getTransaction();
         tx.begin();
         connection = em.unwrap(Connection.class);
@@ -148,13 +134,9 @@ public class JpaTestManager {
             Arrays.stream(persistenceContext.properties()).forEach(p -> props.put(p.name(), p.value()));
         }
 
-        //        props.putIfAbsent("javax.persistence.jdbc.url", "jdbc:hsqldb:mem:jpa;sql.syntax_ora=true;close_result=true");
-        props.putIfAbsent("javax.persistence.jdbc.url", "jdbc:hsqldb:mem:jpa;close_result=true");
-//        props.putIfAbsent("javax.persistence.jdbc.url", "jdbc:hsqldb:file:database/gameon.db");
-        props.putIfAbsent("javax.persistence.jdbc.driver", "org.hsqldb.jdbc.JDBCDriver");
-        props.putIfAbsent("eclipselink.target-database", "org.eclipse.persistence.platform.database.HSQLPlatform");
-        props.putIfAbsent("eclipselink.cache.shared.default", "false");
-        props.putIfAbsent("eclipselink.logging.logger", "se.dandel.gameon.infrastructure.jpa.Slf4jSessionLogger");
+        //        props.putIfAbsent("javax.persistence.jdbc.url", "jdbc:hsqldb:file:C:/WS/database/hsqldb/gameon.db");
+        //        props.putIfAbsent("javax.persistence.jdbc.user", "gameon");
+        //        props.putIfAbsent("javax.persistence.jdbc.password", "gameon");
         return props;
     }
 

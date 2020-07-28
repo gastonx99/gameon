@@ -64,7 +64,9 @@
                     <changeLogDirectory>src/main/liquibase</changeLogDirectory>
                     <changeLogFile>master.xml</changeLogFile>
                     <driver>org.hsqldb.jdbc.JDBCDriver</driver>
-                    <url>jdbc:hsqldb:file:${project.basedir}/../database/gameon.db</url>
+                    <url>jdbc:hsqldb:file:C:/WS/database/hsqldb/gameon.db</url>
+                    <username>gameon</username>
+                    <password>gameon</password>
                     <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                     <verbose>true</verbose>
                     <dropFirst>false</dropFirst>

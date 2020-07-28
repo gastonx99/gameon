@@ -7,13 +7,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GAME")
-public class Game {
+@Table(name = "TEAM")
+public class Team {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long pk;
+
+    private String key;
+
     private String name;
+
+    private Team() {
+        // For JPA
+    }
+
+    public static Team of(String key, String name) {
+        Team team = new Team();
+        team.setKey(key);
+        team.setName(name);
+        return team;
+    }
 
     public long getPk() {
         return pk;
@@ -29,5 +43,13 @@ public class Game {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
