@@ -9,34 +9,29 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gameon-common</artifactId>
+    <artifactId>gameon-restapi</artifactId>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>se.dandel.gameon</groupId>
+            <artifactId>gameon-datamodel</artifactId>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <groupId>se.dandel.gameon</groupId>
+            <artifactId>gameon-impl</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>se.dandel.gameon</groupId>
+            <artifactId>gameon-datamodel-test</artifactId>
+            <scope>test</scope>
         </dependency>
+
+        <!-- Thirdparty dependencies -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
         </dependency>
     </dependencies>
 

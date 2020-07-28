@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+        version="3.1">
+
+    <display-name>Gameon</display-name>
+
+    <data-source>
+        <name>java:global/dataSource-gameon</name>
+        <class-name>org.hsqldb.jdbc.JDBCDataSource</class-name>
+        <url>jdbc:hsqldb:file:C:/WS/database/hsqldb/gameon.db</url>
+        <user>gameon</user>
+        <password>gameon</password>
+        <!-- Example of how to use a Payara specific custom connection pool setting -->
+        <property>
+            <name>fish.payara.sql-trace-listeners</name>
+            <value>com.sun.gjc.util.SQLTraceLogger</value>
+        </property>
+        <initial-pool-size>1</initial-pool-size>
+        <max-pool-size>100</max-pool-size>
+        <min-pool-size>1</min-pool-size>
+    </data-source>
+</web-app>
