@@ -115,7 +115,7 @@ public class JpaTestManager {
         //        if (em != null || tx != null) {
         //            throw new IllegalStateException("Manager " + em + " and tx " + tx + " should all be null");
         //        }
-        if (System.getProperty("oracle.net.tns_admin") == null) {
+        if (System.getProperty("oracle.net.tns_admin") == null && System.getenv("TNS_ADMIN") != null) {
             System.setProperty("oracle.net.tns_admin", System.getenv("TNS_ADMIN"));
         }
         if (em == null) {

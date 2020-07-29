@@ -13,7 +13,7 @@
         <appender-ref ref="CONSOLE_APPENDER"/>
     </logger>
 
-    <logger name="liquibase" level="INFO"/>
+    <logger name="liquibase" level="WARN"/>
 
     <!-- Loggnivå kan vara: TRACE, DEBUG, INFO, WARN, ERROR, ALL eller OFF -->
     <root level="ERROR">
