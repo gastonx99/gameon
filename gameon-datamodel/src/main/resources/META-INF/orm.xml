@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_1.xsd"
+                 version="2.1">
+
+    <!--  Entities -->
+    <entity class="se.dandel.gameon.domain.model.Tournament"/>
+    <entity class="se.dandel.gameon.domain.model.Season"/>
+    <entity class="se.dandel.gameon.domain.model.Team"/>
+    <entity class="se.dandel.gameon.domain.model.Match"/>
+    <entity class="se.dandel.gameon.domain.model.User"/>
+
+    <!-- Converters -->
+    <converter class="se.dandel.gameon.infrastructure.jpa.converter.ZonedDateTimeConverter" auto-apply="true"/>
+    <converter class="se.dandel.gameon.infrastructure.jpa.converter.LocalDateTimeConverter" auto-apply="true"/>
+    <converter class="se.dandel.gameon.infrastructure.jpa.converter.LocalDateConverter" auto-apply="true"/>
+
+</entity-mappings>

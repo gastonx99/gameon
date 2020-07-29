@@ -1,0 +1,8 @@
+== TODO ==
+
+* Multiple read/write connections to HSQLDB? One for IntelliJ SQL viewer, another for app server
+
+* Entitymanager close after each test? Or new dependency injection after jpatestmanager.reset()?
+
+* git - cleanup files and commit per task
+

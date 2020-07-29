@@ -1,0 +1,436 @@
+{
+  "Fixture": [
+    {
+      "DateTime": "2018-06-14",
+      "Group": "GROUP_A",
+      "Venue": "Moscow",
+      "HomeTeam": "Russia",
+      "AwayTeam": "Saudi_Arabia",
+      "HomeGoal": "5",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-15",
+      "Group": "GROUP_A",
+      "Venue": "Ekaterinburg",
+      "HomeTeam": "Egypt",
+      "AwayTeam": "Uruguay",
+      "HomeGoal": "0",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-15",
+      "Group": "GROUP_B",
+      "Venue": "St_Petersburg",
+      "HomeTeam": "Morocco",
+      "AwayTeam": "Iran",
+      "HomeGoal": "0",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-15",
+      "Group": "GROUP_B",
+      "Venue": "Sochi",
+      "HomeTeam": "Portugal",
+      "AwayTeam": "Spain",
+      "HomeGoal": "3",
+      "AwayGoal": "3"
+    },
+    {
+      "DateTime": "2018-06-16",
+      "Group": "GROUP_C",
+      "Venue": "Kazan",
+      "HomeTeam": "France",
+      "AwayTeam": "Australia",
+      "HomeGoal": "2",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-16",
+      "Group": "GROUP_D",
+      "Venue": "Moscow",
+      "HomeTeam": "Argentina",
+      "AwayTeam": "Iceland",
+      "HomeGoal": "1",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-16",
+      "Group": "GROUP_C",
+      "Venue": "Saransk",
+      "HomeTeam": "Peru",
+      "AwayTeam": "Denmark",
+      "HomeGoal": "0",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-16",
+      "Group": "GROUP_D",
+      "Venue": "Kaliningrad",
+      "HomeTeam": "Croatia",
+      "AwayTeam": "Nigeria",
+      "HomeGoal": "2",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-17",
+      "Group": "GROUP_E",
+      "Venue": "Samara",
+      "HomeTeam": "Costa_Rica",
+      "AwayTeam": "Serbia",
+      "HomeGoal": "0",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-17",
+      "Group": "GROUP_F",
+      "Venue": "Moscow",
+      "HomeTeam": "Germany",
+      "AwayTeam": "Mexico",
+      "HomeGoal": "0",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-17",
+      "Group": "GROUP_E",
+      "Venue": "Rostov_on_Don",
+      "HomeTeam": "Brazil",
+      "AwayTeam": "Switzerland",
+      "HomeGoal": "1",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-18",
+      "Group": "GROUP_F",
+      "Venue": "Nizhny_Novgorod",
+      "HomeTeam": "Sweden",
+      "AwayTeam": "South_Korea",
+      "HomeGoal": "1",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-18",
+      "Group": "GROUP_G",
+      "Venue": "Sochi",
+      "HomeTeam": "Belgium",
+      "AwayTeam": "Panama",
+      "HomeGoal": "3",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-18",
+      "Group": "GROUP_G",
+      "Venue": "Volgograd",
+      "HomeTeam": "Tunisia",
+      "AwayTeam": "England",
+      "HomeGoal": "1",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-19",
+      "Group": "GROUP_H",
+      "Venue": "Saransk",
+      "HomeTeam": "Colombia",
+      "AwayTeam": "Japan",
+      "HomeGoal": "1",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-19",
+      "Group": "GROUP_H",
+      "Venue": "Moscow",
+      "HomeTeam": "Poland",
+      "AwayTeam": "Senegal",
+      "HomeGoal": "1",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-19",
+      "Group": "GROUP_A",
+      "Venue": "St_Petersburg",
+      "HomeTeam": "Russia",
+      "AwayTeam": "Egypt",
+      "HomeGoal": "3",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-20",
+      "Group": "GROUP_B",
+      "Venue": "Moscow",
+      "HomeTeam": "Portugal",
+      "AwayTeam": "Morocco",
+      "HomeGoal": "1",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-20",
+      "Group": "GROUP_A",
+      "Venue": "Rostov_on_Don",
+      "HomeTeam": "Uruguay",
+      "AwayTeam": "Saudi_Arabia",
+      "HomeGoal": "1",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-20",
+      "Group": "GROUP_B",
+      "Venue": "Kazan",
+      "HomeTeam": "Iran",
+      "AwayTeam": "Spain",
+      "HomeGoal": "0",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-21",
+      "Group": "GROUP_C",
+      "Venue": "Samara",
+      "HomeTeam": "Denmark",
+      "AwayTeam": "Australia",
+      "HomeGoal": "1",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-21",
+      "Group": "GROUP_C",
+      "Venue": "Ekaterinburg",
+      "HomeTeam": "France",
+      "AwayTeam": "Peru",
+      "HomeGoal": "1",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-21",
+      "Group": "GROUP_D",
+      "Venue": "Nizhny_Novgorod",
+      "HomeTeam": "Argentina",
+      "AwayTeam": "Croatia",
+      "HomeGoal": "0",
+      "AwayGoal": "3"
+    },
+    {
+      "DateTime": "2018-06-22",
+      "Group": "GROUP_E",
+      "Venue": "St_Petersburg",
+      "HomeTeam": "Brazil",
+      "AwayTeam": "Costa_Rica",
+      "HomeGoal": "2",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-22",
+      "Group": "GROUP_D",
+      "Venue": "Volgograd",
+      "HomeTeam": "Nigeria",
+      "AwayTeam": "Iceland",
+      "HomeGoal": "2",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-22",
+      "Group": "GROUP_E",
+      "Venue": "Kaliningrad",
+      "HomeTeam": "Serbia",
+      "AwayTeam": "Switzerland",
+      "HomeGoal": "1",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-23",
+      "Group": "GROUP_G",
+      "Venue": "Moscow",
+      "HomeTeam": "Belgium",
+      "AwayTeam": "Tunisia",
+      "HomeGoal": "5",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-23",
+      "Group": "GROUP_F",
+      "Venue": "Rostov_on_Don",
+      "HomeTeam": "South_Korea",
+      "AwayTeam": "Mexico",
+      "HomeGoal": "1",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-23",
+      "Group": "GROUP_F",
+      "Venue": "Sochi",
+      "HomeTeam": "Germany",
+      "AwayTeam": "Sweden",
+      "HomeGoal": "2",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-24",
+      "Group": "GROUP_G",
+      "Venue": "Nizhny_Novgorod",
+      "HomeTeam": "England",
+      "AwayTeam": "Panama",
+      "HomeGoal": "6",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-24",
+      "Group": "GROUP_H",
+      "Venue": "Ekaterinburg",
+      "HomeTeam": "Japan",
+      "AwayTeam": "Senegal",
+      "HomeGoal": "2",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-24",
+      "Group": "GROUP_H",
+      "Venue": "Kazan",
+      "HomeTeam": "Poland",
+      "AwayTeam": "Colombia",
+      "HomeGoal": "0",
+      "AwayGoal": "3"
+    },
+    {
+      "DateTime": "2018-06-25",
+      "Group": "GROUP_A",
+      "Venue": "Samara",
+      "HomeTeam": "Uruguay",
+      "AwayTeam": "Russia",
+      "HomeGoal": "3",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-25",
+      "Group": "GROUP_A",
+      "Venue": "Volgograd",
+      "HomeTeam": "Saudi_Arabia",
+      "AwayTeam": "Egypt",
+      "HomeGoal": "2",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-25",
+      "Group": "GROUP_B",
+      "Venue": "Kaliningrad",
+      "HomeTeam": "Spain",
+      "AwayTeam": "Morocco",
+      "HomeGoal": "2",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-25",
+      "Group": "GROUP_B",
+      "Venue": "Saransk",
+      "HomeTeam": "Iran",
+      "AwayTeam": "Portugal",
+      "HomeGoal": "1",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-26",
+      "Group": "GROUP_C",
+      "Venue": "Moscow",
+      "HomeTeam": "Denmark",
+      "AwayTeam": "France",
+      "HomeGoal": "0",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-26",
+      "Group": "GROUP_C",
+      "Venue": "Sochi",
+      "HomeTeam": "Australia",
+      "AwayTeam": "Peru",
+      "HomeGoal": "0",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-26",
+      "Group": "GROUP_D",
+      "Venue": "St_Petersburg",
+      "HomeTeam": "Nigeria",
+      "AwayTeam": "Argentina",
+      "HomeGoal": "1",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-26",
+      "Group": "GROUP_D",
+      "Venue": "Rostov_on_Don",
+      "HomeTeam": "Iceland",
+      "AwayTeam": "Croatia",
+      "HomeGoal": "1",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-27",
+      "Group": "GROUP_F",
+      "Venue": "Kazan",
+      "HomeTeam": "South_Korea",
+      "AwayTeam": "Germany",
+      "HomeGoal": "2",
+      "AwayGoal": "0"
+    },
+    {
+      "DateTime": "2018-06-27",
+      "Group": "GROUP_F",
+      "Venue": "Ekaterinburg",
+      "HomeTeam": "Mexico",
+      "AwayTeam": "Sweden",
+      "HomeGoal": "0",
+      "AwayGoal": "3"
+    },
+    {
+      "DateTime": "2018-06-27",
+      "Group": "GROUP_E",
+      "Venue": "Moscow",
+      "HomeTeam": "Serbia",
+      "AwayTeam": "Brazil",
+      "HomeGoal": "0",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-27",
+      "Group": "GROUP_E",
+      "Venue": "Nizhny_Novgorod",
+      "HomeTeam": "Switzerland",
+      "AwayTeam": "Costa_Rica",
+      "HomeGoal": "2",
+      "AwayGoal": "2"
+    },
+    {
+      "DateTime": "2018-06-28",
+      "Group": "GROUP_H",
+      "Venue": "Volgograd",
+      "HomeTeam": "Japan",
+      "AwayTeam": "Poland",
+      "HomeGoal": "0",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-28",
+      "Group": "GROUP_H",
+      "Venue": "Samara",
+      "HomeTeam": "Senegal",
+      "AwayTeam": "Colombia",
+      "HomeGoal": "0",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-28",
+      "Group": "GROUP_G",
+      "Venue": "Kaliningrad",
+      "HomeTeam": "England",
+      "AwayTeam": "Belgium",
+      "HomeGoal": "0",
+      "AwayGoal": "1"
+    },
+    {
+      "DateTime": "2018-06-28",
+      "Group": "GROUP_G",
+      "Venue": "Saransk",
+      "HomeTeam": "Panama",
+      "AwayTeam": "Tunisia",
+      "HomeGoal": "1",
+      "AwayGoal": "2"
+    }
+  ]
+}
