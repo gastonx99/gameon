@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="GAMEON_STANDALONE" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <mapping-file>META-INF/orm.xml</mapping-file>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <!-- properties, se se.rsv.in.common.test.jpa.JpaTestManager.startupFactory -->
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/gameon-xdb"/>
+            <property name="javax.persistence.jdbc.user" value="SA"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.HSQLPlatform"/>
+            <property name="eclipselink.cache.shared.default" value="false"/>
+            <property name="eclipselink.logging.logger" value="se.dandel.gameon.infrastructure.jpa.Slf4jSessionLogger"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+            <property name="eclipselink.logging.level.sql" value="FINEST"/>
+        </properties>
+    </persistence-unit>
+</persistence>

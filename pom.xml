@@ -31,6 +31,7 @@
         <jupiter-platform-launcher.version>1.6.2</jupiter-platform-launcher.version>
         <mockito.version>3.3.3</mockito.version>
         <hamcrest.version>2.2</hamcrest.version>
+        <weld-se.version>3.1.2.Final</weld-se.version>
         <weld-junit.version>2.0.1.Final</weld-junit.version>
     </properties>
 
@@ -42,6 +43,7 @@
         <module>gameon-impl</module>
         <module>gameon-restapi</module>
         <module>gameon-war</module>
+        <module>gameon-tools</module>
     </modules>
 
     <build>
@@ -142,6 +144,11 @@
                 <version>2.6.4</version>
             </dependency>
             <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>javax.persistence-api</artifactId>
+                <version>2.2</version>
+            </dependency>
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
@@ -205,6 +212,11 @@
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest</artifactId>
                 <version>${hamcrest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.se</groupId>
+                <artifactId>weld-se-core</artifactId>
+                <version>${weld-se.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.weld</groupId>

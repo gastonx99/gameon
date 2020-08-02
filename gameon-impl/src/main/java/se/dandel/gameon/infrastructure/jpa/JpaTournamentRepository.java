@@ -1,6 +1,7 @@
 package se.dandel.gameon.infrastructure.jpa;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.persistence.TypedQuery;
 
@@ -21,5 +22,12 @@ public class JpaTournamentRepository extends JpaAbstractRepository {
 
     public Tournament getTournament(long pk) {
         return getEntityManager().find(Tournament.class, pk);
+    }
+
+    public Optional<Tournament> findTournament(String name) {
+        TypedQuery<Tournament> query =
+                getEntityManager().createQuery("select t from Tournament t where t.name = :name", Tournament.class);
+        query.setParameter("name", name);
+        return getSingleResult(query);
     }
 }

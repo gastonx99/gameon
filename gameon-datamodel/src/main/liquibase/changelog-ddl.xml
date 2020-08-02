@@ -9,7 +9,7 @@
                 <constraints primaryKey="true" primaryKeyName="PK_TEAM"/>
             </column>
             <column name="KEY" type="VARCHAR(512)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true" uniqueConstraintName="TEAM_KEY_IDX"/>
             </column>
             <column name="NAME" type="VARCHAR(512)">
                 <constraints nullable="false"/>
@@ -23,7 +23,7 @@
                 <constraints primaryKey="true" primaryKeyName="PK_TOURNAMENT"/>
             </column>
             <column name="NAME" type="VARCHAR(512)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true" uniqueConstraintName="TOURNAMENT_NAME_IDX"/>
             </column>
             <column name="TYPE" type="VARCHAR(100)">
                 <constraints nullable="false"/>
@@ -41,7 +41,7 @@
                              referencedColumnNames="PK"/>
             </column>
             <column name="NAME" type="VARCHAR(512)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true" uniqueConstraintName="SEASON_NAME_IDX"/>
             </column>
         </createTable>
     </changeSet>
@@ -69,7 +69,21 @@
             <column name="VENUE" type="VARCHAR(512)">
                 <constraints nullable="true"/>
             </column>
+            <column name="FINAL_SCORE_HOME" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+            <column name="FINAL_SCORE_AWAY" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="create-unique-index-match" author="Anders Lundberg">
+        <createIndex tableName="MATCH" indexName="MATCH_TIME_HOME_AWAYTEAM_IDX">
+            <column name="ZONEDDATETIME"/>
+            <column name="HOMETEAM_PK"/>
+            <column name="AWAYTEAM_PK"/>
+        </createIndex>
     </changeSet>
 
 </databaseChangeLog>

@@ -9,26 +9,31 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gameon-impl</artifactId>
+    <artifactId>gameon-tools</artifactId>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
 
     <dependencies>
         <dependency>
             <groupId>se.dandel.gameon</groupId>
-            <artifactId>gameon-datamodel</artifactId>
+            <artifactId>gameon-impl</artifactId>
+        </dependency>
+        <!-- Thirdparty libraries -->
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>se.dandel.gameon</groupId>
-            <artifactId>gameon-datamodel-test</artifactId>
-            <scope>test</scope>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
         </dependency>
-
-        <!-- Thirdparty dependencies -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <scope>provided</scope>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
         </dependency>
     </dependencies>
 

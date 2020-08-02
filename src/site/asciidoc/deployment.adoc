@@ -20,7 +20,16 @@
 === JDBC connection pool ===
   asadmin> create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlDataSource --restype javax.sql.DataSource --property user=root:password=test:DatabaseName=test:ServerName=localhost:port=3306 test-pool
 
-  
+== Database ==
+=== HSQLDB ===
+  export CLASSPATH=/C/Users/EX64149/.m2/repository/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar
+  java org.hsqldb.server.Server --database.0 file:C:/WS/database/hsqldb/gameon/gameon --dbname.0 gameon-xdb
+
+  mvn -f gameon-datamodel liquibase:update
+
+  export CLASSPATH=/C/Users/EX64149/.m2/repository/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar
+  java org.hsqldb.util.DatabaseManagerSwing --url jdbc:hsqldb:hsql://localhost/gameon-xdb --user SA
+
 
   
   

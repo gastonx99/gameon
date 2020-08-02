@@ -1,12 +1,13 @@
 package se.dandel.gameon.domain.model;
 
-import static java.util.Comparator.comparing;
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 @Table(name = "SEASON")
@@ -67,11 +70,17 @@ public class Season {
     }
 
     public Set<Team> getTeams() {
-        Set<Team> c = new TreeSet<>(comparing(Team::getName));
-        matches.forEach(m -> {
-            c.add(m.getHomeTeam());
-            c.add(m.getAwayTeam());
-        });
-        return c;
+        return Match.getDistinctTeams(matches);
+    }
+
+    public Optional<Match> getMatch(ZonedDateTime zonedDateTime, Team homeTeam, Team awayTeam) {
+        return matches.stream().filter(match -> match.isSame(zonedDateTime, homeTeam, awayTeam)).findFirst();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, SHORT_PREFIX_STYLE).append("pk", pk)
+                .append("tournament", tournament == null ? "" : tournament.getName()).append("name", name)
+                .append("matches", matches.size()).toString();
     }
 }
