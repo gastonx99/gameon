@@ -11,7 +11,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.jdk.version>1.8</java.jdk.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- Plugin versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
@@ -43,6 +45,7 @@
         <module>gameon-impl</module>
         <module>gameon-restapi</module>
         <module>gameon-war</module>
+        <module>gameon-vaadin-user</module>
         <module>gameon-tools</module>
     </modules>
 
@@ -74,8 +77,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>${java.jdk.version}</source>
-                    <target>${java.jdk.version}</target>
                 </configuration>
             </plugin>
             <plugin>
