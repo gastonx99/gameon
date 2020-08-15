@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <property name="patternBasic" value="%date{ISO8601} [%thread] %-5level %class:%line - %message%n"/>
+    <appender name="APPLICATION_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>gameon-application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>gameon-application.log.%i</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>20</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>65MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>${patternBasic}%throwable{full}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Loggnivå kan vara: TRACE, DEBUG, INFO, WARN, ERROR, ALL eller OFF -->
+    <root level="ERROR">
+        <appender-ref ref="APPLICATION_APPENDER"/>
+    </root>
+
+    <logger name="se.dandel.gameon" level="DEBUG"/>
+
+    <logger name="org.jboss.weld" level="WARN"/>
+
+</configuration>

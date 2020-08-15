@@ -65,20 +65,9 @@
                     <artifactId>liquibase-maven-plugin</artifactId>
                     <version>${liquibase.version}</version>
                 </plugin>
-                <!--                <plugin>-->
-                <!--                    <groupId>io.thorntail</groupId>-->
-                <!--                    <artifactId>thorntail-maven-plugin</artifactId>-->
-                <!--                    <version>${thorntail.version}</version>-->
-                <!--                </plugin>-->
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>

@@ -13,7 +13,7 @@
   java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --rootDir /C/WS/domains/payara/gameon --outputlauncher
 
   java -jar /C/WS/domains/payara/gameon/launch-micro.jar  
-  java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --deploy /c/WS/git/github/gameon/gameon-war/target/gameon-war.war
+  java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --rootDir /C/WS/domains/payara/gameon --deploy /c/WS/git/github/gameon/gameon-war/target/gameon-war.war
   
   http://q27754.rsv.se:8080/gameon-war.war/rest/monitor/ping
   
@@ -31,5 +31,7 @@
   java org.hsqldb.util.DatabaseManagerSwing --url jdbc:hsqldb:hsql://localhost/gameon-xdb --user SA
 
 
-  
+== npm ==
+  export HTTPS_PROXY=<proxy url>
+
   
