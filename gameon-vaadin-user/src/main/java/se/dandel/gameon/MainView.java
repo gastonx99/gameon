@@ -1,5 +1,8 @@
 package se.dandel.gameon;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -9,9 +12,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 
 /**
  * The main view contains a simple label element and a template element.
@@ -32,8 +32,7 @@ public class MainView extends VerticalLayout {
         textField.addThemeName("bordered");
 
         // Button click listeners can be defined as lambda expressions
-        Button button = new Button("Say hello",
-                e -> Notification.show(greetService.greet(textField.getValue())));
+        Button button = new Button("Say hello", e -> Notification.show(greetService.greet(textField.getValue())));
 
         // Theme variants give you predefined extra styles for components.
         // Example: Primary button is more prominent look.
