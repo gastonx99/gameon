@@ -16,22 +16,9 @@
         <failOnMissingWebXml>true</failOnMissingWebXml>
 
         <!-- Dependencies -->
-        <vaadin.version>14.3.3</vaadin.version>
         <drivers.dir>${project.basedir}/drivers</drivers.dir>
         <drivers.downloader.phase>pre-integration-test</drivers.downloader.phase>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-bom</artifactId>
-                <version>${vaadin.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!-- Modules -->
@@ -99,7 +86,6 @@
             <plugin>
                 <groupId>org.apache.tomee.maven</groupId>
                 <artifactId>tomee-maven-plugin</artifactId>
-                <version>7.1.1</version>
                 <configuration>
                     <tomeeClassifier>microprofile</tomeeClassifier>
                     <context>ROOT</context>
@@ -125,7 +111,6 @@
             <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
-                <version>${vaadin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -157,6 +142,7 @@
                     <plugin>
                         <groupId>com.vaadin</groupId>
                         <artifactId>vaadin-maven-plugin</artifactId>
+                        <version>${vaadin.version}</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -176,6 +162,7 @@
                     <plugin>
                         <groupId>org.apache.tomee.maven</groupId>
                         <artifactId>tomee-maven-plugin</artifactId>
+                        <version>${tomee-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>start</id>
@@ -202,9 +189,8 @@
 
                     <!-- Runs the integration tests (*IT) after the server is started -->
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.2</version>
+                        <version>${maven-failsafe-plugin.version}</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -226,7 +212,7 @@
                     <plugin>
                         <groupId>com.lazerycode.selenium</groupId>
                         <artifactId>driver-binary-downloader-maven-plugin</artifactId>
-                        <version>1.0.17</version>
+                        <version>${driver-binary-downloader-maven-plugin.version}</version>
                         <configuration>
                             <onlyGetDriversForHostOperatingSystem>true
                             </onlyGetDriversForHostOperatingSystem>
