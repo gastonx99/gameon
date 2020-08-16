@@ -7,7 +7,7 @@
     <display-name>Gameon</display-name>
 
     <data-source>
-        <name>java:global/dataSource-gameon</name>
+        <name>dataSource-gameon</name>
         <class-name>org.hsqldb.jdbc.JDBCDataSource</class-name>
         <url>jdbc:hsqldb:file:C:/WS/database/hsqldb/gameon.db</url>
         <user>gameon</user>

@@ -21,7 +21,7 @@
 
         <!-- Thirdparty versions -->
         <!--        <thorntail.version>2.7.0.Final</thorntail.version>-->
-        <hsqldb.version>2.4.1</hsqldb.version>
+        <hsqldb.version>2.5.0</hsqldb.version>
         <slf4j.version>1.7.30</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <commons-lang3.version>3.10</commons-lang3.version>
@@ -68,6 +68,25 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6.3</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>

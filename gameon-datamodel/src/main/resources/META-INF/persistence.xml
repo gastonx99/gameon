@@ -5,15 +5,16 @@
              version="2.1">
 
     <persistence-unit name="GAMEON" transaction-type="JTA">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <jta-data-source>java:global/dataSource-gameon</jta-data-source>
+<!--        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
+        <jta-data-source>dataSource-gameon</jta-data-source>
+        <non-jta-data-source>dataSource-gameon-nonjta</non-jta-data-source>
         <mapping-file>META-INF/orm.xml</mapping-file>
         <properties>
-            <property name="eclipselink.logging.logger" value="se.dandel.gameon.infrastructure.jpa.Slf4jSessionLogger"/>
-            <property name="eclipselink.target-server" value="WebLogic"/>
-            <property name="eclipselink.jdbc.batch-writing" value="jdbc"/>
-            <property name="eclipselink.jdbc.batch-writing.size" value="100"/>
-            <property name="eclipselink.cache.shared.default" value="false"/>
+<!--            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.HSQLPlatform"/>-->
+<!--            <property name="eclipselink.logging.logger" value="se.dandel.gameon.infrastructure.jpa.Slf4jSessionLogger"/>-->
+<!--            <property name="eclipselink.jdbc.batch-writing" value="jdbc"/>-->
+<!--            <property name="eclipselink.jdbc.batch-writing.size" value="100"/>-->
+<!--            <property name="eclipselink.cache.shared.default" value="false"/>-->
         </properties>
     </persistence-unit>
 
