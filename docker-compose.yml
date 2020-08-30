@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  tomee_gameon:
+    build:
+      context: ./src/tomee
+      dockerfile: Dockerfile-tomee
+    ports:
+      - 8080:8080
+  postgres_gameon:
+    image: postgres:12.4-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=gameon-xdb
+

@@ -94,7 +94,7 @@
         <profile>
             <id>postgres</id>
             <properties>
-                <liquibase.url>jdbc:postgresql://localhost:5432/postgres</liquibase.url>
+                <liquibase.url>jdbc:postgresql://localhost:5432/gameon-xdb</liquibase.url>
                 <liquibase.username>postgres</liquibase.username>
                 <liquibase.password>postgres</liquibase.password>
             </properties>
