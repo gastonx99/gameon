@@ -5,8 +5,8 @@
 
   java -jar /C/WS/domains/payara/demo/launch-micro.jar  
   java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --deploy /C/WS/git/github/demo/demo/target/demo.war
-  
-  http://q27754.rsv.se:8080/demo/hello
+
+http://q27754.rsv.se:8080/demo/hello
   
 === Gameon ===
   java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --rootDir /C/WS/domains/payara/gameon --warmup /c/WS/git/github/gameon/gameon-war/target/gameon-war.war
@@ -15,11 +15,13 @@
   java -jar /C/WS/domains/payara/gameon/launch-micro.jar  
   java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --rootDir /C/WS/domains/payara/gameon --deploy /c/WS/git/github/gameon/gameon-war/target/gameon-war.war
   
-  http://q27754.rsv.se:8080/gameon-war.war/rest/monitor/ping
+http://q27754.rsv.se:8080/gameon-war.war/rest/monitor/ping
 
 == Tomee ==
 === Using maven plugin ===
   mvn -f gameon-vaadin-user tomee:run
+
+http://localhost:8080/teams
   
 === JDBC connection pool ===
   asadmin> create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlDataSource --restype javax.sql.DataSource --property user=root:password=test:DatabaseName=test:ServerName=localhost:port=3306 test-pool
