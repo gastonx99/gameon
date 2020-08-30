@@ -8,20 +8,32 @@
 
     <data-source>
         <name>dataSource-gameon</name>
+        <!--
         <class-name>org.hsqldb.jdbc.JDBCDriver</class-name>
         <url>jdbc:hsqldb:hsql://localhost/gameon-xdb</url>
         <user>SA</user>
         <password></password>
+        -->
+        <class-name>org.postgresql.Driver</class-name>
+        <url>jdbc:postgresql://172.17.0.2:5432/gameon-xdb</url>
+        <user>postgres</user>
+        <password>postgres</password>
         <initial-pool-size>1</initial-pool-size>
         <max-pool-size>100</max-pool-size>
         <min-pool-size>1</min-pool-size>
     </data-source>
     <data-source>
         <name>dataSource-gameon-nonjta</name>
+        <!--
         <class-name>org.hsqldb.jdbc.JDBCDriver</class-name>
         <url>jdbc:hsqldb:hsql://localhost/gameon-xdb</url>
         <user>SA</user>
         <password></password>
+        -->
+        <class-name>org.postgresql.Driver</class-name>
+        <url>jdbc:postgresql://172.17.0.2:5432/gameon-xdb</url>
+        <user>postgres</user>
+        <password>postgres</password>
         <transactional>false</transactional>
         <initial-pool-size>1</initial-pool-size>
         <max-pool-size>100</max-pool-size>

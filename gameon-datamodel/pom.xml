@@ -36,6 +36,7 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
@@ -63,11 +64,9 @@
                 <configuration>
                     <changeLogDirectory>src/main/liquibase</changeLogDirectory>
                     <changeLogFile>master.xml</changeLogFile>
-                    <driver>org.hsqldb.jdbc.JDBCDriver</driver>
-<!--                    <url>jdbc:hsqldb:file:C:/WS/database/hsqldb/gameon.db</url>-->
-                    <url>jdbc:hsqldb:hsql://localhost/gameon-xdb</url>
-                    <username>SA</username>
-                    <password></password>
+                    <url>${liquibase.url}</url>
+                    <username>${liquibase.username}</username>
+                    <password>${liquibase.password}</password>
                     <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                     <verbose>true</verbose>
                     <dropFirst>false</dropFirst>
@@ -75,5 +74,38 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>hsqldb</id>
+            <properties>
+                <liquibase.url>jdbc:hsqldb:hsql://localhost/gameon-xdb</liquibase.url>
+                <liquibase.username>SA</liquibase.username>
+                <liquibase.password></liquibase.password>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.hsqldb</groupId>
+                    <artifactId>hsqldb</artifactId>
+                    <version>${hsqldb.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>postgres</id>
+            <properties>
+                <liquibase.url>jdbc:postgresql://localhost:5432/postgres</liquibase.url>
+                <liquibase.username>postgres</liquibase.username>
+                <liquibase.password>postgres</liquibase.password>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>
