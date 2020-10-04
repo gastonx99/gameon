@@ -5,8 +5,6 @@
              version="2.1">
 
     <persistence-unit name="GAMEON_STANDALONE" transaction-type="RESOURCE_LOCAL">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-
         <mapping-file>META-INF/orm.xml</mapping-file>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -16,11 +14,6 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/gameon-xdb"/>
             <property name="javax.persistence.jdbc.user" value="SA"/>
             <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.HSQLPlatform"/>
-            <property name="eclipselink.cache.shared.default" value="false"/>
-            <property name="eclipselink.logging.logger" value="se.dandel.gameon.infrastructure.jpa.Slf4jSessionLogger"/>
-            <property name="eclipselink.logging.parameters" value="true"/>
-            <property name="eclipselink.logging.level.sql" value="FINEST"/>
         </properties>
     </persistence-unit>
 </persistence>
