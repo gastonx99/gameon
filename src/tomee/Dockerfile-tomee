@@ -6,7 +6,11 @@ COPY tomcat-users.xml /usr/local/tomee/conf/
 COPY manager-context.xml /usr/local/tomee/webapps/manager/META-INF/context.xml
 COPY host-manager-context.xml /usr/local/tomee/webapps/host-manager/META-INF/context.xml
 
+COPY gameon-vaadin-user.xml /usr/local/tomee/conf/Catalina/localhost/
+
 EXPOSE 8080
+EXPOSE 8088
+EXPOSE 8089
 
 CMD ["catalina.sh", "run"]
 
