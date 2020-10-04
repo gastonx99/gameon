@@ -18,7 +18,7 @@ import se.dandel.gameon.domain.model.Team;
 public class JsonMatchParser {
 
     public Collection<Match> parseMatches(JSONObject jsonObject) {
-        JSONArray fixture = jsonObject.getJSONArray("Fixture");
+        JSONArray fixture = jsonObject.getJSONArray("Season");
         Map<String, Team> teams = new HashMap<>();
         Collection<Match> matches = new ArrayList<>();
         for (Object o : fixture) {
@@ -37,7 +37,7 @@ public class JsonMatchParser {
         int homeGoal = match.getInt("HomeGoal");
         int awayGoal = match.getInt("AwayGoal");
         Match m = new Match();
-        m.setZonedDateTime(ZonedDateTime.of(LocalDate.parse(dateTime), LocalTime.MIDNIGHT, ZoneId.systemDefault()));
+        m.setMatchStart(ZonedDateTime.of(LocalDate.parse(dateTime), LocalTime.MIDNIGHT, ZoneId.systemDefault()));
         m.setVenue(venue);
         m.setTeams(getorCreateTeam(teams, homeTeam), getorCreateTeam(teams, awayteam));
         m.getFinalScore().setHome(homeGoal);

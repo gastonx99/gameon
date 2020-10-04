@@ -1,23 +1,11 @@
 package se.dandel.gameon.domain.model;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import javax.persistence.*;
+import java.util.*;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 @Entity
 @Table(name = "TOURNAMENT")
@@ -29,6 +17,14 @@ public class Tournament {
 
     private String name;
 
+    private Locale.IsoCountryCode country;
+
+    @Enumerated(EnumType.STRING)
+    private TournamentType type;
+
+    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Season> seasons = new ArrayList<>();
+
     private Tournament() {
         // For JPA
     }
@@ -36,12 +32,6 @@ public class Tournament {
     public Tournament(TournamentType type) {
         this.type = type;
     }
-
-    @Enumerated(EnumType.STRING)
-    private TournamentType type;
-
-    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<Season> seasons = new ArrayList<>();
 
     public long getPk() {
         return pk;
@@ -57,6 +47,14 @@ public class Tournament {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Locale.IsoCountryCode getCountry() {
+        return country;
+    }
+
+    public void setCountry(Locale.IsoCountryCode country) {
+        this.country = country;
     }
 
     void addSeason(Season season) {

@@ -25,7 +25,7 @@ public class TournamentMapper {
         MatchModel model = new MatchModel();
         model.setHomeTeam(match.getHomeTeam().getName());
         model.setAwayTeam(match.getAwayTeam().getName());
-        model.setDateTime(match.getZonedDateTime().toString());
+        model.setDateTime(match.getMatchStart().toString());
         model.setVenue(match.getVenue());
         return model;
     }

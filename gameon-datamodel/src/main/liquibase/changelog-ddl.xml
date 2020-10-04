@@ -14,6 +14,12 @@
             <column name="NAME" type="VARCHAR(512)">
                 <constraints nullable="false"/>
             </column>
+            <column name="COUNTRY" type="VARCHAR(2)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="LOGO" type="VARCHAR(1000)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -27,6 +33,9 @@
             </column>
             <column name="TYPE" type="VARCHAR(100)">
                 <constraints nullable="false"/>
+            </column>
+            <column name="COUNTRY" type="VARCHAR(2)">
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>
@@ -42,6 +51,9 @@
             </column>
             <column name="NAME" type="VARCHAR(512)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="SEASON_NAME_IDX"/>
+            </column>
+            <column name="STATUS" type="VARCHAR(100)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
@@ -63,7 +75,7 @@
                 <constraints nullable="false" foreignKeyName="FK_MATCH_AWAYTEAM" referencedTableName="TEAM"
                              referencedColumnNames="PK"/>
             </column>
-            <column name="ZONEDDATETIME" type="TIMESTAMP">
+            <column name="MATCHSTART" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="VENUE" type="VARCHAR(512)">
@@ -80,7 +92,7 @@
 
     <changeSet id="create-unique-index-match" author="Anders Lundberg">
         <createIndex tableName="MATCH" indexName="MATCH_TIME_HOME_AWAYTEAM_IDX">
-            <column name="ZONEDDATETIME"/>
+            <column name="MATCHSTART"/>
             <column name="HOMETEAM_PK"/>
             <column name="AWAYTEAM_PK"/>
         </createIndex>

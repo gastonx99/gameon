@@ -1,24 +1,12 @@
 package se.dandel.gameon.domain.model;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import javax.persistence.*;
+import java.time.ZonedDateTime;
+import java.util.*;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 @Entity
 @Table(name = "SEASON")
@@ -33,14 +21,17 @@ public class Season {
 
     private String name;
 
+    private SeasonStatus status;
+
     @OneToMany(mappedBy = "season", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Match> matches = new ArrayList<>();
 
     private Season() {
-        // For JPA
+        this.status = SeasonStatus.NOT_STARTED;
     }
 
     public Season(Tournament tournament) {
+        this();
         this.tournament = tournament;
         tournament.addSeason(this);
     }
@@ -59,6 +50,14 @@ public class Season {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public SeasonStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SeasonStatus status) {
+        this.status = status;
     }
 
     void addMatch(Match match) {

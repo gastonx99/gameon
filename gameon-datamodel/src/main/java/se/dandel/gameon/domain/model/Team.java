@@ -1,19 +1,15 @@
 package se.dandel.gameon.domain.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Locale;
+import java.util.Map;
+
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-
-import java.util.Collection;
-import java.util.Map;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 @Table(name = "TEAM")
@@ -26,6 +22,10 @@ public class Team {
     private String key;
 
     private String name;
+
+    private Locale.IsoCountryCode country;
+
+    private String logo;
 
     private Team() {
         // For JPA
@@ -64,6 +64,22 @@ public class Team {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public Locale.IsoCountryCode getCountry() {
+        return country;
+    }
+
+    public void setCountry(Locale.IsoCountryCode country) {
+        this.country = country;
     }
 
     @Override

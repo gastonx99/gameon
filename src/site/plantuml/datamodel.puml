@@ -1,0 +1,58 @@
+@startuml
+
+!ifdef GIT_COMMIT
+legend top
+Datamodel
+end legend
+!endif
+
+enum TournamentType {
+    CUP
+    LEAGUE
+}
+
+
+class Match {
+    pk
+    --
+    finalScore : Score
+}
+
+class Score {
+    home
+    away
+}
+
+class Season
+class Team
+class Tournament {
+    pk
+    --
+    type : TournamentType
+}
+class Venue
+class User
+
+class MatchBet {
+    pk
+    --
+    score : Score
+}
+
+Tournament *-- Season
+Season *-- Match
+
+Match *-- Venue
+
+Team "1" *-- "*" Match
+
+Season *-- "*" FantasySeason
+FantasySeason *-- User : owner
+FantasySeason *-- "*" User : members
+
+User *-- "*" MatchBet
+Match *-- "*" MatchBet
+
+
+
+@enduml

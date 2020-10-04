@@ -85,7 +85,7 @@ public class Importer {
 
         for (Match match : matches) {
             Optional<Match> persistedMatchOptional =
-                    season.getMatch(match.getZonedDateTime(), match.getHomeTeam(), match.getAwayTeam());
+                    season.getMatch(match.getMatchStart(), match.getHomeTeam(), match.getAwayTeam());
             Match persistedMatch;
             if (persistedMatchOptional.isPresent()) {
                 persistedMatch = persistedMatchOptional.get();
@@ -94,7 +94,7 @@ public class Importer {
                 Team awayTeam = persistedTeamMap.get(match.getAwayTeam().getKey());
                 persistedMatch = new Match(season);
                 persistedMatch.setTeams(homeTeam, awayTeam);
-                persistedMatch.setZonedDateTime(match.getZonedDateTime());
+                persistedMatch.setMatchStart(match.getMatchStart());
                 tournamentRepository.persist(persistedMatch);
             }
             persistedMatch.setVenue(match.getVenue());

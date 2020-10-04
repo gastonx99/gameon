@@ -41,7 +41,7 @@ public class Match {
     @ManyToOne
     private Team awayTeam;
 
-    private ZonedDateTime zonedDateTime;
+    private ZonedDateTime matchStart;
 
     @Embedded
     @AttributeOverrides({ @AttributeOverride(name = "home", column = @Column(name = "FINAL_SCORE_HOME")),
@@ -94,12 +94,12 @@ public class Match {
         this.awayTeam = awayTeam;
     }
 
-    public void setZonedDateTime(ZonedDateTime zonedDateTime) {
-        this.zonedDateTime = zonedDateTime;
+    public void setMatchStart(ZonedDateTime matchStart) {
+        this.matchStart = matchStart;
     }
 
-    public ZonedDateTime getZonedDateTime() {
-        return zonedDateTime;
+    public ZonedDateTime getMatchStart() {
+        return matchStart;
     }
 
     public Season getSeason() {
@@ -111,7 +111,7 @@ public class Match {
     }
 
     public boolean isSame(ZonedDateTime zonedDateTime, Team homeTeam, Team awayTeam) {
-        return new EqualsBuilder().append(this.zonedDateTime, zonedDateTime)
+        return new EqualsBuilder().append(this.matchStart, zonedDateTime)
                 .append(this.homeTeam.getKey(), homeTeam.getKey()).append(this.awayTeam.getKey(), awayTeam.getKey())
                 .build().booleanValue();
     }
@@ -120,7 +120,7 @@ public class Match {
     public String toString() {
         return new ToStringBuilder(this, SHORT_PREFIX_STYLE).append("pk", pk)
                 .append("season", season == null ? "" : season.getName()).append("venue", venue)
-                .append("homeTeam", homeTeam).append("awayTeam", awayTeam).append("zonedDateTime", zonedDateTime)
+                .append("homeTeam", homeTeam).append("awayTeam", awayTeam).append("zonedDateTime", matchStart)
                 .toString();
     }
 }

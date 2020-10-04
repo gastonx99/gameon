@@ -26,7 +26,7 @@ public class TestTournamentFactory {
         ZonedDateTime matchDateTime =
                 ZonedDateTime.of(LocalDateTime.parse("2018-06-14T00:00:00"), ZoneId.systemDefault());
         Match match = new Match(season);
-        match.setZonedDateTime(matchDateTime);
+        match.setMatchStart(matchDateTime);
         match.setTeams(homeTeam, awayTeam);
 
         return tournament;
