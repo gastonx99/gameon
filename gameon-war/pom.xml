@@ -19,32 +19,10 @@
             <groupId>se.dandel.gameon</groupId>
             <artifactId>gameon-restapi</artifactId>
         </dependency>
-        <!-- Thirdparty libraries -->
-<!--        <dependency>-->
-<!--            <groupId>io.thorntail</groupId>-->
-<!--            <artifactId>jaxrs</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.thorntail</groupId>-->
-<!--            <artifactId>cdi</artifactId>-->
-<!--        </dependency>-->
     </dependencies>
 
     <build>
         <finalName>${project.artifactId}.war</finalName>
-        <plugins>
-<!--            <plugin>-->
-<!--                <groupId>io.thorntail</groupId>-->
-<!--                <artifactId>thorntail-maven-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>package</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-        </plugins>
     </build>
 
 

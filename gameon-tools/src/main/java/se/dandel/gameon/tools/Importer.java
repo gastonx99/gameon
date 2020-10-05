@@ -1,30 +1,23 @@
 package se.dandel.gameon.tools;
 
-import static java.util.stream.Collectors.toList;
+import org.apache.commons.io.IOUtils;
+import org.jboss.weld.environment.se.Weld;
+import org.jboss.weld.environment.se.WeldContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import se.dandel.gameon.domain.model.*;
+import se.dandel.gameon.infrastructure.jpa.JpaTeamRepository;
+import se.dandel.gameon.infrastructure.jpa.JpaTournamentRepository;
+import se.dandel.gameon.infrastructure.json.JsonMatchParser;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
-import org.apache.commons.io.IOUtils;
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import se.dandel.gameon.domain.model.Match;
-import se.dandel.gameon.domain.model.Season;
-import se.dandel.gameon.domain.model.Team;
-import se.dandel.gameon.domain.model.Tournament;
-import se.dandel.gameon.domain.model.TournamentType;
-import se.dandel.gameon.infrastructure.jpa.JpaTeamRepository;
-import se.dandel.gameon.infrastructure.jpa.JpaTournamentRepository;
-import se.dandel.gameon.infrastructure.json.JsonMatchParser;
+import static java.util.stream.Collectors.toList;
 
 public class Importer {
 
@@ -57,11 +50,10 @@ public class Importer {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-        JSONObject jsonObject = new JSONObject(json);
         LOGGER.debug("Hello");
         try {
             entityManager.getTransaction().begin();
-            handleTournament(jsonObject);
+            handleTournament(json);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -70,8 +62,8 @@ public class Importer {
         }
     }
 
-    private void handleTournament(JSONObject jsonObject) {
-        Collection<Match> matches = matchParser.parseMatches(jsonObject);
+    private void handleTournament(String json) {
+        Collection<Match> matches = matchParser.parseMatches(json);
         Set<Team> teams = Match.getDistinctTeams(matches);
         Map<String, Team> persistedTeamMap =
                 teamRepository.findMapped(teams.stream().map(team -> team.getKey()).collect(toList()));
