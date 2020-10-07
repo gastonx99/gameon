@@ -1,0 +1,35 @@
+{
+  "query": {
+    "apikey": "your-apikey",
+    "league_id": "314"
+  },
+  "data": [
+    {
+      "season_id": 496,
+      "name": "20/21",
+      "is_current": 1,
+      "country_id": 48,
+      "league_id": 314,
+      "start_date": "2020-09-18",
+      "end_date": "2021-05-29"
+    },
+    {
+      "season_id": 503,
+      "name": "19/20",
+      "is_current": 0,
+      "country_id": 48,
+      "league_id": 314,
+      "start_date": "2019-08-16",
+      "end_date": "2020-07-06"
+    },
+    {
+      "season_id": 509,
+      "name": "18/19",
+      "is_current": 0,
+      "country_id": 48,
+      "league_id": 314,
+      "start_date": "2018-08-24",
+      "end_date": "2019-05-28"
+    }
+  ]
+}

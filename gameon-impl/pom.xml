@@ -41,6 +41,12 @@
             <artifactId>mapstruct</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>yasson</artifactId>
+            <version>1.0.8</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <!-- Required until feature IDEA-150621 is implemented -->
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>

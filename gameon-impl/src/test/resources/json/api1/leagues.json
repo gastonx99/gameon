@@ -1,0 +1,38 @@
+{
+  "query": {
+    "country_id": "48",
+    "apikey": "your-apikey"
+  },
+  "data": {
+    "313": {
+      "league_id": 314,
+      "country_id": 48,
+      "name": "Bundesliga"
+    },
+    "314": {
+      "league_id": 315,
+      "country_id": 48,
+      "name": "2. Bundesliga"
+    },
+    "315": {
+      "league_id": 316,
+      "country_id": 48,
+      "name": "3. Liga"
+    },
+    "316": {
+      "league_id": 317,
+      "country_id": 48,
+      "name": "Regionalliga Bayern"
+    },
+    "317": {
+      "league_id": 318,
+      "country_id": 48,
+      "name": "Regionalliga Nordost"
+    },
+    "318": {
+      "league_id": 319,
+      "country_id": 48,
+      "name": "Regionalliga North"
+    }
+  }
+}

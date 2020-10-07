@@ -1,0 +1,44 @@
+{
+  "query": {
+    "country_id": "48",
+    "apikey": "your-apikey"
+  },
+  "data": [
+    {
+      "team_id": 1800,
+      "name": "SC/ESV Parndorf 1919",
+      "short_code": "PAR",
+      "logo": "/soccer/teams/100/3745.png",
+      "country": {
+        "country_id": 48,
+        "name": "Germany",
+        "country_code": "de",
+        "continent": "Europe"
+      }
+    },
+    {
+      "team_id": 3289,
+      "name": "Borussia Dortmund U19",
+      "short_code": "BVB",
+      "logo": "/soccer/teams/100/5206.png",
+      "country": {
+        "country_id": 48,
+        "name": "Germany",
+        "country_code": "de",
+        "continent": "Europe"
+      }
+    },
+    {
+      "team_id": 3292,
+      "name": "RB Leipzig U19",
+      "short_code": "RBL",
+      "logo": "/soccer/teams/100/5195.png",
+      "country": {
+        "country_id": 48,
+        "name": "Germany",
+        "country_code": "de",
+        "continent": "Europe"
+      }
+    }
+  ]
+}
