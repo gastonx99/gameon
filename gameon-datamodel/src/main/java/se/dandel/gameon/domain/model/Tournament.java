@@ -3,7 +3,10 @@ package se.dandel.gameon.domain.model;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
@@ -17,7 +20,7 @@ public class Tournament {
 
     private String name;
 
-    private Locale.IsoCountryCode country;
+    private String countryCode;
 
     @Enumerated(EnumType.STRING)
     private TournamentType type;
@@ -49,12 +52,12 @@ public class Tournament {
         this.name = name;
     }
 
-    public Locale.IsoCountryCode getCountry() {
-        return country;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCountry(Locale.IsoCountryCode country) {
-        this.country = country;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     void addSeason(Season season) {

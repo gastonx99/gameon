@@ -14,7 +14,7 @@
             <column name="NAME" type="VARCHAR(512)">
                 <constraints nullable="false"/>
             </column>
-            <column name="COUNTRY" type="VARCHAR(2)">
+            <column name="COUNTRYCODE" type="VARCHAR(2)">
                 <constraints nullable="true"/>
             </column>
             <column name="LOGO" type="VARCHAR(1000)">
@@ -34,7 +34,7 @@
             <column name="TYPE" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="COUNTRY" type="VARCHAR(2)">
+            <column name="COUNTRYCODE" type="VARCHAR(2)">
                 <constraints nullable="true"/>
             </column>
         </createTable>

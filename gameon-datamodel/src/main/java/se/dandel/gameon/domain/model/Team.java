@@ -4,7 +4,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.Map;
 
 import static java.util.function.Function.identity;
@@ -23,7 +22,7 @@ public class Team {
 
     private String name;
 
-    private Locale.IsoCountryCode country;
+    private String countryCode;
 
     private String logo;
 
@@ -74,12 +73,12 @@ public class Team {
         this.logo = logo;
     }
 
-    public Locale.IsoCountryCode getCountry() {
-        return country;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCountry(Locale.IsoCountryCode country) {
-        this.country = country;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     @Override

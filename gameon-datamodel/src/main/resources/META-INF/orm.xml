@@ -16,6 +16,5 @@
     <converter class="se.dandel.gameon.infrastructure.jpa.converter.ZonedDateTimeConverter" auto-apply="true"/>
     <converter class="se.dandel.gameon.infrastructure.jpa.converter.LocalDateTimeConverter" auto-apply="true"/>
     <converter class="se.dandel.gameon.infrastructure.jpa.converter.LocalDateConverter" auto-apply="true"/>
-    <converter class="se.dandel.gameon.infrastructure.jpa.converter.IsoCountryCodeConverter" auto-apply="true"/>
 
 </entity-mappings>

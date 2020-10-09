@@ -15,9 +15,9 @@ import javax.json.bind.JsonbConfig;
 import javax.json.bind.config.PropertyNamingStrategy;
 import java.util.*;
 
-public class JsonTeamParser {
+public class JsonApi1Parser {
 
-    public static final JsonbConfig JSONB_CONFIG = new JsonbConfig().withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES);
+    private static final JsonbConfig JSONB_CONFIG = new JsonbConfig().withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES);
 
     private Jsonb jsonb = JsonbBuilder.create(JSONB_CONFIG);
 

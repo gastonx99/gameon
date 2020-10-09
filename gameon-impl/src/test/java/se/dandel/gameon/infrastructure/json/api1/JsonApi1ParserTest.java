@@ -16,11 +16,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class JsonTeamParserTest {
+class JsonApi1ParserTest {
 
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    JsonTeamParser parser = new JsonTeamParser();
+    JsonApi1Parser parser = new JsonApi1Parser();
 
     @Test
     void parseTeams() throws Exception {

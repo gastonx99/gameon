@@ -1,7 +1,6 @@
 package se.dandel.gameon.domain.model;
 
 import javax.persistence.*;
-import java.util.Locale;
 
 @Entity
 @Table(name = "VENUE")
@@ -16,7 +15,7 @@ public class Venue {
 
     private String city;
 
-    private Locale.IsoCountryCode country;
+    private String countryCode;
 
     public long getPk() {
         return pk;
@@ -50,11 +49,11 @@ public class Venue {
         this.city = city;
     }
 
-    public Locale.IsoCountryCode getCountry() {
-        return country;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCountry(Locale.IsoCountryCode country) {
-        this.country = country;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 }
