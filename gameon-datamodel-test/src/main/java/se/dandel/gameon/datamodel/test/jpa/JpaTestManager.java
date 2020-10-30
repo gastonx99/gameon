@@ -83,7 +83,7 @@ public class JpaTestManager {
     }
 
     public void clearDatabase() {
-        new DbContentHandler().deleteFromAllTables(connection, deleteFromAllTables);
+        new DbContentHandler().deleteFromAllTables(connection);
     }
 
     private void commitAndClose() {
