@@ -17,7 +17,7 @@ import com.vaadin.flow.server.PWA;
  * The main view contains a simple label element and a template element.
  */
 @Route("")
-@PWA(name = "Project Base for Vaadin Flow with CDI", shortName = "Project Base", enableInstallPrompt = false)
+@PWA(name = "Project Base for Vaadin Flow with CDI", shortName = "Project Base")
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 public class MainView extends VerticalLayout {

@@ -54,9 +54,8 @@
         <dependency>
             <groupId>org.eclipse</groupId>
             <artifactId>yasson</artifactId>
-            <version>1.0.8</version>
+            <version>${yasson.version}</version>
         </dependency>
     </dependencies>
-
 
 </project>
