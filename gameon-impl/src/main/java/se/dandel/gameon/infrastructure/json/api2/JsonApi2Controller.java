@@ -20,7 +20,7 @@ public class JsonApi2Controller {
 
     private JsonApi2Parser parser = new JsonApi2Parser();
 
-    public static final WebTarget BASE_TARGET = ClientBuilder.newClient().target("https://openapi.shl.se");
+    public final WebTarget BASE_TARGET = ClientBuilder.newClient().target("https://openapi.shl.se");
 
     public AuthResponseDTO connect(String clientId, String clientSecret) {
         WebTarget target = BASE_TARGET.path("/oauth2/token");

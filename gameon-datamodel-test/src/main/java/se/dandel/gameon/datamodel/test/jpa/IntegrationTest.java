@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @ExtendWith(CdiExtension.class)
 @Cdi(classes = {PersistenceTestManager.class}, reusable = true)
-public @interface ContainerTest {
-    Logger LOGGER = LoggerFactory.getLogger(ContainerTest.class);
+public @interface IntegrationTest {
+    Logger LOGGER = LoggerFactory.getLogger(IntegrationTest.class);
 
 }

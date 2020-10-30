@@ -48,7 +48,6 @@
         <mockito.version>3.5.0</mockito.version>
         <hamcrest.version>2.2</hamcrest.version>
         <weld-se.version>3.1.5.Final</weld-se.version>
-        <weld-junit.version>2.0.1.Final</weld-junit.version>
         <org.eclipse.persistence.jpa.version>2.7.7</org.eclipse.persistence.jpa.version>
         <javax.persistence-api.version>2.2</javax.persistence-api.version>
         <vaadin.version>16.0.2</vaadin.version>
@@ -306,21 +305,6 @@
                 <groupId>org.jboss.weld.se</groupId>
                 <artifactId>weld-se-core</artifactId>
                 <version>${weld-se.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.weld</groupId>
-                <artifactId>weld-junit5</artifactId>
-                <version>${weld-junit.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>

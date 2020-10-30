@@ -3,7 +3,7 @@ package se.dandel.gameon.application.service;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.dandel.gameon.datamodel.test.jpa.ContainerTest;
+import se.dandel.gameon.datamodel.test.jpa.IntegrationTest;
 import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.infrastructure.json.api1.data.TeamDTO;
@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@ContainerTest
+@IntegrationTest
 class Api1DataConsumerServiceTest {
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
 

@@ -29,9 +29,7 @@ public class PersistenceTestManager {
         DbContentHandler dbContentHandler = new DbContentHandler();
         dbContentHandler.createTablesIfNotExists(connection, liquibaseChangelog);
         dbContentHandler.deleteFromAllTables(connection);
-        entityManager.getTransaction().commit();
-        entityManager.clear();
-        entityManager.getTransaction().begin();
+        commitAndBegin();
     }
 
     @PreDestroy
@@ -43,8 +41,18 @@ public class PersistenceTestManager {
         entityManager.clear();
     }
 
+    private void commitAndBegin() {
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+        entityManager.getTransaction().begin();
+    }
+
 
     public EntityManager em() {
         return entityManager;
+    }
+
+    public void reset() {
+        commitAndBegin();
     }
 }
