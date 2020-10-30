@@ -1,0 +1,25 @@
+@startuml
+skinparam componentStyle uml2
+
+
+legend top
+Deployment
+end legend
+
+
+node Database {
+    database GameonDb as "gameon-xdb"
+}
+
+node AppServer {
+    [GameonApp]
+}
+
+node Kafka {
+    storage logs
+    [Broker]
+    [Server]
+}
+
+
+@enduml
