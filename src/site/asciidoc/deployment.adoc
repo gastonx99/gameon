@@ -1,43 +1,24 @@
-== Payara ==
-=== Demo ===
-  java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --rootDir /C/WS/domains/payara/demo --warmup /C/WS/git/github/demo/demo/target/demo.war
-  java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --rootDir /C/WS/domains/payara/demo --outputlauncher
+= Deployment
 
-  java -jar /C/WS/domains/payara/demo/launch-micro.jar  
-  java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --deploy /C/WS/git/github/demo/demo/target/demo.war
-
-http://q27754.rsv.se:8080/demo/hello
-  
-=== Gameon ===
-  java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --rootDir /C/WS/domains/payara/gameon --warmup /c/WS/git/github/gameon/gameon-war/target/gameon-war.war
-  java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --rootDir /C/WS/domains/payara/gameon --outputlauncher
-
-  java -jar /C/WS/domains/payara/gameon/launch-micro.jar  
-  java -jar /C/WS/program/payara-micro-5.2020.3/payara-micro-5.2020.3.jar --rootDir /C/WS/domains/payara/gameon --deploy /c/WS/git/github/gameon/gameon-war/target/gameon-war.war
-  
-http://q27754.rsv.se:8080/gameon-war.war/rest/monitor/ping
-
-== Tomee ==
-=== Using maven plugin ===
-  mvn -f gameon-vaadin-user tomee:run
-
-http://localhost:8080/teams
-  
-=== JDBC connection pool ===
-  asadmin> create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlDataSource --restype javax.sql.DataSource --property user=root:password=test:DatabaseName=test:ServerName=localhost:port=3306 test-pool
+== Containers
+  docker-compose -f docker-compose-wildfly.yml up -d --build
 
 == Database ==
-=== HSQLDB ===
-  export CLASSPATH=$USERPROFILE/.m2/repository/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar
-  java org.hsqldb.server.Server --database.0 file:C:/WS/database/hsqldb/gameon/gameon --dbname.0 gameon-xdb
+  mvn -f gameon-datamodel liquibase:update -Ppostgres
 
-  mvn -f gameon-datamodel liquibase:update
+== Useful commands ==
 
-  export CLASSPATH=/C/Users/EX64149/.m2/repository/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar
-  java org.hsqldb.util.DatabaseManagerSwing --url jdbc:hsqldb:hsql://localhost/gameon-xdb --user SA
+*Stop containers:*
+
+  docker-compose -f docker-compose-wildfly.yml stop
+
+*Start containers:*
+
+  docker-compose -f docker-compose-wildfly.yml start
+
+*Starting bash:*
+
+  winpty docker exec -it gameon_wildfly_1 bash
+  winpty docker exec -it gameon_postgres_1 bash
 
 
-== npm ==
-  export HTTPS_PROXY=<proxy url>
-
-  

@@ -6,19 +6,8 @@
 
     <display-name>Gameon</display-name>
 
-    <data-source>
-        <name>dataSource-gameon</name>
-        <class-name>org.hsqldb.jdbc.JDBCDataSource</class-name>
-        <url>jdbc:hsqldb:file:C:/WS/database/hsqldb/gameon.db</url>
-        <user>gameon</user>
-        <password>gameon</password>
-        <!-- Example of how to use a Payara specific custom connection pool setting -->
-        <property>
-            <name>fish.payara.sql-trace-listeners</name>
-            <value>com.sun.gjc.util.SQLTraceLogger</value>
-        </property>
-        <initial-pool-size>1</initial-pool-size>
-        <max-pool-size>100</max-pool-size>
-        <min-pool-size>1</min-pool-size>
-    </data-source>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
 </web-app>

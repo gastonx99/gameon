@@ -62,7 +62,7 @@
         <module>gameon-impl</module>
         <module>gameon-restapi</module>
         <module>gameon-war</module>
-        <module>gameon-vaadin-user</module>
+<!--        <module>gameon-vaadin-user</module>-->
         <module>gameon-tools</module>
         <module>gameon-containertest</module>
     </modules>

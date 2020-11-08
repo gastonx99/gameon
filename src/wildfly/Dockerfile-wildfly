@@ -1,26 +1,16 @@
 FROM jboss/wildfly:20.0.1.Final
 
-ENV MAVEN_REPO=/C/Users/gaston/.m2/repository
-ENV VERSION_POSTGRESQL=42.2.16
-
-#ADD gameon-vaadin-user/target/gameon-vaadin-user-1.0.war /usr/local/tomee/webapps/
-
-#COPY tomcat-users.xml /usr/local/tomee/conf/
-#COPY manager-context.xml /usr/local/tomee/webapps/manager/META-INF/context.xml
-#COPY host-manager-context.xml /usr/local/tomee/webapps/host-manager/META-INF/context.xml
-
-#COPY gameon-vaadin-user.xml /usr/local/tomee/conf/Catalina/localhost/
-
-COPY modules /opt/jboss/wildfly
-#COPY $MAVEN_REPO/org/postgresql/postgresql/$VERSION_POSTGRESQL/postgresql-$VERSION_POSTGRESQL.jar /opt/jboss/wildfly/modules/org/postgresql/main
+COPY modules/ /opt/jboss/wildfly/modules/
 
 EXPOSE 8080
 EXPOSE 9990
 
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
 
-#CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+
+
+
 
 
 

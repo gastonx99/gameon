@@ -1,0 +1,12 @@
+FROM jboss/wildfly:20.0.1.Final
+
+COPY standalone.sh /tmp/
+COPY standalone.config /tmp/
+
+CMD ["sh", "-c", "/tmp/standalone.sh"]
+
+
+
+
+
+
