@@ -1,7 +1,9 @@
 = Deployment
 
 == Containers
-  docker-compose -f docker-compose-wildfly.yml up -d --build
+  docker-compose -f docker-compose-gameon.yml up -d --build
+
+  docker-compose -f docker-compose-gameon.yml down
 
 == Database ==
   mvn -f gameon-datamodel liquibase:update -Ppostgres
@@ -10,11 +12,11 @@
 
 *Stop containers:*
 
-  docker-compose -f docker-compose-wildfly.yml stop
+  docker-compose -f docker-compose-gameon.yml stop
 
 *Start containers:*
 
-  docker-compose -f docker-compose-wildfly.yml start
+  docker-compose -f docker-compose-gameon.yml start
 
 *Starting bash:*
 
