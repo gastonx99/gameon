@@ -8,6 +8,9 @@
 == Database ==
   mvn -f gameon-datamodel liquibase:update -Ppostgres
 
+== Deploy app to wildfly
+  docker cp gameon-web/target/gameon-web.war gameon_wildfly_1:/opt/jboss/wildfly/standalone/deployments
+
 == Useful commands ==
 
 *Stop containers:*

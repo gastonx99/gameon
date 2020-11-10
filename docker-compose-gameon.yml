@@ -10,10 +10,6 @@ services:
     ports:
       - 8080:8080
       - 9990:9990
-    volumes:
-      - type: bind
-        source: ./wildfly-deployments
-        target: /opt/jboss/wildfly/standalone/deployments
 
   postgres:
     environment:
@@ -31,4 +27,3 @@ services:
     build:
       context: src/wildfly-config
       dockerfile: Dockerfile-wildfly-config
-
