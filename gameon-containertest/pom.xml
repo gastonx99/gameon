@@ -16,6 +16,12 @@
     <dependencies>
         <dependency>
             <groupId>se.dandel.gameon</groupId>
+            <artifactId>gameon-platform</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>se.dandel.gameon</groupId>
             <artifactId>gameon-impl</artifactId>
         </dependency>
         <dependency>
@@ -24,17 +30,6 @@
         </dependency>
 
         <!-- Thirdparty dependencies -->
-        <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>

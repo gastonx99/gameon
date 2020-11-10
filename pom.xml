@@ -57,6 +57,7 @@
     <modules>
         <module>gameon-common</module>
         <module>gameon-common-test</module>
+        <module>gameon-platform</module>
         <module>gameon-datamodel</module>
         <module>gameon-datamodel-test</module>
         <module>gameon-impl</module>
@@ -189,6 +190,12 @@
             </dependency>
             <dependency>
                 <groupId>se.dandel.gameon</groupId>
+                <artifactId>gameon-platform</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>se.dandel.gameon</groupId>
                 <artifactId>gameon-datamodel</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -220,7 +227,6 @@
                 <artifactId>microprofile</artifactId>
                 <version>${microprofile.version}</version>
                 <type>pom</type>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>

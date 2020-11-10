@@ -16,14 +16,15 @@
     <dependencies>
         <dependency>
             <groupId>se.dandel.gameon</groupId>
+            <artifactId>gameon-platform</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>se.dandel.gameon</groupId>
             <artifactId>gameon-impl</artifactId>
         </dependency>
         <!-- Thirdparty libraries -->
-        <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
-            <type>pom</type>
-        </dependency>
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>

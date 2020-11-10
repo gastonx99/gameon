@@ -9,29 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gameon-restapi</artifactId>
+    <artifactId>gameon-platform</artifactId>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
+    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>se.dandel.gameon</groupId>
-            <artifactId>gameon-platform</artifactId>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
             <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>se.dandel.gameon</groupId>
-            <artifactId>gameon-datamodel</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>se.dandel.gameon</groupId>
-            <artifactId>gameon-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>se.dandel.gameon</groupId>
-            <artifactId>gameon-datamodel-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
