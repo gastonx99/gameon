@@ -19,6 +19,10 @@
             <groupId>se.dandel.gameon</groupId>
             <artifactId>gameon-restapi</artifactId>
         </dependency>
+        <dependency>
+            <groupId>se.dandel.gameon</groupId>
+            <artifactId>gameon-mdb</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

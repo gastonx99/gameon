@@ -9,28 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gameon-platform</artifactId>
+    <artifactId>gameon-mdb</artifactId>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
-    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.ejb</groupId>
-            <artifactId>javax.ejb-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.jms</groupId>
-            <artifactId>javax.jms-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
+            <groupId>se.dandel.gameon</groupId>
+            <artifactId>gameon-platform</artifactId>
             <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>se.dandel.gameon</groupId>
+            <artifactId>gameon-impl</artifactId>
         </dependency>
     </dependencies>
 
