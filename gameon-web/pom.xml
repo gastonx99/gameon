@@ -27,6 +27,33 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>11.0.0</version>
+                <configuration>
+                    <stopPort>9999</stopPort>
+                    <stopKey>gurka</stopKey>
+                    <webApp>
+                        <_initParams>
+                            <org.eclipse.jetty.servlet.Default.useFileMappedBuffer>false</org.eclipse.jetty.servlet.Default.useFileMappedBuffer>
+                        </_initParams>
+                    </webApp>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mock-server</groupId>
+                <artifactId>mockserver-maven-plugin</artifactId>
+                <version>${mockserver.version}</version>
+                <configuration>
+                    <serverPort>9080</serverPort>
+                    <proxyRemotePort>8080</proxyRemotePort>
+                    <logLevel>DEBUG</logLevel>
+                    <!--                    <initializationClass>org.mockserver.maven.ExampleInitializationClass</initializationClass>-->
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 

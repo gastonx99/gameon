@@ -45,6 +45,7 @@
         <mapstruct.version>1.4.1.Final</mapstruct.version>
         <microprofile.version>3.3</microprofile.version>
         <mockito.version>3.6.0</mockito.version>
+        <mockserver.version>5.11.1</mockserver.version>
         <hamcrest.version>2.2</hamcrest.version>
         <weld-se.version>3.1.5.SP1</weld-se.version>
         <org.eclipse.persistence.jpa.version>2.7.7</org.eclipse.persistence.jpa.version>
