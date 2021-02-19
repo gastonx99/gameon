@@ -58,6 +58,26 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="create-table-venue" author="Anders Lundberg">
+        <createTable tableName="VENUE">
+            <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">
+                <constraints primaryKey="true" primaryKeyName="PK_VENUE"/>
+            </column>
+            <column name="NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CITY" type="VARCHAR(512)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="COUNTRYCODE" type="VARCHAR(2)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CAPACITY" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
     <changeSet id="create-table-match" author="Anders Lundberg">
         <createTable tableName="MATCH">
             <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">
@@ -75,11 +95,12 @@
                 <constraints nullable="false" foreignKeyName="FK_MATCH_AWAYTEAM" referencedTableName="TEAM"
                              referencedColumnNames="PK"/>
             </column>
+            <column name="VENUE_PK" type="INTEGER">
+                <constraints nullable="true" foreignKeyName="FK_MATCH_VENUE" referencedTableName="VENUE"
+                             referencedColumnNames="PK"/>
+            </column>
             <column name="MATCHSTART" type="TIMESTAMP">
                 <constraints nullable="false"/>
-            </column>
-            <column name="VENUE" type="VARCHAR(512)">
-                <constraints nullable="true"/>
             </column>
             <column name="FINAL_SCORE_HOME" type="INTEGER">
                 <constraints nullable="true"/>

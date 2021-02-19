@@ -33,7 +33,8 @@ public class Match {
     @ManyToOne
     private Season season;
 
-    private String venue;
+    @ManyToOne
+    private Venue venue;
 
     @ManyToOne
     private Team homeTeam;
@@ -73,11 +74,11 @@ public class Match {
         this.pk = pk;
     }
 
-    public String getVenue() {
+    public Venue getVenue() {
         return venue;
     }
 
-    public void setVenue(String venue) {
+    public void setVenue(Venue venue) {
         this.venue = venue;
     }
 
