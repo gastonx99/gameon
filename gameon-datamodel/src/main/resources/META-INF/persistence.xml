@@ -6,8 +6,8 @@
 
     <persistence-unit name="GAMEON" transaction-type="JTA">
         <jta-data-source>dataSource-gameon</jta-data-source>
-<!--        <non-jta-data-source>dataSource-gameon-nonjta</non-jta-data-source>-->
         <mapping-file>META-INF/orm.xml</mapping-file>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
         </properties>
     </persistence-unit>

@@ -11,6 +11,9 @@
     <entity class="se.dandel.gameon.domain.model.Match"/>
     <entity class="se.dandel.gameon.domain.model.User"/>
     <entity class="se.dandel.gameon.domain.model.Venue"/>
+    <entity class="se.dandel.gameon.domain.model.bet.BettingGame"/>
+    <entity class="se.dandel.gameon.domain.model.bet.BettingGameUser"/>
+    <entity class="se.dandel.gameon.domain.model.bet.Bet"/>
 
     <!-- Converters -->
     <converter class="se.dandel.gameon.infrastructure.jpa.converter.ZonedDateTimeConverter" auto-apply="true"/>

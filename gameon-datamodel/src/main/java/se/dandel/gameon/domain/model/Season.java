@@ -60,6 +60,10 @@ public class Season {
         this.status = status;
     }
 
+    public Tournament getTournament() {
+        return tournament;
+    }
+
     void addMatch(Match match) {
         this.matches.add(match);
     }

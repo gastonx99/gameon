@@ -90,13 +90,12 @@ public class Importer {
                 tournamentRepository.persist(persistedMatch);
             }
             persistedMatch.setVenue(match.getVenue());
-            persistedMatch.getFinalScore().setHome(match.getFinalScore().getHome());
-            persistedMatch.getFinalScore().setAway(match.getFinalScore().getAway());
+            persistedMatch.setFinalScore(match.getFinalScore().getHome(), match.getFinalScore().getAway());
         }
     }
 
     private Season getOrCreateSeason(Tournament tournament, String seasonName) {
-        Optional<Season> seasonOptional = tournament.getSeason(seasonName);
+        Optional<Season> seasonOptional = tournament.findSeason(seasonName);
         Season season;
         if (seasonOptional.isPresent()) {
             season = seasonOptional.get();

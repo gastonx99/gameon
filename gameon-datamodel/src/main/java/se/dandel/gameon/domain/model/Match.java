@@ -1,26 +1,16 @@
 package se.dandel.gameon.domain.model;
 
-import static java.util.Comparator.comparing;
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import static java.util.Comparator.comparing;
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 @Entity
 @Table(name = "MATCH")
@@ -45,9 +35,9 @@ public class Match {
     private ZonedDateTime matchStart;
 
     @Embedded
-    @AttributeOverrides({ @AttributeOverride(name = "home", column = @Column(name = "FINAL_SCORE_HOME")),
-            @AttributeOverride(name = "away", column = @Column(name = "FINAL_SCORE_AWAY")) })
-    private Score finalScore = new Score();
+    @AttributeOverrides({@AttributeOverride(name = "home", column = @Column(name = "FINAL_SCORE_HOME")),
+            @AttributeOverride(name = "away", column = @Column(name = "FINAL_SCORE_AWAY"))})
+    private Score finalScore;
 
     public Match() {
     }
@@ -123,5 +113,9 @@ public class Match {
                 .append("season", season == null ? "" : season.getName()).append("venue", venue)
                 .append("homeTeam", homeTeam).append("awayTeam", awayTeam).append("zonedDateTime", matchStart)
                 .toString();
+    }
+
+    public void setFinalScore(int home, int away) {
+        finalScore = new Score(home, away);
     }
 }

@@ -15,6 +15,14 @@ public class User {
     private long pk;
     private String username;
 
+    private User() {
+        super();
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
+
     public long getPk() {
         return pk;
     }
@@ -25,9 +33,5 @@ public class User {
 
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

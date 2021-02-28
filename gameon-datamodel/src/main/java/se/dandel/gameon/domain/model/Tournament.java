@@ -68,9 +68,14 @@ public class Tournament {
         return Collections.unmodifiableCollection(seasons);
     }
 
-    public Optional<Season> getSeason(String name) {
+    public Optional<Season> findSeason(String name) {
         return seasons.stream().filter(season -> season.getName().equals(name)).findFirst();
     }
+
+    public Season getSeason(String name) {
+        return seasons.stream().filter(season -> season.getName().equals(name)).findFirst().orElseThrow();
+    }
+
 
     @Override
     public String toString() {

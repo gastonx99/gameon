@@ -34,7 +34,7 @@ class JpaTournamentRepositoryTest {
     @Test
     void findAll() {
         // Given
-        Tournament expected = TestTournamentFactory.createTournament();
+        Tournament expected = TestTournamentFactory.createTournamentWorldCup2018();
         List<Team> teams = expected.getSeasons().stream().flatMap(t -> t.getTeams().stream()).collect(toList());
         teams.forEach(team -> repository.persist(team));
         repository.persist(expected);

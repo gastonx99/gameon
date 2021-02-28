@@ -1,10 +1,11 @@
 package se.dandel.gameon.rest;
 
-import static java.util.stream.Collectors.toList;
-
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Season;
 import se.dandel.gameon.domain.model.Tournament;
+import se.dandel.gameon.interfaces.rest.TournamentModel;
+
+import static java.util.stream.Collectors.toList;
 
 public class TournamentMapper {
     public TournamentModel map(Tournament tournament) {
@@ -14,19 +15,18 @@ public class TournamentMapper {
         return model;
     }
 
-    private SeasonModel map(Season season) {
-        SeasonModel model = new SeasonModel();
+    private TournamentModel.SeasonModel map(Season season) {
+        TournamentModel.SeasonModel model = new TournamentModel.SeasonModel();
         model.setName(season.getName());
         model.setMatches(season.getMatches().stream().map(m -> map(m)).collect(toList()));
         return model;
     }
 
-    private MatchModel map(Match match) {
-        MatchModel model = new MatchModel();
-        model.setHomeTeam(match.getHomeTeam().getName());
-        model.setAwayTeam(match.getAwayTeam().getName());
+    private TournamentModel.MatchModel map(Match match) {
+        TournamentModel.MatchModel model = new TournamentModel.MatchModel();
+//        model.setHomeTeam(match.getHomeTeam().getName());
+//        model.setAwayTeam(match.getAwayTeam().getName());
         model.setDateTime(match.getMatchStart().toString());
-        model.setVenue(match.getVenue());
         return model;
     }
 }

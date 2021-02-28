@@ -7,8 +7,8 @@
     <persistence-unit name="GAMEON_TEST" transaction-type="RESOURCE_LOCAL">
 
         <mapping-file>META-INF/orm.xml</mapping-file>
-
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
         <!-- properties, se se.rsv.in.common.test.jpa.JpaTestManager.startupFactory -->
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>

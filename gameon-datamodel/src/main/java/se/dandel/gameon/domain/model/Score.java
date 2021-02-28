@@ -6,21 +6,23 @@ import javax.persistence.Embeddable;
 public class Score {
 
     private int home;
+
     private int away;
+
+    private Score() {
+        super();
+    }
+
+    public Score(int home, int away) {
+        this.home = home;
+        this.away = away;
+    }
 
     public int getHome() {
         return home;
     }
 
-    public void setHome(int homeGoal) {
-        this.home = homeGoal;
-    }
-
     public int getAway() {
         return away;
-    }
-
-    public void setAway(int awayGoal) {
-        this.away = awayGoal;
     }
 }

@@ -2,7 +2,6 @@ package se.dandel.gameon.domain.model.bet;
 
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Score;
-import se.dandel.gameon.domain.model.User;
 
 import javax.persistence.*;
 
@@ -12,17 +11,23 @@ public class Bet {
     @Id
     private long pk;
 
-    @OneToOne
-    private User user;
+    @ManyToOne
+    private BettingGameUser bettingGameUser;
 
-    @OneToOne
-    private BettingGame bettingGame;
-
-    @OneToOne
+    @ManyToOne
     private Match match;
 
     @Embedded
-    private Score score = new Score();
+    private Score score;
+
+    protected Bet() {
+        super();
+    }
+
+    public Bet(BettingGameUser bettingGameUser, Match match) {
+        this.bettingGameUser = bettingGameUser;
+        this.match = match;
+    }
 
     public long getPk() {
         return pk;
@@ -32,4 +37,19 @@ public class Bet {
         this.pk = pk;
     }
 
+    public BettingGameUser getBettingGameUser() {
+        return bettingGameUser;
+    }
+
+    public Match getMatch() {
+        return match;
+    }
+
+    public Score getScore() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
+    }
 }

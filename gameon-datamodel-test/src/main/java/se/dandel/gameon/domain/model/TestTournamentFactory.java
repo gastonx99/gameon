@@ -1,5 +1,7 @@
 package se.dandel.gameon.domain.model;
 
+import org.apache.commons.collections4.MapUtils;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -8,11 +10,68 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.collections4.MapUtils;
-
 public class TestTournamentFactory {
 
-    public static Tournament createTournament() {
+    public static Tournament createTournamentPremierLeague20202021() {
+        Tournament tournament = new Tournament(TournamentType.LEAGUE);
+        tournament.setName("Premier League");
+
+        Map<String, Team> teams = createTeamsEngland();
+
+        Season season = new Season(tournament);
+        season.setName("2020/2021");
+        createMatch(season, LocalDateTime.parse("2020-09-14T15:00:00"), teams.get("ARSENAL"), teams.get("ASTON_VILLA"));
+        createMatch(season, LocalDateTime.parse("2020-09-14T15:00:00"), teams.get("BRIGHTON_HOVE_ALBION"), teams.get("BURNLEY"));
+        createMatch(season, LocalDateTime.parse("2020-09-14T15:00:00"), teams.get("CHELSEA"), teams.get("CRYSTAL_PALACE"));
+        createMatch(season, LocalDateTime.parse("2020-09-14T15:00:00"), teams.get("EVERTON"), teams.get("FULHAM"));
+        createMatch(season, LocalDateTime.parse("2020-09-14T15:00:00"), teams.get("LEEDS_UNITED"), teams.get("LEICESTER_CITY"));
+        createMatch(season, LocalDateTime.parse("2020-09-14T15:00:00"), teams.get("LIVERPOOL"), teams.get("MANCHESTER_CITY"));
+
+        createMatch(season, LocalDateTime.parse("2020-09-21T15:00:00"), teams.get("ARSENAL"), teams.get("BRIGHTON_HOVE_ALBION"));
+        createMatch(season, LocalDateTime.parse("2020-09-21T15:00:00"), teams.get("ASTON_VILLA"), teams.get("BURNLEY"));
+        createMatch(season, LocalDateTime.parse("2020-09-21T15:00:00"), teams.get("CHELSEA"), teams.get("EVERTON"));
+        createMatch(season, LocalDateTime.parse("2020-09-21T15:00:00"), teams.get("CRYSTAL_PALACE"), teams.get("FULHAM"));
+        createMatch(season, LocalDateTime.parse("2020-09-21T15:00:00"), teams.get("LEEDS_UNITED"), teams.get("LIVERPOOL"));
+        createMatch(season, LocalDateTime.parse("2020-09-21T15:00:00"), teams.get("LEICESTER_CITY"), teams.get("MANCHESTER_CITY"));
+
+        return tournament;
+    }
+
+    private static void createMatch(Season season, LocalDateTime localDateTime, Team homeTeam, Team awayTeam) {
+        ZonedDateTime matchDateTime = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
+        Match match = new Match(season);
+        match.setMatchStart(matchDateTime);
+        match.setTeams(homeTeam, awayTeam);
+    }
+
+    private static Map<String, Team> createTeamsEngland() {
+        Collection<Team> c = new ArrayList<>();
+        c.add(Team.of("ARSENAL", "Arsenal"));
+        c.add(Team.of("ASTON_VILLA", "Aston Villa"));
+        c.add(Team.of("BRIGHTON_HOVE_ALBION", "Brighton & Hove Albion"));
+        c.add(Team.of("BURNLEY", "Burnley"));
+        c.add(Team.of("CHELSEA", "Chelsea"));
+        c.add(Team.of("CRYSTAL_PALACE", "Crystal Palace"));
+        c.add(Team.of("EVERTON", "Everton"));
+        c.add(Team.of("FULHAM", "Fulham"));
+        c.add(Team.of("LEEDS_UNITED", "Leeds United"));
+        c.add(Team.of("LEICESTER_CITY", "Leicester City"));
+        c.add(Team.of("LIVERPOOL", "Liverpool"));
+        c.add(Team.of("MANCHESTER_CITY", "Manchester City"));
+        c.add(Team.of("MANCHESTER_UNITED", "Manchester United"));
+        c.add(Team.of("NEWCASTLE_UNITED", "Newcastle United"));
+        c.add(Team.of("SHEFFIELD_UNITED", "Sheffield United"));
+        c.add(Team.of("SOUTHAMPTON", "Southampton"));
+        c.add(Team.of("TOTTENHAM_HOTSPUR", "Tottenham Hotspur"));
+        c.add(Team.of("WEST_BROMWICH_ALBION", "West Bromwich Albion"));
+        c.add(Team.of("WEST_HAM_UNITED", "West Ham United"));
+        c.add(Team.of("WOLVERHAMPTON_WANDERERS", "Wolverhampton Wanderers"));
+        Map<String, Team> teams = new HashMap<>();
+        MapUtils.populateMap(teams, c, t -> t.getKey());
+        return teams;
+    }
+
+    public static Tournament createTournamentWorldCup2018() {
         Tournament tournament = new Tournament(TournamentType.CUP);
         tournament.setName("Men's Football World Cup");
 
