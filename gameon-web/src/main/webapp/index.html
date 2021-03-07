@@ -1,6 +1,68 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <title>Gameon</title>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/gameon.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive-table.css">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+</head>
+
 <body>
-Howdy
+
+<go-router>
+    <nav class="nav">
+        <ul>
+            <li><a route="/">Home</a></li>
+            <li><a route="/dashboard">Dashboard</a></li>
+            <li><a route="/teams">Teams</a></li>
+            <li><a route="/about">About</a></li>
+        </ul>
+    </nav>
+    <go-route
+            path="/"
+            title="Home"
+            component="go-home">
+    </go-route>
+    <go-route
+            path="/about"
+            title="About Us"
+            component="go-about">
+    </go-route>
+    <go-route
+            path="/dashboard"
+            title="Dashboard"
+            component="go-dashboard"
+            resourceUrl="/js/pages/dashboard.js"
+    >
+    </go-route>
+    <go-route
+            path="/usergame/:id"
+            title="Betting game user"
+            component="go-bettinggameuser"
+            resourceUrl="/js/pages/betting-game-user.js"
+    >
+    </go-route>
+    <go-route
+            path="/teams"
+            title="Teams"
+            component="go-teams"
+            resourceUrl="/js/pages/teams.js"
+    >
+    </go-route>
+    <go-route
+            path="/team/:id"
+            title="Team Details"
+            component="go-teamdetails"
+    >
+    </go-route>
+    <go-route
+            path="*"
+            title="404"
+            component="go-notfound">
+    </go-route>
+    <go-outlet></go-outlet>
+</go-router>
+<script type="module" src="./js/router.js"></script>
+<script type="module" src="./js/pages/index.js"></script>
+
 </body>
-</html>
