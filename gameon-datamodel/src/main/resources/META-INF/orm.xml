@@ -16,8 +16,8 @@
     <entity class="se.dandel.gameon.domain.model.bet.Bet"/>
 
     <!-- Converters -->
-    <converter class="se.dandel.gameon.infrastructure.jpa.converter.ZonedDateTimeConverter" auto-apply="true"/>
-    <converter class="se.dandel.gameon.infrastructure.jpa.converter.LocalDateTimeConverter" auto-apply="true"/>
-    <converter class="se.dandel.gameon.infrastructure.jpa.converter.LocalDateConverter" auto-apply="true"/>
+    <converter class="se.dandel.gameon.adapter.jpa.converter.converter.ZonedDateTimeConverter" auto-apply="true"/>
+    <converter class="se.dandel.gameon.adapter.jpa.converter.converter.LocalDateTimeConverter" auto-apply="true"/>
+    <converter class="se.dandel.gameon.adapter.jpa.converter.converter.LocalDateConverter" auto-apply="true"/>
 
 </entity-mappings>
