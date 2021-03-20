@@ -69,10 +69,11 @@ public class BettingGameUser {
         this.status = status;
     }
 
-    public void addBet(Match match, int homeScore, int awayScore) {
+    public Bet addBet(Match match, int homeScore, int awayScore) {
         Bet bet = new Bet(this, match);
         bet.setScore(new Score(homeScore, awayScore));
         this.bets.add(bet);
+        return bet;
     }
 
 }

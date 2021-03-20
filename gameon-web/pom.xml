@@ -33,8 +33,6 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>11.0.0</version>
                 <configuration>
-                    <stopPort>9999</stopPort>
-                    <stopKey>gurka</stopKey>
                     <webApp>
                         <_initParams>
                             <org.eclipse.jetty.servlet.Default.useFileMappedBuffer>false</org.eclipse.jetty.servlet.Default.useFileMappedBuffer>
@@ -49,7 +47,7 @@
                 <configuration>
                     <serverPort>9080</serverPort>
                     <proxyRemotePort>8080</proxyRemotePort>
-                    <logLevel>DEBUG</logLevel>
+                    <logLevel>INFO</logLevel>
                     <!--                    <initializationClass>org.mockserver.maven.ExampleInitializationClass</initializationClass>-->
                 </configuration>
             </plugin>

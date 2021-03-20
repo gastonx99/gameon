@@ -1,6 +1,7 @@
 package se.dandel.gameon.domain.model;
 
 import org.apache.commons.collections4.MapUtils;
+import se.dandel.gameon.domain.model.bet.Bet;
 import se.dandel.gameon.domain.model.bet.BettingGame;
 import se.dandel.gameon.domain.model.bet.BettingGameUser;
 
@@ -11,8 +12,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class TestBettingGameFactory {
+    private static AtomicLong PK_BET = new AtomicLong(1);
 
     public static BettingGame createBettingGamePremierLeague20202021() {
         User owner = TestUserFactory.createUser();
@@ -28,7 +31,8 @@ public class TestBettingGameFactory {
         BettingGameUser bettingGameUser = new BettingGameUser(bettingGame, participant);
         Collection<Match> matches = bettingGame.getSeason().getMatches();
         for (Match match : matches) {
-            bettingGameUser.addBet(match, 1, 0);
+            Bet bet = bettingGameUser.addBet(match, 1, 0);
+            bet.setPk(PK_BET.getAndIncrement());
         }
         return bettingGameUser;
     }
