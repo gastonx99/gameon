@@ -7,7 +7,7 @@ import com.tngtech.archunit.lang.ArchRule;
 
 import static com.tngtech.archunit.library.Architectures.onionArchitecture;
 
-@AnalyzeClasses(packages = "se.dandel.gameon", importOptions = {ImportOption.DoNotIncludeTests.class, ImportOption.DoNotIncludeJars.class})
+@AnalyzeClasses(packages = "se.dandel.gameon", importOptions = {ImportOption.DoNotIncludeTests.class})
 public class ArchitectureTest {
 
     @ArchTest
@@ -15,7 +15,7 @@ public class ArchitectureTest {
             .domainModels("se.dandel.gameon.domain.model..")
             .domainServices("se.dandel.gameon.domain.service..", "se.dandel.gameon.domain.repository..", "se.dandel.gameon.domain.port..")
             .applicationServices("se.dandel.gameon.application.service..")
-            .adapter("cli", "se.dandel.gameon.adapter.cli..")
+//            .adapter("cli", "se.dandel.gameon.adapter.cli..")
             .adapter("persistence", "se.dandel.gameon.adapter.jpa..")
             .adapter("out.rest", "se.dandel.gameon.adapter.out.rest..")
             .adapter("in.rest", "se.dandel.gameon.adapter.in.rest..");

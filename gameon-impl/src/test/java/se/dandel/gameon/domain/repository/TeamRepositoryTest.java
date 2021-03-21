@@ -3,10 +3,8 @@ package se.dandel.gameon.domain.repository;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.dandel.gameon.datamodel.test.jpa.JpaTest;
 import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.Team;
-import se.dandel.gameon.domain.repository.TeamRepository;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -16,7 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
-@JpaTest
+@RepositoryTest
 class TeamRepositoryTest {
 
     Logger LOGGER = LoggerFactory.getLogger(getClass());

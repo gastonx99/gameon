@@ -26,7 +26,7 @@ public class Team {
 
     private String logo;
 
-    private Team() {
+    public Team() {
         // For JPA
     }
 

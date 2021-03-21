@@ -1,13 +1,11 @@
 package se.dandel.gameon.domain.repository;
 
-import java.util.Collection;
-import java.util.Optional;
-
-import javax.persistence.TypedQuery;
-
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Tournament;
-import se.dandel.gameon.domain.repository.AbstractRepository;
+
+import javax.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.Optional;
 
 public class TournamentRepository extends AbstractRepository {
 
@@ -29,6 +27,13 @@ public class TournamentRepository extends AbstractRepository {
         TypedQuery<Tournament> query =
                 getEntityManager().createQuery("select t from Tournament t where t.name = :name", Tournament.class);
         query.setParameter("name", name);
+        return getSingleResult(query);
+    }
+
+    public Optional<Tournament> find(Tournament tournament) {
+        TypedQuery<Tournament> query =
+                getEntityManager().createQuery("select t from Tournament t where t.name = :name", Tournament.class);
+        query.setParameter("name", tournament.getName());
         return getSingleResult(query);
     }
 }

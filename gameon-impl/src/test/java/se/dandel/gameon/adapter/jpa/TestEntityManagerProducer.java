@@ -2,7 +2,6 @@ package se.dandel.gameon.adapter.jpa;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.dandel.gameon.adapter.jpa.EntityManagerProducer;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;

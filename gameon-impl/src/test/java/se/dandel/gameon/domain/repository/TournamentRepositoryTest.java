@@ -3,13 +3,11 @@ package se.dandel.gameon.domain.repository;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.dandel.gameon.datamodel.test.jpa.IntegrationTest;
 import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.TestTournamentFactory;
 import se.dandel.gameon.domain.model.Tournament;
-import se.dandel.gameon.domain.repository.TournamentRepository;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -21,7 +19,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
-@IntegrationTest
+@RepositoryTest
 class TournamentRepositoryTest {
 
     Logger LOGGER = LoggerFactory.getLogger(getClass());

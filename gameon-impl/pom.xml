@@ -38,7 +38,6 @@
         <dependency>
             <groupId>org.eclipse</groupId>
             <artifactId>yasson</artifactId>
-            <version>${yasson.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

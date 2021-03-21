@@ -1,8 +1,7 @@
-package se.dandel.gameon.test.container;
+package se.dandel.gameon.adapter.jpa;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.dandel.gameon.adapter.jpa.EntityManagerProducer;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -13,7 +12,7 @@ import javax.persistence.Persistence;
 
 @Specializes
 @ApplicationScoped
-public class IntegrationTestEntityManagerProducer extends EntityManagerProducer {
+public class ContainerTestEntityManagerProducer extends EntityManagerProducer {
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     private static EntityManagerFactory factory;
