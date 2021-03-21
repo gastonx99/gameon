@@ -36,24 +36,28 @@
         <postgresql.version>42.2.18.jre7</postgresql.version>
         <slf4j.version>1.7.30</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <commons-lang3.version>3.11</commons-lang3.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.8.0</commons-io.version>
         <liquibase.version>4.1.1</liquibase.version>
-        <jupiter.version>5.7.0</jupiter.version>
-        <jupiter-platform-launcher.version>1.7.0</jupiter-platform-launcher.version>
-        <mapstruct.version>1.4.1.Final</mapstruct.version>
+        <jupiter.version>5.7.1</jupiter.version>
+        <jupiter-platform-launcher.version>1.7.1</jupiter-platform-launcher.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
         <microprofile.version>3.3</microprofile.version>
-        <mockito.version>3.6.0</mockito.version>
-        <mockserver.version>5.11.1</mockserver.version>
+        <mockito.version>3.8.0</mockito.version>
+        <mockserver.version>5.11.2</mockserver.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <weld-se.version>3.1.5.SP1</weld-se.version>
+        <weld-se.version>3.1.7.Final</weld-se.version>
+        <weld-junit5.version>2.0.2.Final</weld-junit5.version>
         <org.eclipse.persistence.jpa.version>2.7.7</org.eclipse.persistence.jpa.version>
         <javax.ejb-api.version>3.2.2</javax.ejb-api.version>
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
         <javax.persistence-api.version>2.2</javax.persistence-api.version>
         <yasson.version>1.0.8</yasson.version>
         <archunit.version>0.17.0</archunit.version>
+        <picocli.version>4.6.1</picocli.version>
+        <smallrye-config.version>1.12.0</smallrye-config.version>
+        <jersey.version>2.32</jersey.version>
     </properties>
 
     <modules>
@@ -344,6 +348,11 @@
                 <version>${weld-se.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.jboss.weld</groupId>
+                <artifactId>weld-junit5</artifactId>
+                <version>${weld-junit5.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
@@ -363,6 +372,26 @@
                 <groupId>com.tngtech.archunit</groupId>
                 <artifactId>archunit-junit5</artifactId>
                 <version>${archunit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.smallrye.config</groupId>
+                <artifactId>smallrye-config</artifactId>
+                <version>${smallrye-config.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-client</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.inject</groupId>
+                <artifactId>jersey-hk2</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-json-jackson</artifactId>
+                <version>${jersey.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
