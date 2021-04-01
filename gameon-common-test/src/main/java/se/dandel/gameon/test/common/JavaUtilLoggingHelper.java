@@ -1,4 +1,4 @@
-package se.dandel.gameon.common.test;
+package se.dandel.gameon.test.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

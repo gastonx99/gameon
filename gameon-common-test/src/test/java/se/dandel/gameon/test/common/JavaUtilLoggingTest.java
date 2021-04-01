@@ -1,7 +1,6 @@
 package se.dandel.gameon.test.common;
 
 import org.junit.jupiter.api.Test;
-import se.dandel.gameon.common.test.JavaUtilLoggingHelper;
 
 import java.io.InputStream;
 import java.util.logging.Level;
