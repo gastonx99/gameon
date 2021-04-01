@@ -51,7 +51,14 @@ public class Api1PortAdapter implements Api1Port {
         Response response = request.get();
         LOGGER.debug("Response status: {}", response.getStatus());
 
-        Collection<TeamDTO> dtos = response.readEntity(collectionType(TeamDTO.class));
+        String json = response.readEntity(String.class);
+        LOGGER.debug("Response JSON: {}", json);
+
+        EnvelopeDTO<TeamsQueryDTO, Collection<TeamDTO>> envelopeDTO = jsonb.fromJson(json, new EnvelopeDTO<TeamsQueryDTO, Collection<TeamDTO>>() {
+        }.getClass().getGenericSuperclass());
+
+        Collection<TeamDTO> dtos = envelopeDTO.getData();
+
         LOGGER.debug("Number of teams: {}", dtos.size());
         return dtos.stream().map(dto -> teamMapper.fromDTO(dto)).collect(toList());
     }
@@ -70,7 +77,6 @@ public class Api1PortAdapter implements Api1Port {
         LOGGER.debug("Response JSON: {}", json);
 
         EnvelopeDTO<LeaguesQueryDTO, Map<Integer, LeagueDTO>> envelopeDTO = jsonb.fromJson(json, new EnvelopeDTO<LeaguesQueryDTO, Map<Integer, LeagueDTO>>() {
-
         }.getClass().getGenericSuperclass());
 
         Collection<LeagueDTO> dtos = envelopeDTO.getData().values();

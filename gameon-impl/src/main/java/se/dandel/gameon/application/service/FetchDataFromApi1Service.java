@@ -21,18 +21,18 @@ public class FetchDataFromApi1Service {
     @Inject
     private TournamentRepository tournamentRepository;
 
-    public void fetchTeams() {
+    public void fetchAndSaveTeams() {
         Collection<Team> teams = api1Port.fetchTeams();
         teams.forEach(team -> createOrUpdate(team));
     }
 
-    public void fetchLeagues() {
+    public void fetchAndSaveLeagues() {
         Collection<Tournament> tournaments = api1Port.fetchLeagues();
         tournaments.forEach(tournament -> createOrUpdate(tournament));
     }
 
     private void createOrUpdate(Team team) {
-        Optional<Team> persisted = teamRepository.find(team.getKey());
+        Optional<Team> persisted = teamRepository.find(team);
         if (persisted.isPresent()) {
             apply(team, persisted.get());
         } else {
