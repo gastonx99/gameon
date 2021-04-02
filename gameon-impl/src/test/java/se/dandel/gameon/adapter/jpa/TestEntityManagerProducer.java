@@ -15,28 +15,23 @@ import javax.persistence.Persistence;
 public class TestEntityManagerProducer extends EntityManagerProducer {
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    private static EntityManagerFactory factory;
+    private EntityManagerFactory factory;
 
-    private static ThreadLocal<EntityManager> entityManager = new ThreadLocal<>();
+    private EntityManager entityManager;
 
     @Produces
     public EntityManager getEntityManager() {
-        EntityManagerFactory factory = getOrCreateEntityManagerFactory();
-        return getOrCreateEntityManager(factory);
-    }
-
-    private EntityManager getOrCreateEntityManager(EntityManagerFactory factory) {
-        if (entityManager.get() == null) {
-            entityManager.set(factory.createEntityManager());
-        }
-        LOGGER.debug("Got entity manager {}", entityManager.get());
-        return entityManager.get();
-    }
-
-    private synchronized EntityManagerFactory getOrCreateEntityManagerFactory() {
-        if (factory == null) {
+        if (entityManager == null) {
             factory = Persistence.createEntityManagerFactory("GAMEON_TEST");
+            entityManager = factory.createEntityManager();
         }
-        return factory;
+        LOGGER.debug("Using entity manager {} and {} transaction {} from factory {}",
+                entityManager,
+                entityManager.getTransaction() != null && entityManager.getTransaction().isActive() ? "active" : "inactive",
+                entityManager.getTransaction(),
+                factory);
+        return entityManager;
     }
+
+
 }

@@ -1,17 +1,15 @@
 package se.dandel.gameon.domain.repository;
 
-import java.util.List;
-import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import se.dandel.gameon.domain.model.Match;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.TypedQuery;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import se.dandel.gameon.domain.model.Match;
+import java.util.List;
+import java.util.Optional;
 
 public class AbstractRepository {
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -20,6 +18,10 @@ public class AbstractRepository {
     private EntityManager entityManager;
 
     protected EntityManager getEntityManager() {
+        LOGGER.debug("Using entity manager {} and {} transaction {}",
+                entityManager,
+                entityManager.getTransaction() != null && entityManager.getTransaction().isActive() ? "active" : "inactive",
+                entityManager.getTransaction());
         return entityManager;
     }
 

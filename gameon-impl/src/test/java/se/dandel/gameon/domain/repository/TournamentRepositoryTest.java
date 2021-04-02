@@ -3,6 +3,7 @@ package se.dandel.gameon.domain.repository;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import se.dandel.gameon.RepositoryTest;
 import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Team;

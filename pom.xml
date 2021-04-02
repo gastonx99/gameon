@@ -58,6 +58,7 @@
         <picocli.version>4.6.1</picocli.version>
         <smallrye-config.version>1.12.0</smallrye-config.version>
         <jersey.version>2.32</jersey.version>
+        <liquibase-slf4j.version>4.0.0</liquibase-slf4j.version>
     </properties>
 
     <modules>
@@ -266,6 +267,11 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mattbertolini</groupId>
+                <artifactId>liquibase-slf4j</artifactId>
+                <version>${liquibase-slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
