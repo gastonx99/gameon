@@ -11,6 +11,7 @@ import org.mockserver.mock.Expectation;
 import org.mockserver.model.MediaType;
 import se.dandel.gameon.ContainerTest;
 import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
+import se.dandel.gameon.domain.model.Country;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.Tournament;
 import se.dandel.gameon.domain.repository.AllPurposeTestRepository;
@@ -47,6 +48,19 @@ class FetchDataFromApi1ServiceTest {
     @BeforeEach
     public void beforeEach(MockServerClient client) throws Exception {
         this.mockServerClient = client;
+    }
+
+    @Test
+    void fetchAndSaveCountries() throws Exception {
+        // Given
+        mockServerClient.upsert(createExpectation("api1-countries", "/api1/soccer/countries", "/json/api1/countries.json"));
+
+        // When
+        service.fetchAndSaveCountries();
+
+        // Then
+        Collection<Country> actuals = allPurposeTestRepository.findAll(Country.class);
+        assertThat(actuals.size(), is(equalTo(43)));
     }
 
     @Test

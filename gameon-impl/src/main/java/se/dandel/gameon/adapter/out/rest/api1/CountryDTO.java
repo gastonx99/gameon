@@ -16,6 +16,10 @@ public class CountryDTO {
         return countryId;
     }
 
+    public void setId(int countryId) {
+        this.countryId = countryId;
+    }
+
     public void setCountryId(int countryId) {
         this.countryId = countryId;
     }

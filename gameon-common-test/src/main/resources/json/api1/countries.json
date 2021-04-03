@@ -1,0 +1,263 @@
+{
+  "query": [],
+  "data": [
+    {
+      "id": 135,
+      "name": "Europe",
+      "country_code": null,
+      "continent": "Europe"
+    },
+    {
+      "id": 8,
+      "name": "Albania",
+      "country_code": "al",
+      "continent": "Europe"
+    },
+    {
+      "id": 10,
+      "name": "Andorra",
+      "country_code": "ad",
+      "continent": "Europe"
+    },
+    {
+      "id": 13,
+      "name": "Armenia",
+      "country_code": "am",
+      "continent": "Europe"
+    },
+    {
+      "id": 15,
+      "name": "Austria",
+      "country_code": "at",
+      "continent": "Europe"
+    },
+    {
+      "id": 17,
+      "name": "Azerbaijan",
+      "country_code": "az",
+      "continent": "Europe"
+    },
+    {
+      "id": 20,
+      "name": "Belarus",
+      "country_code": "by",
+      "continent": "Europe"
+    },
+    {
+      "id": 21,
+      "name": "Belgium",
+      "country_code": "be",
+      "continent": "Europe"
+    },
+    {
+      "id": 23,
+      "name": "Bosnia & Herzegovina",
+      "country_code": "ba",
+      "continent": "Europe"
+    },
+    {
+      "id": 26,
+      "name": "Bulgaria",
+      "country_code": "bg",
+      "continent": "Europe"
+    },
+    {
+      "id": 34,
+      "name": "Croatia",
+      "country_code": "hr",
+      "continent": "Europe"
+    },
+    {
+      "id": 35,
+      "name": "Cyprus",
+      "country_code": "cy",
+      "continent": "Europe"
+    },
+    {
+      "id": 36,
+      "name": "Czech Republic",
+      "country_code": "cz",
+      "continent": "Europe"
+    },
+    {
+      "id": 37,
+      "name": "Denmark",
+      "country_code": "dk",
+      "continent": "Europe"
+    },
+    {
+      "id": 3,
+      "name": "England",
+      "country_code": "en",
+      "continent": "Europe"
+    },
+    {
+      "id": 43,
+      "name": "Estonia",
+      "country_code": "ee",
+      "continent": "Europe"
+    },
+    {
+      "id": 44,
+      "name": "Faroe Islands",
+      "country_code": "fo",
+      "continent": "Europe"
+    },
+    {
+      "id": 45,
+      "name": "Finland",
+      "country_code": "fi",
+      "continent": "Europe"
+    },
+    {
+      "id": 7,
+      "name": "France",
+      "country_code": "fr",
+      "continent": "Europe"
+    },
+    {
+      "id": 46,
+      "name": "Georgia",
+      "country_code": "ge",
+      "continent": "Europe"
+    },
+    {
+      "id": 4,
+      "name": "Germany",
+      "country_code": "de",
+      "continent": "Europe"
+    },
+    {
+      "id": 49,
+      "name": "Gibraltar",
+      "country_code": "gi",
+      "continent": "Europe"
+    },
+    {
+      "id": 50,
+      "name": "Greece",
+      "country_code": "gr",
+      "continent": "Europe"
+    },
+    {
+      "id": 54,
+      "name": "Hungary",
+      "country_code": "hu",
+      "continent": "Europe"
+    },
+    {
+      "id": 55,
+      "name": "Iceland",
+      "country_code": "is",
+      "continent": "Europe"
+    },
+    {
+      "id": 60,
+      "name": "Ireland",
+      "country_code": "ie",
+      "continent": "Europe"
+    },
+    {
+      "id": 61,
+      "name": "Israel",
+      "country_code": "il",
+      "continent": "Europe"
+    },
+    {
+      "id": 6,
+      "name": "Italy",
+      "country_code": "it",
+      "continent": "Europe"
+    },
+    {
+      "id": 66,
+      "name": "Kazakhstan",
+      "country_code": "kz",
+      "continent": "Europe"
+    },
+    {
+      "id": 68,
+      "name": "Kosovo",
+      "country_code": "xk",
+      "continent": "Europe"
+    },
+    {
+      "id": 70,
+      "name": "Latvia",
+      "country_code": "lv",
+      "continent": "Europe"
+    },
+    {
+      "id": 131,
+      "name": "Liechtenstein",
+      "country_code": "li",
+      "continent": "Europe"
+    },
+    {
+      "id": 72,
+      "name": "Lithuania",
+      "country_code": "lt",
+      "continent": "Europe"
+    },
+    {
+      "id": 73,
+      "name": "Luxembourg",
+      "country_code": "lu",
+      "continent": "Europe"
+    },
+    {
+      "id": 75,
+      "name": "Malta",
+      "country_code": "mt",
+      "continent": "Europe"
+    },
+    {
+      "id": 77,
+      "name": "Moldova",
+      "country_code": "md",
+      "continent": "Europe"
+    },
+    {
+      "id": 78,
+      "name": "Montenegro",
+      "country_code": "me",
+      "continent": "Europe"
+    },
+    {
+      "id": 81,
+      "name": "Netherlands",
+      "country_code": "nl",
+      "continent": "Europe"
+    },
+    {
+      "id": 86,
+      "name": "North Macedonia",
+      "country_code": "mk",
+      "continent": "Europe"
+    },
+    {
+      "id": 85,
+      "name": "Northern Ireland",
+      "country_code": "n",
+      "continent": "Europe"
+    },
+    {
+      "id": 87,
+      "name": "Norway",
+      "country_code": "no",
+      "continent": "Europe"
+    },
+    {
+      "id": 95,
+      "name": "Poland",
+      "country_code": "pl",
+      "continent": "Europe"
+    },
+    {
+      "id": 96,
+      "name": "Portugal",
+      "country_code": "pt",
+      "continent": "Europe"
+    }
+  ]
+}

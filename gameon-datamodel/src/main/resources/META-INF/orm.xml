@@ -5,6 +5,7 @@
                  version="2.1">
 
     <!--  Entities -->
+    <entity class="se.dandel.gameon.domain.model.Country"/>
     <entity class="se.dandel.gameon.domain.model.Tournament"/>
     <entity class="se.dandel.gameon.domain.model.Season"/>
     <entity class="se.dandel.gameon.domain.model.Team"/>

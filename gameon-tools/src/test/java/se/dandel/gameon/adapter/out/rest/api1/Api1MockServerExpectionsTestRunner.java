@@ -31,9 +31,29 @@ class Api1MockServerExpectionsTestRunner {
         MockServerClient client = new MockServerClient("localhost", 9080);
 
         // When
-        client.upsert(createExpectationTeams(), createExpectationLeagues());
+        client.upsert(createExpectationCountries(), createExpectationTeams(), createExpectationLeagues());
 
         // Then
+    }
+
+    private Expectation createExpectationCountries() throws Exception {
+        String filename = "D:/gaston/restapi/sportdataapi/countries.json";
+
+        String json;
+        try (FileInputStream fis = new FileInputStream(filename)) {
+            json = IOUtils.toString(fis, "UTF-8");
+        }
+        Expectation expectation = Expectation.when(
+                request()
+                        .withMethod("GET")
+                        .withPath("/api1/api/v1/soccer/countries")
+        ).thenRespond(
+                response()
+                        .withStatusCode(200)
+                        .withContentType(MediaType.APPLICATION_JSON)
+                        .withBody(json)
+        ).withId("api1-countries");
+        return expectation;
     }
 
     private Expectation createExpectationTeams() throws Exception {

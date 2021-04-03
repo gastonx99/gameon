@@ -3,6 +3,26 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+    <changeSet id="create-table-country" author="Anders Lundberg">
+        <createTable tableName="COUNTRY">
+            <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">
+                <constraints primaryKey="true" primaryKeyName="PK_COUNTRY"/>
+            </column>
+            <column name="NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COUNTRYCODE" type="VARCHAR(2)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CONTINENT" type="VARCHAR(512)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="REMOTE_KEY" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
     <changeSet id="create-table-team" author="Anders Lundberg">
         <createTable tableName="TEAM">
             <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">

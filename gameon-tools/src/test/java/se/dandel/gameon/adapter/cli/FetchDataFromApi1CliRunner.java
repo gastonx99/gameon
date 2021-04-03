@@ -13,6 +13,17 @@ public class FetchDataFromApi1CliRunner {
 
     @Test
     @Disabled("Test is run manually only since it makes a live connection")
+    void country() {
+        // Given
+        String[] args = {"-t", "country", "-p", GAMEON_PROPERTIES};
+
+        // When
+        int actual = FetchDataFromApi1Cli.mainInner(args);
+        assertThat(actual, is(equalTo(0)));
+    }
+
+    @Test
+    @Disabled("Test is run manually only since it makes a live connection")
     void team() {
         // Given
         String[] args = {"-t", "team", "-p", GAMEON_PROPERTIES};

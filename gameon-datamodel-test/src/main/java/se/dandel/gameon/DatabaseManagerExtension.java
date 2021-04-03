@@ -41,7 +41,9 @@ public class DatabaseManagerExtension implements Extension {
         LOGGER.debug("After each test");
         EntityManager entityManager = getEntityManager();
         entityManager.flush();
-        entityManager.getTransaction().commit();
+        if (!entityManager.getTransaction().getRollbackOnly()) {
+            entityManager.getTransaction().commit();
+        }
     }
 
     private Connection getConnection() {

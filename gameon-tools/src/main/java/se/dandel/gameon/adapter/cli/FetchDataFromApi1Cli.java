@@ -21,14 +21,14 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
 
     private static final String TYPE = "se.dandel.gameon.cli.fetch.type";
 
-    private static final String FETCH_TYPE_TEAM = "team";
-
-    private static final String FETCH_TYPE_LEAGUE = "league";
+    public enum FetchType {
+        team, league, country;
+    }
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    @CommandLine.Option(names = {"-t", "--type"}, description = "team, league", required = true)
-    private String type = "team";
+    @CommandLine.Option(names = {"-t", "--type"}, description = "team, league, country", required = true)
+    private FetchType type;
 
     @CommandLine.Option(names = {"-p", "--properties"}, description = "path to properties file", required = true)
     private File propertiesFile;
@@ -64,7 +64,7 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
 
         @Inject
         @ConfigProperty(name = TYPE)
-        private String type;
+        private FetchType type;
 
         public void start() {
             entityManager.getTransaction().begin();
@@ -80,11 +80,14 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
         private void callService() {
             LOGGER.debug("Do some good using service {}", service);
             switch (type) {
-                case FETCH_TYPE_TEAM:
+                case team:
                     service.fetchAndSaveTeams();
                     break;
-                case FETCH_TYPE_LEAGUE:
+                case league:
                     service.fetchAndSaveLeagues();
+                    break;
+                case country:
+                    service.fetchAndSaveCountries();
                     break;
                 default:
                     throw new GameonRuntimeException("Unsupported type %s", type);

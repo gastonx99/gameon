@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.dandel.gameon.adapter.EnvironmentConfig;
 import se.dandel.gameon.domain.GameonRuntimeException;
+import se.dandel.gameon.domain.model.Country;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.Tournament;
 import se.dandel.gameon.domain.port.Api1Port;
@@ -40,6 +41,9 @@ public class Api1PortAdapter implements Api1Port {
 
     @Inject
     private TournamentMapper tournamentMapper;
+
+    @Inject
+    private CountryMapper countryMapper;
 
     @Override
     public Collection<Team> fetchTeams() {
@@ -87,6 +91,28 @@ public class Api1PortAdapter implements Api1Port {
 
         LOGGER.debug("Number of leagues: {}", dtos.size());
         return dtos.stream().map(dto -> tournamentMapper.fromDTO(dto)).collect(toList());
+    }
+
+    @Override
+    public Collection<Country> fetchCountry() {
+        WebTarget target = getBaseTarget().path("/soccer/countries");
+        LOGGER.debug("Connecting to {}", target);
+        Invocation.Builder request = target
+                .request(MediaType.APPLICATION_JSON)
+                .header("apikey", environmentConfig.getAPi1Apikey());
+        Response response = request.get();
+        LOGGER.debug("Response status: {}", response.getStatus());
+
+        String json = response.readEntity(String.class);
+        LOGGER.debug("Response JSON: {}", json);
+
+        EnvelopeDTO<CountriesQueryDTO, Collection<CountryDTO>> envelopeDTO = jsonb.fromJson(json, new EnvelopeDTO<CountriesQueryDTO, Collection<CountryDTO>>() {
+        }.getClass().getGenericSuperclass());
+
+        Collection<CountryDTO> dtos = envelopeDTO.getData();
+
+        LOGGER.debug("Number of countries: {}", dtos.size());
+        return dtos.stream().map(dto -> countryMapper.fromDTO(dto)).collect(toList());
     }
 
     private <T> GenericType<Collection<T>> collectionType(Class<T> clazz) {

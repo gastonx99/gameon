@@ -1,8 +1,10 @@
 package se.dandel.gameon.application.service;
 
+import se.dandel.gameon.domain.model.Country;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.Tournament;
 import se.dandel.gameon.domain.port.Api1Port;
+import se.dandel.gameon.domain.repository.CountryRepository;
 import se.dandel.gameon.domain.repository.TeamRepository;
 import se.dandel.gameon.domain.repository.TournamentRepository;
 
@@ -21,6 +23,9 @@ public class FetchDataFromApi1Service {
     @Inject
     private TournamentRepository tournamentRepository;
 
+    @Inject
+    private CountryRepository countryRepository;
+
     public void fetchAndSaveTeams() {
         Collection<Team> teams = api1Port.fetchTeams();
         teams.forEach(team -> createOrUpdate(team));
@@ -29,6 +34,27 @@ public class FetchDataFromApi1Service {
     public void fetchAndSaveLeagues() {
         Collection<Tournament> tournaments = api1Port.fetchLeagues();
         tournaments.forEach(tournament -> createOrUpdate(tournament));
+    }
+
+    public void fetchAndSaveCountries() {
+        Collection<Country> countries = api1Port.fetchCountry();
+        countries.forEach(country -> createOrUpdate(country));
+    }
+
+    private void createOrUpdate(Country country) {
+        Optional<Country> persisted = countryRepository.find(country);
+        if (persisted.isPresent()) {
+            apply(country, persisted.get());
+        } else {
+            countryRepository.persist(country);
+        }
+    }
+
+    private void apply(Country source, Country target) {
+        target.setName(source.getName());
+        target.setCountryCode(source.getCountryCode());
+        target.setContinent(source.getContinent());
+        target.setRemoteKey(source.getRemoteKey());
     }
 
     private void createOrUpdate(Team team) {
@@ -59,4 +85,5 @@ public class FetchDataFromApi1Service {
         target.setName(source.getName());
         target.setCountryCode(source.getCountryCode());
     }
+
 }
