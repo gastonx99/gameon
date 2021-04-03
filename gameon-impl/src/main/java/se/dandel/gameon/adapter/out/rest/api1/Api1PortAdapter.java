@@ -3,6 +3,7 @@ package se.dandel.gameon.adapter.out.rest.api1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.dandel.gameon.adapter.EnvironmentConfig;
+import se.dandel.gameon.domain.GameonRuntimeException;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.Tournament;
 import se.dandel.gameon.domain.port.Api1Port;
@@ -50,6 +51,9 @@ public class Api1PortAdapter implements Api1Port {
                 .header("apikey", environmentConfig.getAPi1Apikey());
         Response response = request.get();
         LOGGER.debug("Response status: {}", response.getStatus());
+        if (response.getStatus() != 200) {
+            throw new GameonRuntimeException("Unable to connect to target %s, got response status %d", target, response.getStatus());
+        }
 
         String json = response.readEntity(String.class);
         LOGGER.debug("Response JSON: {}", json);

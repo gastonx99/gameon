@@ -9,9 +9,10 @@ import javax.persistence.Persistence;
 
 @Specializes
 @ApplicationScoped
-public class CLIEntityManagerProducer extends se.dandel.gameon.adapter.jpa.EntityManagerProducer {
+public class CLIEntityManagerProducer extends EntityManagerProducer {
 
     private static EntityManagerFactory factory;
+
     private static ThreadLocal<EntityManager> entityManager = new ThreadLocal<>();
 
     @Produces
@@ -22,7 +23,7 @@ public class CLIEntityManagerProducer extends se.dandel.gameon.adapter.jpa.Entit
 
     private EntityManager getOrCreateEntityManager(EntityManagerFactory factory) {
         if (entityManager.get() == null) {
-            entityManager.set(factory.createEntityManager());
+            entityManager.set(getOrCreateEntityManagerFactory().createEntityManager());
         }
         return entityManager.get();
     }

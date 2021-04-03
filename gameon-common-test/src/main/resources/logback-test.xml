@@ -7,7 +7,7 @@
     </contextListener>
     <appender name="CONSOLE_APPENDER" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%-7relative [%-10thread] %-5level %-50logger{36} - %cn - %msg%n</pattern>
+            <pattern>%-7relative [%-10thread] %-5level %-50logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
