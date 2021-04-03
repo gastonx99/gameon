@@ -102,6 +102,21 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>mysql</id>
+            <properties>
+                <liquibase.url>jdbc:mysql://localhost:3306/gameon</liquibase.url>
+                <liquibase.username>gameon</liquibase.username>
+                <liquibase.password>gameon</liquibase.password>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql-connector-java.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>

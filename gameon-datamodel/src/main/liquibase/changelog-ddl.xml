@@ -8,9 +8,6 @@
             <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">
                 <constraints primaryKey="true" primaryKeyName="PK_TEAM"/>
             </column>
-            <column name="KEY" type="VARCHAR(512)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="TEAM_KEY_IDX"/>
-            </column>
             <column name="NAME" type="VARCHAR(512)">
                 <constraints nullable="false"/>
             </column>
@@ -78,25 +75,25 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="create-table-match" author="Anders Lundberg">
-        <createTable tableName="MATCH">
+    <changeSet id="create-table-fixture" author="Anders Lundberg">
+        <createTable tableName="FIXTURE">
             <column name="PK" type="INTEGER" autoIncrement="true" startWith="1">
-                <constraints primaryKey="true" primaryKeyName="PK_MATCH"/>
+                <constraints primaryKey="true" primaryKeyName="PK_FIXTURE"/>
             </column>
             <column name="SEASON_PK" type="INTEGER">
-                <constraints nullable="false" foreignKeyName="FK_MATCH_SEASON" referencedTableName="SEASON"
+                <constraints nullable="false" foreignKeyName="FK_FIXTURE_SEASON" referencedTableName="SEASON"
                              referencedColumnNames="PK"/>
             </column>
             <column name="HOMETEAM_PK" type="INTEGER">
-                <constraints nullable="false" foreignKeyName="FK_MATCH_HOMETEAM" referencedTableName="TEAM"
+                <constraints nullable="false" foreignKeyName="FK_FIXTURE_HOMETEAM" referencedTableName="TEAM"
                              referencedColumnNames="PK"/>
             </column>
             <column name="AWAYTEAM_PK" type="INTEGER">
-                <constraints nullable="false" foreignKeyName="FK_MATCH_AWAYTEAM" referencedTableName="TEAM"
+                <constraints nullable="false" foreignKeyName="FK_FIXTURE_AWAYTEAM" referencedTableName="TEAM"
                              referencedColumnNames="PK"/>
             </column>
             <column name="VENUE_PK" type="INTEGER">
-                <constraints nullable="true" foreignKeyName="FK_MATCH_VENUE" referencedTableName="VENUE"
+                <constraints nullable="true" foreignKeyName="FK_FIXTURE_VENUE" referencedTableName="VENUE"
                              referencedColumnNames="PK"/>
             </column>
             <column name="MATCHSTART" type="TIMESTAMP">
@@ -111,8 +108,8 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="create-unique-index-match" author="Anders Lundberg">
-        <createIndex tableName="MATCH" indexName="MATCH_TIME_HOME_AWAYTEAM_IDX">
+    <changeSet id="create-unique-index-fixture" author="Anders Lundberg">
+        <createIndex tableName="FIXTURE" indexName="FIXTURE_TIME_HOME_AWAYTEAM_IDX">
             <column name="MATCHSTART"/>
             <column name="HOMETEAM_PK"/>
             <column name="AWAYTEAM_PK"/>

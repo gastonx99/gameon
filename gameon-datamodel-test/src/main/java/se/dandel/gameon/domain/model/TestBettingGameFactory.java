@@ -67,7 +67,7 @@ public class TestBettingGameFactory {
         c.add(Team.of("WEST_HAM_UNITED", "West Ham United"));
         c.add(Team.of("WOLVERHAMPTON_WANDERERS", "Wolverhampton Wanderers"));
         Map<String, Team> teams = new HashMap<>();
-        MapUtils.populateMap(teams, c, t -> t.getKey());
+        MapUtils.populateMap(teams, c, t -> t.getName());
         return teams;
     }
 

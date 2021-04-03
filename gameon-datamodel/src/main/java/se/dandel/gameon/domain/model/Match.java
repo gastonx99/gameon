@@ -13,7 +13,7 @@ import static java.util.Comparator.comparing;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 @Entity
-@Table(name = "MATCH")
+@Table(name = "FIXTURE")
 public class Match {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,7 +103,7 @@ public class Match {
 
     public boolean isSame(ZonedDateTime zonedDateTime, Team homeTeam, Team awayTeam) {
         return new EqualsBuilder().append(this.matchStart, zonedDateTime)
-                .append(this.homeTeam.getKey(), homeTeam.getKey()).append(this.awayTeam.getKey(), awayTeam.getKey())
+                .append(this.homeTeam.getName(), homeTeam.getName()).append(this.awayTeam.getName(), awayTeam.getName())
                 .build().booleanValue();
     }
 

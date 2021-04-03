@@ -8,12 +8,14 @@
         <mapping-file>META-INF/orm.xml</mapping-file>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
-        <!-- properties, se se.rsv.in.common.test.jpa.JpaTestManager.startupFactory -->
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/gameon-xdb"/>
-            <property name="javax.persistence.jdbc.user" value="SA"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
+            <!--            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>-->
+            <!--            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/gameon-xdb"/>-->
+            <!--            <property name="javax.persistence.jdbc.user" value="SA"/>-->
+            <!--            <property name="javax.persistence.jdbc.password" value=""/>-->
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gameon"/>
+            <property name="javax.persistence.jdbc.user" value="gameon"/>
+            <property name="javax.persistence.jdbc.password" value="gameon"/>
         </properties>
     </persistence-unit>
 </persistence>
