@@ -1,5 +1,7 @@
 package se.dandel.gameon.adapter.out.rest.api1;
 
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.logging.LoggingFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.dandel.gameon.adapter.EnvironmentConfig;
@@ -46,13 +48,14 @@ public class Api1PortAdapter implements Api1Port {
     private CountryMapper countryMapper;
 
     @Override
-    public Collection<Team> fetchTeams() {
+    public Collection<Team> fetchTeams(Country country) {
         WebTarget target = getBaseTarget().path("/soccer/teams");
         LOGGER.debug("Connecting to {}", target);
-        int countryId = 48;
-        Invocation.Builder request = target.queryParam("countryId", countryId)
+        String countryId = country.getRemoteKey();
+        Invocation.Builder request = target.queryParam("country_id", countryId)
                 .request(MediaType.APPLICATION_JSON)
                 .header("apikey", environmentConfig.getAPi1Apikey());
+        LOGGER.debug("Request {}", request);
         Response response = request.get();
         LOGGER.debug("Response status: {}", response.getStatus());
         if (response.getStatus() != 200) {
@@ -121,7 +124,9 @@ public class Api1PortAdapter implements Api1Port {
     }
 
     private WebTarget getBaseTarget() {
-        return ClientBuilder.newClient().target(environmentConfig.getApi1BaseUrl());
+        ClientConfig clientConfig = new ClientConfig();
+        clientConfig.property(LoggingFeature.LOGGING_FEATURE_VERBOSITY_CLIENT, LoggingFeature.Verbosity.HEADERS_ONLY);
+        return ClientBuilder.newClient(clientConfig).target(environmentConfig.getApi1BaseUrl());
     }
 
 }

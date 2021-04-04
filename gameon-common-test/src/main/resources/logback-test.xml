@@ -19,6 +19,9 @@
 
     <logger name="liquibase" level="WARN"/>
 
+    <!-- Requires static { SLF4JBridgeHandler.install() } in JUnit5 tests -->
+    <logger name="org.glassfish.jersey.logging" level="${logback.application.default.level:-ERROR}"/>
+
     <!-- Loggnivå kan vara: TRACE, DEBUG, INFO, WARN, ERROR, ALL eller OFF -->
     <root level="ERROR">
         <appender-ref ref="CONSOLE_APPENDER"/>

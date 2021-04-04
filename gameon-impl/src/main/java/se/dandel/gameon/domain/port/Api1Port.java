@@ -7,7 +7,7 @@ import se.dandel.gameon.domain.model.Tournament;
 import java.util.Collection;
 
 public interface Api1Port {
-    Collection<Team> fetchTeams();
+    Collection<Team> fetchTeams(Country country);
 
     Collection<Tournament> fetchLeagues();
 

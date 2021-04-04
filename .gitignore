@@ -1,3 +1,7 @@
+# Dummy files
+asdf.*
+
+
 # Maven
 target/
 pom.xml.tag

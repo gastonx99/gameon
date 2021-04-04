@@ -12,4 +12,11 @@ public class CountryRepository extends AbstractRepository {
         query.setParameter("remoteKey", country.getRemoteKey());
         return getSingleResult(query);
     }
+
+    public Optional<Country> findByCountryCode(String countryCode) {
+        TypedQuery<Country> query =
+                getEntityManager().createQuery("select c from Country c where c.countryCode = :countryCode", Country.class);
+        query.setParameter("countryCode", countryCode);
+        return getSingleResult(query);
+    }
 }

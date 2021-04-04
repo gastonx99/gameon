@@ -1,5 +1,6 @@
 package se.dandel.gameon.application.service;
 
+import se.dandel.gameon.domain.GameonRuntimeException;
 import se.dandel.gameon.domain.model.Country;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.Tournament;
@@ -26,9 +27,14 @@ public class FetchDataFromApi1Service {
     @Inject
     private CountryRepository countryRepository;
 
-    public void fetchAndSaveTeams() {
-        Collection<Team> teams = api1Port.fetchTeams();
-        teams.forEach(team -> createOrUpdate(team));
+    public void fetchAndSaveTeams(String countryCode) {
+        Optional<Country> country = countryRepository.findByCountryCode(countryCode);
+        if (country.isPresent()) {
+            Collection<Team> teams = api1Port.fetchTeams(country.get());
+            teams.forEach(team -> createOrUpdate(team));
+        } else {
+            throw new GameonRuntimeException("Unable to find country with code %s", countryCode);
+        }
     }
 
     public void fetchAndSaveLeagues() {

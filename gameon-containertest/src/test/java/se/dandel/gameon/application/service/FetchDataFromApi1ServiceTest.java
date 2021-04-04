@@ -31,6 +31,8 @@ import static org.mockserver.model.HttpResponse.response;
 @MockServerSettings(ports = {9999})
 class FetchDataFromApi1ServiceTest {
 
+    private static final String COUNTRY_CODE = "sv";
+
     @Inject
     FetchDataFromApi1Service service;
 
@@ -67,9 +69,10 @@ class FetchDataFromApi1ServiceTest {
     void fetchAndSaveTeams() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-teams", "/api1/soccer/teams", "/json/api1/teams.json"));
+        entityManager.persist(createCountry());
 
         // When
-        service.fetchAndSaveTeams();
+        service.fetchAndSaveTeams(COUNTRY_CODE);
 
         // Then
         Collection<Team> actuals = allPurposeTestRepository.findAll(Team.class);
@@ -102,6 +105,15 @@ class FetchDataFromApi1ServiceTest {
                         .withBody(expected)
         ).withId(expectationId);
         return expectation;
+    }
+
+    private Country createCountry() {
+        Country country = new Country();
+        country.setName("Sweden");
+        country.setCountryCode(COUNTRY_CODE);
+        country.setRemoteKey("114");
+        country.setContinent("Europe");
+        return country;
     }
 
 }

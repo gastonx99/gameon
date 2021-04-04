@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 
@@ -21,8 +22,10 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
 
     private static final String TYPE = "se.dandel.gameon.cli.fetch.type";
 
+    private static final String PARAM_PREFIX = "se.dandel.gameon.cli.fetch.param";
+
     public enum FetchType {
-        team, league, country;
+        team, league, country
     }
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -33,10 +36,16 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
     @CommandLine.Option(names = {"-p", "--properties"}, description = "path to properties file", required = true)
     private File propertiesFile;
 
+    @CommandLine.Option(names = {"-a", "--args"}, description = "Arguments for fetching data, e.g. -a countrycode=en")
+    private Map<String, String> arguments;
+
     @Override
     public Integer call() throws Exception {
         try {
             Properties properties = new Properties();
+            if (arguments != null) {
+                arguments.entrySet().forEach(a -> properties.put(PARAM_PREFIX + "." + a.getKey(), a.getValue()));
+            }
             properties.put(TYPE, type);
             try (FileInputStream fis = new FileInputStream(propertiesFile)) {
                 properties.load(fis);
@@ -66,6 +75,10 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
         @ConfigProperty(name = TYPE)
         private FetchType type;
 
+        @Inject
+        @ConfigProperty(name = PARAM_PREFIX + ".countrycode")
+        private String countryCode;
+
         public void start() {
             entityManager.getTransaction().begin();
             try {
@@ -81,7 +94,7 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
             LOGGER.debug("Do some good using service {}", service);
             switch (type) {
                 case team:
-                    service.fetchAndSaveTeams();
+                    service.fetchAndSaveTeams(countryCode);
                     break;
                 case league:
                     service.fetchAndSaveLeagues();
