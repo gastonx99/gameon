@@ -42,7 +42,7 @@ public class FetchDataFromApi1CliRunner {
     @Disabled("Test is run manually only since it makes a live connection")
     void league() {
         // Given
-        String[] args = {"-t", "league", "-p", GAMEON_PROPERTIES};
+        String[] args = {"-t", "league", "-p", GAMEON_PROPERTIES, "-a", "countrycode=se"};
 
         // When
         int actual = FetchDataFromApi1Cli.mainInner(args);

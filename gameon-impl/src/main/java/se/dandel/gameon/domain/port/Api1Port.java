@@ -9,7 +9,7 @@ import java.util.Collection;
 public interface Api1Port {
     Collection<Team> fetchTeams(Country country);
 
-    Collection<Tournament> fetchLeagues();
+    Collection<Tournament> fetchLeagues(Country country);
 
     Collection<Country> fetchCountry();
 }

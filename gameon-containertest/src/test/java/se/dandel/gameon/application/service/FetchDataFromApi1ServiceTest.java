@@ -83,9 +83,10 @@ class FetchDataFromApi1ServiceTest {
     void fetchAndSaveLeagues() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-leagues", "/api1/soccer/leagues", "/json/api1/leagues.json"));
+        entityManager.persist(createCountry());
 
         // When
-        service.fetchAndSaveLeagues();
+        service.fetchAndSaveLeagues(COUNTRY_CODE);
 
         // Then
         Collection<Tournament> actuals = allPurposeTestRepository.findAll(Tournament.class);

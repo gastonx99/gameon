@@ -37,9 +37,14 @@ public class FetchDataFromApi1Service {
         }
     }
 
-    public void fetchAndSaveLeagues() {
-        Collection<Tournament> tournaments = api1Port.fetchLeagues();
-        tournaments.forEach(tournament -> createOrUpdate(tournament));
+    public void fetchAndSaveLeagues(String countryCode) {
+        Optional<Country> country = countryRepository.findByCountryCode(countryCode);
+        if (country.isPresent()) {
+            Collection<Tournament> tournaments = api1Port.fetchLeagues(country.get());
+            tournaments.forEach(tournament -> createOrUpdate(tournament));
+        } else {
+            throw new GameonRuntimeException("Unable to find country with code %s", countryCode);
+        }
     }
 
     public void fetchAndSaveCountries() {

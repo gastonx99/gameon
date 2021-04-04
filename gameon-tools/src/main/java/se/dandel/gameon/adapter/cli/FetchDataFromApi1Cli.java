@@ -97,7 +97,7 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
                     service.fetchAndSaveTeams(countryCode);
                     break;
                 case league:
-                    service.fetchAndSaveLeagues();
+                    service.fetchAndSaveLeagues(countryCode);
                     break;
                 case country:
                     service.fetchAndSaveCountries();

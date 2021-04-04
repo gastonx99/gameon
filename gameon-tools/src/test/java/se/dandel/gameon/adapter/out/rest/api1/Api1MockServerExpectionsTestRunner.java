@@ -31,7 +31,12 @@ class Api1MockServerExpectionsTestRunner {
         MockServerClient client = new MockServerClient("localhost", 9080);
 
         // When
-        client.upsert(createExpectationCountries(), createExpectationTeams("48"), createExpectationTeams("114"), createExpectationLeagues());
+        client.upsert(createExpectationCountries(),
+                createExpectationTeams("48"),
+                createExpectationTeams("114"),
+                createExpectationLeagues("48"),
+                createExpectationLeagues("114")
+        );
 
         // Then
     }
@@ -78,8 +83,9 @@ class Api1MockServerExpectionsTestRunner {
         return expectation;
     }
 
-    private Expectation createExpectationLeagues() throws Exception {
-        String filename = "D:/gaston/restapi/sportdataapi/leagues-countryid-48.json";
+    private Expectation createExpectationLeagues(String countryId) throws Exception {
+        String filename = String.format("D:/gaston/restapi/sportdataapi/leagues-countryid-%s.json", countryId);
+        String expectationId = String.format("api1-leagues-countryid-%s", countryId);
 
         String json;
         try (FileInputStream fis = new FileInputStream(filename)) {
@@ -89,12 +95,13 @@ class Api1MockServerExpectionsTestRunner {
                 request()
                         .withMethod("GET")
                         .withPath("/api1/api/v1/soccer/leagues")
+                        .withQueryStringParameter("country_id", countryId)
         ).thenRespond(
                 response()
                         .withStatusCode(200)
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(json)
-        ).withId("api1-leagues-countryid-48");
+        ).withId(expectationId);
         return expectation;
     }
 

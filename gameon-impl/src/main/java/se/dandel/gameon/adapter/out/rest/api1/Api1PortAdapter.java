@@ -55,7 +55,6 @@ public class Api1PortAdapter implements Api1Port {
         Invocation.Builder request = target.queryParam("country_id", countryId)
                 .request(MediaType.APPLICATION_JSON)
                 .header("apikey", environmentConfig.getAPi1Apikey());
-        LOGGER.debug("Request {}", request);
         Response response = request.get();
         LOGGER.debug("Response status: {}", response.getStatus());
         if (response.getStatus() != 200) {
@@ -75,14 +74,18 @@ public class Api1PortAdapter implements Api1Port {
     }
 
     @Override
-    public Collection<Tournament> fetchLeagues() {
+    public Collection<Tournament> fetchLeagues(Country country) {
         WebTarget target = getBaseTarget().path("/soccer/leagues");
         LOGGER.debug("Connecting to {}", target);
-        Invocation.Builder request = target
+        String countryId = country.getRemoteKey();
+        Invocation.Builder request = target.queryParam("country_id", countryId)
                 .request(MediaType.APPLICATION_JSON)
                 .header("apikey", environmentConfig.getAPi1Apikey());
         Response response = request.get();
         LOGGER.debug("Response status: {}", response.getStatus());
+        if (response.getStatus() != 200) {
+            throw new GameonRuntimeException("Unable to connect to target %s, got response status %d", target, response.getStatus());
+        }
 
         String json = response.readEntity(String.class);
         LOGGER.debug("Response JSON: {}", json);
