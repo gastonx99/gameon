@@ -22,7 +22,7 @@
     <logger name="org.mockserver" level="ERROR"/>
 
     <!-- Requires static { SLF4JBridgeHandler.install() } in JUnit5 tests -->
-    <logger name="org.glassfish.jersey.logging" level="${logback.application.default.level:-ERROR}"/>
+    <logger name="org.glassfish.jersey.logging" level="ERROR"/>
 
     <!-- Loggnivå kan vara: TRACE, DEBUG, INFO, WARN, ERROR, ALL eller OFF -->
     <root level="ERROR">

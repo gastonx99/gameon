@@ -10,8 +10,6 @@ mvn mockserver:stop -f gameon-web/
 
 Mockserver dashboard: http://localhost:9080/mockserver/dashboard
 
-se.dandel.gameon.adapter.out.rest.api1.Api1MockServerExpectionsTestRunner
-
 ## Jetty
 
 ```
@@ -30,10 +28,10 @@ mvn -f gameon-datamodel liquibase:update -Pmysql
 
 ```
 select user from mysql.user;
+create user 'gameon'@'localhost' identified by 'gameon';
 show databases;
 create database gameon;
 use gameon;
-create user 'gameon'@'localhost' identified by 'gameon';
 grant all on gameon.* to 'gameon'@'localhost';
 show tables;
 describe fixture;
@@ -57,6 +55,11 @@ java org.hsqldb.server.Server --database.0 file:D:/database/hsqldb/gameon/gameon
 ```
 mvn -f gameon-datamodel liquibase:update -Ppostgres
 ```
+
+## Initialize empty database
+
+- Start mock-server and run Api1MockServerExpectionsTestRunner.mockAll
+- Run FetchDataFromApi1CliRunner.all
 
 ## Links
 

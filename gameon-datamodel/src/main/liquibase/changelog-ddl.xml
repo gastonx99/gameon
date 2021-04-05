@@ -18,7 +18,7 @@
                 <constraints nullable="true"/>
             </column>
             <column name="REMOTE_KEY" type="VARCHAR(100)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true" uniqueConstraintName="AK_COUNTRY"/>
             </column>
         </createTable>
     </changeSet>
@@ -37,6 +37,9 @@
             <column name="LOGO" type="VARCHAR(1000)">
                 <constraints nullable="true"/>
             </column>
+            <column name="REMOTE_KEY" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="AK_TEAM"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -46,13 +49,16 @@
                 <constraints primaryKey="true" primaryKeyName="PK_TOURNAMENT"/>
             </column>
             <column name="NAME" type="VARCHAR(512)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="TOURNAMENT_NAME_IDX"/>
+                <constraints nullable="false"/>
             </column>
             <column name="TYPE" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="COUNTRYCODE" type="VARCHAR(2)">
                 <constraints nullable="true"/>
+            </column>
+            <column name="REMOTE_KEY" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="AK_TOURNAMENT"/>
             </column>
         </createTable>
     </changeSet>
@@ -71,6 +77,15 @@
             </column>
             <column name="STATUS" type="VARCHAR(100)">
                 <constraints nullable="false"/>
+            </column>
+            <column name="START_DATE" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="END_DATE" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="REMOTE_KEY" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="AK_SEASON"/>
             </column>
         </createTable>
     </changeSet>
@@ -91,6 +106,9 @@
             </column>
             <column name="CAPACITY" type="INTEGER">
                 <constraints nullable="true"/>
+            </column>
+            <column name="REMOTE_KEY" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="AK_VENUE"/>
             </column>
         </createTable>
     </changeSet>
@@ -124,6 +142,9 @@
             </column>
             <column name="FINAL_SCORE_AWAY" type="INTEGER">
                 <constraints nullable="true"/>
+            </column>
+            <column name="REMOTE_KEY" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="AK_FIXTURE"/>
             </column>
         </createTable>
     </changeSet>

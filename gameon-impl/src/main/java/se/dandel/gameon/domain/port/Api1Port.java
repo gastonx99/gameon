@@ -1,6 +1,7 @@
 package se.dandel.gameon.domain.port;
 
 import se.dandel.gameon.domain.model.Country;
+import se.dandel.gameon.domain.model.Season;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.Tournament;
 
@@ -12,4 +13,6 @@ public interface Api1Port {
     Collection<Tournament> fetchLeagues(Country country);
 
     Collection<Country> fetchCountry();
+
+    Collection<Season> fetchSeasons(Tournament tournament);
 }

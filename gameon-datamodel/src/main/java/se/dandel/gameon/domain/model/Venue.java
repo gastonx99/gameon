@@ -17,6 +17,9 @@ public class Venue {
 
     private String countryCode;
 
+    @Embedded
+    private RemoteKey remoteKey;
+
     public long getPk() {
         return pk;
     }
@@ -55,5 +58,13 @@ public class Venue {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public RemoteKey getRemoteKey() {
+        return remoteKey;
+    }
+
+    public void setRemoteKey(RemoteKey remoteKey) {
+        this.remoteKey = remoteKey;
     }
 }

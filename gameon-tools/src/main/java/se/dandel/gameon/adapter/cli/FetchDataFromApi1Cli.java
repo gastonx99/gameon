@@ -1,5 +1,6 @@
 package se.dandel.gameon.adapter.cli;
 
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 import se.dandel.gameon.application.service.FetchDataFromApi1Service;
 import se.dandel.gameon.domain.GameonRuntimeException;
+import se.dandel.gameon.domain.model.RemoteKey;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -25,7 +27,7 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
     private static final String PARAM_PREFIX = "se.dandel.gameon.cli.fetch.param";
 
     public enum FetchType {
-        team, league, country
+        team, league, season, country
     }
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -76,8 +78,7 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
         private FetchType type;
 
         @Inject
-        @ConfigProperty(name = PARAM_PREFIX + ".countrycode")
-        private String countryCode;
+        private Config config;
 
         public void start() {
             entityManager.getTransaction().begin();
@@ -93,18 +94,29 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
         private void callService() {
             LOGGER.debug("Do some good using service {}", service);
             switch (type) {
-                case team:
-                    service.fetchAndSaveTeams(countryCode);
-                    break;
-                case league:
-                    service.fetchAndSaveLeagues(countryCode);
-                    break;
                 case country:
                     service.fetchAndSaveCountries();
+                    break;
+                case team:
+                    service.fetchAndSaveTeams(getCountryCode());
+                    break;
+                case league:
+                    service.fetchAndSaveLeagues(getCountryCode());
+                    break;
+                case season:
+                    service.fetchAndSaveSeasons(RemoteKey.of(getLeagueId()));
                     break;
                 default:
                     throw new GameonRuntimeException("Unsupported type %s", type);
             }
+        }
+
+        private String getCountryCode() {
+            return config.getValue(PARAM_PREFIX + ".countrycode", String.class);
+        }
+
+        private String getLeagueId() {
+            return config.getValue(PARAM_PREFIX + ".leagueid", String.class);
         }
     }
 

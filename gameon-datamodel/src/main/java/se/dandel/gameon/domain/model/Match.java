@@ -39,6 +39,9 @@ public class Match {
             @AttributeOverride(name = "away", column = @Column(name = "FINAL_SCORE_AWAY"))})
     private Score finalScore;
 
+    @Embedded
+    private RemoteKey remoteKey;
+
     public Match() {
     }
 
@@ -99,6 +102,14 @@ public class Match {
 
     public Score getFinalScore() {
         return finalScore;
+    }
+
+    public RemoteKey getRemoteKey() {
+        return remoteKey;
+    }
+
+    public void setRemoteKey(RemoteKey remoteKey) {
+        this.remoteKey = remoteKey;
     }
 
     public boolean isSame(ZonedDateTime zonedDateTime, Team homeTeam, Team awayTeam) {

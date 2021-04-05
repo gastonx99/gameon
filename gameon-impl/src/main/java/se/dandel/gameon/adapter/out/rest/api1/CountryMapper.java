@@ -6,6 +6,6 @@ import se.dandel.gameon.domain.model.Country;
 
 @Mapper(componentModel = "cdi")
 public interface CountryMapper {
-    @Mapping(source = "countryId", target = "remoteKey")
+    @Mapping(source = "countryId", target = "remoteKey.remoteKey")
     Country fromDTO(CountryDTO source);
 }

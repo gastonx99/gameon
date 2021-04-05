@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.dandel.gameon.RepositoryTest;
 import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
+import se.dandel.gameon.domain.model.RemoteKey;
 import se.dandel.gameon.domain.model.Team;
 
 import javax.inject.Inject;
@@ -29,7 +30,9 @@ class TeamRepositoryTest {
     @Test
     void persist() {
         // Given
-        Team persisted = Team.of("GURKA", "Gurka");
+        Team persisted = new Team();
+        persisted.setName("Gurka");
+        persisted.setRemoteKey(RemoteKey.of(1));
 
         // When
         repository.persist(persisted);
@@ -42,7 +45,9 @@ class TeamRepositoryTest {
     @Test
     void findAll() {
         // Given
-        Team expected = Team.of("GURKA", "Gurka");
+        Team expected = new Team();
+        expected.setName("Gurka");
+        expected.setRemoteKey(RemoteKey.of(1));
         repository.persist(expected);
 
         // When

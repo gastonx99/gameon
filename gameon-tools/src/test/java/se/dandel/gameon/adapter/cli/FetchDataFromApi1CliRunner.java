@@ -2,6 +2,8 @@ package se.dandel.gameon.adapter.cli;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -18,6 +20,14 @@ public class FetchDataFromApi1CliRunner {
 
     @Test
     @Disabled("Test is run manually only since it makes a live connection")
+    void all() {
+        country();
+        team("se");
+        league("567");
+    }
+
+    @Test
+    @Disabled("Test is run manually only since it makes a live connection")
     void country() {
         // Given
         String[] args = {"-t", "country", "-p", GAMEON_PROPERTIES};
@@ -27,25 +37,40 @@ public class FetchDataFromApi1CliRunner {
         assertThat(actual, is(equalTo(0)));
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"se"})
     @Disabled("Test is run manually only since it makes a live connection")
-    void team() {
+    void team(String countryCode) {
         // Given
-        String[] args = {"-t", "team", "-p", GAMEON_PROPERTIES, "-a", "countrycode=se"};
+        String[] args = {"-t", "team", "-p", GAMEON_PROPERTIES, "-a", "countrycode=" + countryCode};
 
         // When
         int actual = FetchDataFromApi1Cli.mainInner(args);
         assertThat(actual, is(equalTo(0)));
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"se"})
     @Disabled("Test is run manually only since it makes a live connection")
-    void league() {
+    void league(String countryCode) {
         // Given
-        String[] args = {"-t", "league", "-p", GAMEON_PROPERTIES, "-a", "countrycode=se"};
+        String[] args = {"-t", "league", "-p", GAMEON_PROPERTIES, "-a", "countrycode=" + countryCode};
 
         // When
         int actual = FetchDataFromApi1Cli.mainInner(args);
         assertThat(actual, is(equalTo(0)));
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"567"})
+    @Disabled("Test is run manually only since it makes a live connection")
+    void season(String leagueId) {
+        // Given
+        String[] args = {"-t", "season", "-p", GAMEON_PROPERTIES, "-a", "leagueid=" + leagueId};
+
+        // When
+        int actual = FetchDataFromApi1Cli.mainInner(args);
+        assertThat(actual, is(equalTo(0)));
+    }
+
 }

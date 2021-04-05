@@ -7,5 +7,6 @@ import se.dandel.gameon.domain.model.Tournament;
 @Mapper(componentModel = "cdi")
 public interface TournamentMapper {
     @Mapping(target = "type", constant = "LEAGUE")
+    @Mapping(source = "leagueId", target = "remoteKey.remoteKey")
     Tournament fromDTO(LeagueDTO source);
 }

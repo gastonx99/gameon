@@ -16,8 +16,8 @@ public class Country {
 
     private String continent;
 
-    @Column(name = "REMOTE_KEY")
-    private String remoteKey;
+    @Embedded
+    private RemoteKey remoteKey;
 
     public long getPk() {
         return pk;
@@ -51,11 +51,11 @@ public class Country {
         this.continent = continent;
     }
 
-    public String getRemoteKey() {
+    public RemoteKey getRemoteKey() {
         return remoteKey;
     }
 
-    public void setRemoteKey(String remoteKey) {
+    public void setRemoteKey(RemoteKey remoteKey) {
         this.remoteKey = remoteKey;
     }
 }

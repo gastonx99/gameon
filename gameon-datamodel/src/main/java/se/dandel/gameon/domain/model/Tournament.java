@@ -28,6 +28,9 @@ public class Tournament {
     @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Season> seasons = new ArrayList<>();
 
+    @Embedded
+    private RemoteKey remoteKey;
+
     private Tournament() {
         // For JPA
     }
@@ -60,7 +63,15 @@ public class Tournament {
         this.countryCode = countryCode;
     }
 
-    void addSeason(Season season) {
+    public RemoteKey getRemoteKey() {
+        return remoteKey;
+    }
+
+    public void setRemoteKey(RemoteKey remoteKey) {
+        this.remoteKey = remoteKey;
+    }
+
+    public void addSeason(Season season) {
         this.seasons.add(season);
     }
 

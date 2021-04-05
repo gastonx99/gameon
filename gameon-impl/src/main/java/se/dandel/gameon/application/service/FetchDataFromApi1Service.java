@@ -1,9 +1,7 @@
 package se.dandel.gameon.application.service;
 
 import se.dandel.gameon.domain.GameonRuntimeException;
-import se.dandel.gameon.domain.model.Country;
-import se.dandel.gameon.domain.model.Team;
-import se.dandel.gameon.domain.model.Tournament;
+import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.port.Api1Port;
 import se.dandel.gameon.domain.repository.CountryRepository;
 import se.dandel.gameon.domain.repository.TeamRepository;
@@ -47,9 +45,34 @@ public class FetchDataFromApi1Service {
         }
     }
 
+    public void fetchAndSaveSeasons(RemoteKey remoteKey) {
+        Optional<Tournament> tournament = tournamentRepository.findByRemoteKey(remoteKey);
+        if (tournament.isPresent()) {
+            Collection<Season> seasons = api1Port.fetchSeasons(tournament.get());
+            seasons.forEach(season -> createOrUpdate(tournament.get(), season));
+        } else {
+            throw new GameonRuntimeException("Unable to find tournament with remote key %s", remoteKey);
+        }
+    }
+
     public void fetchAndSaveCountries() {
         Collection<Country> countries = api1Port.fetchCountry();
         countries.forEach(country -> createOrUpdate(country));
+    }
+
+    private void createOrUpdate(Tournament tournament, Season season) {
+        Optional<Season> persisted = tournamentRepository.find(tournament, season);
+        if (persisted.isPresent()) {
+            apply(season, persisted.get());
+        } else {
+            season.setTournament(tournament);
+            tournament.addSeason(season);
+            tournamentRepository.persist(season);
+        }
+    }
+
+    private void apply(Season source, Season target) {
+        target.setName(source.getName());
     }
 
     private void createOrUpdate(Country country) {

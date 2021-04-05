@@ -3,6 +3,7 @@ package se.dandel.gameon.domain.model;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -26,14 +27,17 @@ public class Season {
     @OneToMany(mappedBy = "season", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Match> matches = new ArrayList<>();
 
-    private Season() {
-        this.status = SeasonStatus.NOT_STARTED;
-    }
+    @Column(name = "START_DATE")
+    private LocalDate startDate;
 
-    public Season(Tournament tournament) {
-        this();
-        this.tournament = tournament;
-        tournament.addSeason(this);
+    @Column(name = "END_DATE")
+    private LocalDate endDate;
+
+    @Embedded
+    private RemoteKey remoteKey;
+
+    public Season() {
+        this.status = SeasonStatus.NOT_STARTED;
     }
 
     public long getPk() {
@@ -60,8 +64,36 @@ public class Season {
         this.status = status;
     }
 
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
+
     public Tournament getTournament() {
         return tournament;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public RemoteKey getRemoteKey() {
+        return remoteKey;
+    }
+
+    public void setRemoteKey(RemoteKey remoteKey) {
+        this.remoteKey = remoteKey;
     }
 
     void addMatch(Match match) {

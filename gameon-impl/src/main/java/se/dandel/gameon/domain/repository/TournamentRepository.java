@@ -1,6 +1,8 @@
 package se.dandel.gameon.domain.repository;
 
 import se.dandel.gameon.domain.model.Match;
+import se.dandel.gameon.domain.model.RemoteKey;
+import se.dandel.gameon.domain.model.Season;
 import se.dandel.gameon.domain.model.Tournament;
 
 import javax.persistence.TypedQuery;
@@ -34,6 +36,21 @@ public class TournamentRepository extends AbstractRepository {
         TypedQuery<Tournament> query =
                 getEntityManager().createQuery("select t from Tournament t where t.name = :name", Tournament.class);
         query.setParameter("name", tournament.getName());
+        return getSingleResult(query);
+    }
+
+    public Optional<Tournament> findByRemoteKey(RemoteKey remoteKey) {
+        TypedQuery<Tournament> query =
+                getEntityManager().createQuery("select t from Tournament t where t.remoteKey = :remoteKey", Tournament.class);
+        query.setParameter("remoteKey", remoteKey);
+        return getSingleResult(query);
+    }
+
+    public Optional<Season> find(Tournament tournament, Season season) {
+        TypedQuery<Season> query =
+                getEntityManager().createQuery("select s from Season s where s.tournament = :tournament and s.remoteKey = :remoteKey", Season.class);
+        query.setParameter("tournament", tournament);
+        query.setParameter("remoteKey", season.getRemoteKey());
         return getSingleResult(query);
     }
 }

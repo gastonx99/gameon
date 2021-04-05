@@ -35,7 +35,8 @@ class Api1MockServerExpectionsTestRunner {
                 createExpectationTeams("48"),
                 createExpectationTeams("114"),
                 createExpectationLeagues("48"),
-                createExpectationLeagues("114")
+                createExpectationLeagues("114"),
+                createExpectationSeasons("567")
         );
 
         // Then
@@ -96,6 +97,28 @@ class Api1MockServerExpectionsTestRunner {
                         .withMethod("GET")
                         .withPath("/api1/api/v1/soccer/leagues")
                         .withQueryStringParameter("country_id", countryId)
+        ).thenRespond(
+                response()
+                        .withStatusCode(200)
+                        .withContentType(MediaType.APPLICATION_JSON)
+                        .withBody(json)
+        ).withId(expectationId);
+        return expectation;
+    }
+
+    private Expectation createExpectationSeasons(String leagueId) throws Exception {
+        String filename = String.format("D:/gaston/restapi/sportdataapi/seasons-leagueid-%s.json", leagueId);
+        String expectationId = String.format("api1-seasons-leagueid-%s", leagueId);
+
+        String json;
+        try (FileInputStream fis = new FileInputStream(filename)) {
+            json = IOUtils.toString(fis, "UTF-8");
+        }
+        Expectation expectation = Expectation.when(
+                request()
+                        .withMethod("GET")
+                        .withPath("/api1/api/v1/soccer/seasons")
+                        .withQueryStringParameter("country_id", leagueId)
         ).thenRespond(
                 response()
                         .withStatusCode(200)

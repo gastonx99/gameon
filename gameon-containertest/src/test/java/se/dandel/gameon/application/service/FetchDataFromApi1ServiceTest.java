@@ -11,9 +11,7 @@ import org.mockserver.mock.Expectation;
 import org.mockserver.model.MediaType;
 import se.dandel.gameon.ContainerTest;
 import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
-import se.dandel.gameon.domain.model.Country;
-import se.dandel.gameon.domain.model.Team;
-import se.dandel.gameon.domain.model.Tournament;
+import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.repository.AllPurposeTestRepository;
 
 import javax.inject.Inject;
@@ -32,6 +30,8 @@ import static org.mockserver.model.HttpResponse.response;
 class FetchDataFromApi1ServiceTest {
 
     private static final String COUNTRY_CODE = "se";
+
+    private static final String LEAGUE_ID = "567";
 
     @Inject
     FetchDataFromApi1Service service;
@@ -93,6 +93,20 @@ class FetchDataFromApi1ServiceTest {
         assertThat(actuals.size(), is(equalTo(6)));
     }
 
+    @Test
+    void fetchAndSaveSeasons() throws Exception {
+        // Given
+        mockServerClient.upsert(createExpectation("api1-seasons", "/api1/soccer/seasons", "/json/api1/seasons.json"));
+        entityManager.persist(createLeague());
+
+        // When
+        service.fetchAndSaveSeasons(RemoteKey.of(LEAGUE_ID));
+
+        // Then
+        Collection<Season> actuals = allPurposeTestRepository.findAll(Season.class);
+        assertThat(actuals.size(), is(equalTo(3)));
+    }
+
     private Expectation createExpectation(String expectationId, String path, String resource) throws Exception {
         String expected = IOUtils.toString(getClass().getResourceAsStream(resource), "UTF-8");
         Expectation expectation = Expectation.when(
@@ -108,11 +122,18 @@ class FetchDataFromApi1ServiceTest {
         return expectation;
     }
 
+    private Tournament createLeague() {
+        Tournament tournament = new Tournament(TournamentType.LEAGUE);
+        tournament.setName("Allsvenskan");
+        tournament.setRemoteKey(RemoteKey.of(LEAGUE_ID));
+        return tournament;
+    }
+
     private Country createCountry() {
         Country country = new Country();
         country.setName("Sweden");
         country.setCountryCode(COUNTRY_CODE);
-        country.setRemoteKey("114");
+        country.setRemoteKey(RemoteKey.of("114"));
         country.setContinent("Europe");
         return country;
     }

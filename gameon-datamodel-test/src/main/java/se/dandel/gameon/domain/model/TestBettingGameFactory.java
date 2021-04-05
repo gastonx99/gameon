@@ -14,8 +14,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
+
 public class TestBettingGameFactory {
     private static AtomicLong PK_BET = new AtomicLong(1);
+
+    private static final AtomicLong remoteKey = new AtomicLong(1);
 
     public static BettingGame createBettingGamePremierLeague20202021() {
         User owner = TestUserFactory.createUser();
@@ -40,32 +44,33 @@ public class TestBettingGameFactory {
     private static void createMatch(Season season, LocalDateTime localDateTime, Team homeTeam, Team awayTeam) {
         ZonedDateTime matchDateTime = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
         Match match = new Match(season);
+        match.setRemoteKey(RemoteKey.of(remoteKey.getAndIncrement()));
         match.setMatchStart(matchDateTime);
         match.setTeams(homeTeam, awayTeam);
     }
 
     private static Map<String, Team> createTeamsEngland() {
         Collection<Team> c = new ArrayList<>();
-        c.add(Team.of("ARSENAL", "Arsenal"));
-        c.add(Team.of("ASTON_VILLA", "Aston Villa"));
-        c.add(Team.of("BRIGHTON_HOVE_ALBION", "Brighton & Hove Albion"));
-        c.add(Team.of("BURNLEY", "Burnley"));
-        c.add(Team.of("CHELSEA", "Chelsea"));
-        c.add(Team.of("CRYSTAL_PALACE", "Crystal Palace"));
-        c.add(Team.of("EVERTON", "Everton"));
-        c.add(Team.of("FULHAM", "Fulham"));
-        c.add(Team.of("LEEDS_UNITED", "Leeds United"));
-        c.add(Team.of("LEICESTER_CITY", "Leicester City"));
-        c.add(Team.of("LIVERPOOL", "Liverpool"));
-        c.add(Team.of("MANCHESTER_CITY", "Manchester City"));
-        c.add(Team.of("MANCHESTER_UNITED", "Manchester United"));
-        c.add(Team.of("NEWCASTLE_UNITED", "Newcastle United"));
-        c.add(Team.of("SHEFFIELD_UNITED", "Sheffield United"));
-        c.add(Team.of("SOUTHAMPTON", "Southampton"));
-        c.add(Team.of("TOTTENHAM_HOTSPUR", "Tottenham Hotspur"));
-        c.add(Team.of("WEST_BROMWICH_ALBION", "West Bromwich Albion"));
-        c.add(Team.of("WEST_HAM_UNITED", "West Ham United"));
-        c.add(Team.of("WOLVERHAMPTON_WANDERERS", "Wolverhampton Wanderers"));
+        c.add(createTeam("ARSENAL", "Arsenal"));
+        c.add(createTeam("ASTON_VILLA", "Aston Villa"));
+        c.add(createTeam("BRIGHTON_HOVE_ALBION", "Brighton & Hove Albion"));
+        c.add(createTeam("BURNLEY", "Burnley"));
+        c.add(createTeam("CHELSEA", "Chelsea"));
+        c.add(createTeam("CRYSTAL_PALACE", "Crystal Palace"));
+        c.add(createTeam("EVERTON", "Everton"));
+        c.add(createTeam("FULHAM", "Fulham"));
+        c.add(createTeam("LEEDS_UNITED", "Leeds United"));
+        c.add(createTeam("LEICESTER_CITY", "Leicester City"));
+        c.add(createTeam("LIVERPOOL", "Liverpool"));
+        c.add(createTeam("MANCHESTER_CITY", "Manchester City"));
+        c.add(createTeam("MANCHESTER_UNITED", "Manchester United"));
+        c.add(createTeam("NEWCASTLE_UNITED", "Newcastle United"));
+        c.add(createTeam("SHEFFIELD_UNITED", "Sheffield United"));
+        c.add(createTeam("SOUTHAMPTON", "Southampton"));
+        c.add(createTeam("TOTTENHAM_HOTSPUR", "Tottenham Hotspur"));
+        c.add(createTeam("WEST_BROMWICH_ALBION", "West Bromwich Albion"));
+        c.add(createTeam("WEST_HAM_UNITED", "West Ham United"));
+        c.add(createTeam("WOLVERHAMPTON_WANDERERS", "Wolverhampton Wanderers"));
         Map<String, Team> teams = new HashMap<>();
         MapUtils.populateMap(teams, c, t -> t.getName());
         return teams;

@@ -20,14 +20,11 @@ public class Team {
 
     private String logo;
 
+    @Embedded
+    private RemoteKey remoteKey;
+
     public Team() {
         // For JPA
-    }
-
-    public static Team of(String key, String name) {
-        Team team = new Team();
-        team.setName(name);
-        return team;
     }
 
     public long getPk() {
@@ -60,6 +57,14 @@ public class Team {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public RemoteKey getRemoteKey() {
+        return remoteKey;
+    }
+
+    public void setRemoteKey(RemoteKey remoteKey) {
+        this.remoteKey = remoteKey;
     }
 
     @Override
