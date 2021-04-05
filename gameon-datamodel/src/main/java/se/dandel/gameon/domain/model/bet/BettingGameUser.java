@@ -71,7 +71,9 @@ public class BettingGameUser {
 
     public Bet addBet(Match match, int homeScore, int awayScore) {
         Bet bet = new Bet(this, match);
-        bet.setScore(new Score(homeScore, awayScore));
+        bet.setScore(new Score());
+        bet.getScore().setHome(homeScore);
+        bet.getScore().setAway(awayScore);
         this.bets.add(bet);
         return bet;
     }

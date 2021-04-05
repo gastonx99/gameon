@@ -17,6 +17,12 @@
         <appender-ref ref="CONSOLE_APPENDER"/>
     </logger>
 
+    <logger name="se.dandel.gameon.domain.repository" level="INFO"/>
+
+    <logger name="se.dandel.gameon.datamodel.test.jpa.DbContentHandler" level="INFO"/>
+
+    <logger name="se.dandel.gameon.adapter.jpa.ContainerTestEntityManagerProducer" level="INFO"/>
+
     <logger name="liquibase" level="WARN"/>
 
     <logger name="org.mockserver" level="ERROR"/>

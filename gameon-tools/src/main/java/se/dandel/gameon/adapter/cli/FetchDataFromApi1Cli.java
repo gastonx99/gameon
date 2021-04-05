@@ -27,7 +27,7 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
     private static final String PARAM_PREFIX = "se.dandel.gameon.cli.fetch.param";
 
     public enum FetchType {
-        team, league, season, country
+        team, league, season, match, country
     }
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -106,6 +106,9 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
                 case season:
                     service.fetchAndSaveSeasons(RemoteKey.of(getLeagueId()));
                     break;
+                case match:
+                    service.fetchAndSaveMatches(RemoteKey.of(getSeasonId()));
+                    break;
                 default:
                     throw new GameonRuntimeException("Unsupported type %s", type);
             }
@@ -117,6 +120,10 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
 
         private String getLeagueId() {
             return config.getValue(PARAM_PREFIX + ".leagueid", String.class);
+        }
+
+        private String getSeasonId() {
+            return config.getValue(PARAM_PREFIX + ".seasonid", String.class);
         }
     }
 

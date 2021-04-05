@@ -27,7 +27,9 @@ public class ContainerTestEntityManagerProducer extends EntityManagerProducer {
 
     private EntityManager getOrCreateEntityManager(EntityManagerFactory factory) {
         if (entityManager.get() == null) {
-            entityManager.set(factory.createEntityManager());
+            EntityManager entityManager = factory.createEntityManager();
+            LOGGER.info("Created entity manager {}", entityManager);
+            ContainerTestEntityManagerProducer.entityManager.set(entityManager);
         }
         LOGGER.debug("Got entity manager {}", entityManager.get());
         return entityManager.get();

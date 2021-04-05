@@ -4,8 +4,8 @@
     "date_from": "2020-09-19",
     "apikey": "your-apikey"
   },
-  "data": {
-    "1": {
+  "data": [
+    {
       "match_id": 139415,
       "status_code": 3,
       "status": "finished",
@@ -52,7 +52,7 @@
         "country_id": 48
       }
     },
-    "2": {
+    {
       "match_id": 139451,
       "status_code": 3,
       "status": "finished",
@@ -99,7 +99,7 @@
         "country_id": 48
       }
     },
-    "3": {
+    {
       "match_id": 139479,
       "status_code": 3,
       "status": "finished",
@@ -146,5 +146,5 @@
         "country_id": 48
       }
     }
-  }
+  ]
 }

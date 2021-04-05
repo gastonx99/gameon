@@ -2,10 +2,7 @@ package se.dandel.gameon.adapter.out.rest.api1;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.dandel.gameon.domain.model.Country;
-import se.dandel.gameon.domain.model.Season;
-import se.dandel.gameon.domain.model.Team;
-import se.dandel.gameon.domain.model.Tournament;
+import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.port.Api1Port;
 
 import javax.inject.Inject;
@@ -27,6 +24,8 @@ public class Api1PortAdapter implements Api1Port {
 
     static final String PATH_SOCCER_SEASONS = "/soccer/seasons";
 
+    static final String PATH_SOCCER_MATCHES = "/soccer/matches";
+
     static final Type ENVELOPE_COUNTRIES = new EnvelopeDTO<Collection<CountryDTO>>() {
     }.getClass().getGenericSuperclass();
 
@@ -37,6 +36,9 @@ public class Api1PortAdapter implements Api1Port {
     }.getClass().getGenericSuperclass();
 
     static final Type ENVELOPE_SEASONS = new EnvelopeDTO<Collection<SeasonDTO>>() {
+    }.getClass().getGenericSuperclass();
+
+    static final Type ENVELOPE_MATCHES = new EnvelopeDTO<Collection<MatchDTO>>() {
     }.getClass().getGenericSuperclass();
 
 
@@ -71,6 +73,13 @@ public class Api1PortAdapter implements Api1Port {
     public Collection<Season> fetchSeasons(Tournament tournament) {
         Collection<SeasonDTO> dtos = invoker.invoke(ENVELOPE_SEASONS, PATH_SOCCER_SEASONS, Collections.singletonMap("league_id", tournament.getRemoteKey().getRemoteKey()));
         LOGGER.debug("Number of seasons: {}", dtos.size());
+        return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
+    }
+
+    @Override
+    public Collection<Match> fetchMatches(Season season) {
+        Collection<MatchDTO> dtos = invoker.invoke(ENVELOPE_MATCHES, PATH_SOCCER_MATCHES, Collections.singletonMap("season_id", season.getRemoteKey().getRemoteKey()));
+        LOGGER.debug("Number of matches: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
     }
 

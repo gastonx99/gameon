@@ -105,7 +105,7 @@ public class DbContentHandler {
     }
 
     private void createDatabase(String liquibaseChangelog, Connection connection) {
-        LOGGER.debug("Database - liquibaseChangelog: {}", liquibaseChangelog);
+        LOGGER.info("Creating database using liquibaseChangelog: {}", liquibaseChangelog);
         loadLiquibaseChangelog(connection, liquibaseChangelog);
     }
 

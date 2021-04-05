@@ -4,7 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
@@ -96,7 +96,7 @@ public class Season {
         this.remoteKey = remoteKey;
     }
 
-    void addMatch(Match match) {
+    public void addMatch(Match match) {
         this.matches.add(match);
     }
 
@@ -108,8 +108,8 @@ public class Season {
         return Match.getDistinctTeams(matches);
     }
 
-    public Optional<Match> getMatch(ZonedDateTime zonedDateTime, Team homeTeam, Team awayTeam) {
-        return matches.stream().filter(match -> match.isSame(zonedDateTime, homeTeam, awayTeam)).findFirst();
+    public Optional<Match> getMatch(LocalDateTime matchStart, Team homeTeam, Team awayTeam) {
+        return matches.stream().filter(match -> match.isSame(matchStart, homeTeam, awayTeam)).findFirst();
     }
 
     @Override

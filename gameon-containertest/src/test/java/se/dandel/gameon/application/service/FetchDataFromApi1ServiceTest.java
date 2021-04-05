@@ -16,6 +16,7 @@ import se.dandel.gameon.domain.repository.AllPurposeTestRepository;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.util.Arrays;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -23,6 +24,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
+import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
 
 @ContainerTest
 @ExtendWith(MockServerExtension.class)
@@ -32,6 +34,8 @@ class FetchDataFromApi1ServiceTest {
     private static final String COUNTRY_CODE = "se";
 
     private static final String LEAGUE_ID = "567";
+
+    private static final String SEASON_ID = "42";
 
     @Inject
     FetchDataFromApi1Service service;
@@ -107,6 +111,27 @@ class FetchDataFromApi1ServiceTest {
         assertThat(actuals.size(), is(equalTo(3)));
     }
 
+    @Test
+    void fetchAndSaveMatches() throws Exception {
+        // Given
+        mockServerClient.upsert(createExpectation("api1-matches", "/api1/soccer/matches", "/json/api1/matches.json"));
+        Season season = createSeason(createLeague());
+        entityManager.persist(season.getTournament());
+
+        Arrays.asList(
+                createTeam("3993", "1. FC Union Berlin"), createTeam("4075", "FC Augsburg"),
+                createTeam("4070", "Werder Bremen"), createTeam("4067", "Hertha BSC"),
+                createTeam("3991", "1. FC Cologne"), createTeam("4079", "TSG 1899 Hoffenheim")
+        ).forEach(team -> allPurposeTestRepository.persist(team));
+
+        // When
+        service.fetchAndSaveMatches(season.getRemoteKey());
+
+        // Then
+        Collection<Match> actuals = allPurposeTestRepository.findAll(Match.class);
+        assertThat(actuals.size(), is(equalTo(3)));
+    }
+
     private Expectation createExpectation(String expectationId, String path, String resource) throws Exception {
         String expected = IOUtils.toString(getClass().getResourceAsStream(resource), "UTF-8");
         Expectation expectation = Expectation.when(
@@ -122,13 +147,6 @@ class FetchDataFromApi1ServiceTest {
         return expectation;
     }
 
-    private Tournament createLeague() {
-        Tournament tournament = new Tournament(TournamentType.LEAGUE);
-        tournament.setName("Allsvenskan");
-        tournament.setRemoteKey(RemoteKey.of(LEAGUE_ID));
-        return tournament;
-    }
-
     private Country createCountry() {
         Country country = new Country();
         country.setName("Sweden");
@@ -137,5 +155,22 @@ class FetchDataFromApi1ServiceTest {
         country.setContinent("Europe");
         return country;
     }
+
+    private Tournament createLeague() {
+        Tournament tournament = new Tournament(TournamentType.LEAGUE);
+        tournament.setName("Allsvenskan");
+        tournament.setRemoteKey(RemoteKey.of(LEAGUE_ID));
+        return tournament;
+    }
+
+    private Season createSeason(Tournament league) {
+        Season season = new Season();
+        season.setName("Allsvenskan");
+        season.setRemoteKey(RemoteKey.of(SEASON_ID));
+        season.setTournament(league);
+        league.addSeason(season);
+        return season;
+    }
+
 
 }

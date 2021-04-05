@@ -4,7 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
@@ -32,7 +32,7 @@ public class Match {
     @ManyToOne
     private Team awayTeam;
 
-    private ZonedDateTime matchStart;
+    private LocalDateTime matchStart;
 
     @Embedded
     @AttributeOverrides({@AttributeOverride(name = "home", column = @Column(name = "FINAL_SCORE_HOME")),
@@ -43,11 +43,6 @@ public class Match {
     private RemoteKey remoteKey;
 
     public Match() {
-    }
-
-    public Match(Season season) {
-        this.season = season;
-        season.addMatch(this);
     }
 
     public static Set<Team> getDistinctTeams(Collection<Match> matches) {
@@ -79,20 +74,23 @@ public class Match {
         return homeTeam;
     }
 
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
     public Team getAwayTeam() {
         return awayTeam;
     }
 
-    public void setTeams(Team homeTeam, Team awayTeam) {
-        this.homeTeam = homeTeam;
+    public void setAwayTeam(Team awayTeam) {
         this.awayTeam = awayTeam;
     }
 
-    public void setMatchStart(ZonedDateTime matchStart) {
+    public void setMatchStart(LocalDateTime matchStart) {
         this.matchStart = matchStart;
     }
 
-    public ZonedDateTime getMatchStart() {
+    public LocalDateTime getMatchStart() {
         return matchStart;
     }
 
@@ -100,8 +98,16 @@ public class Match {
         return season;
     }
 
+    public void setSeason(Season season) {
+        this.season = season;
+    }
+
     public Score getFinalScore() {
         return finalScore;
+    }
+
+    public void setFinalScore(Score finalScore) {
+        this.finalScore = finalScore;
     }
 
     public RemoteKey getRemoteKey() {
@@ -112,8 +118,8 @@ public class Match {
         this.remoteKey = remoteKey;
     }
 
-    public boolean isSame(ZonedDateTime zonedDateTime, Team homeTeam, Team awayTeam) {
-        return new EqualsBuilder().append(this.matchStart, zonedDateTime)
+    public boolean isSame(LocalDateTime matchStart, Team homeTeam, Team awayTeam) {
+        return new EqualsBuilder().append(this.matchStart, matchStart)
                 .append(this.homeTeam.getName(), homeTeam.getName()).append(this.awayTeam.getName(), awayTeam.getName())
                 .build().booleanValue();
     }
@@ -122,11 +128,8 @@ public class Match {
     public String toString() {
         return new ToStringBuilder(this, SHORT_PREFIX_STYLE).append("pk", pk)
                 .append("season", season == null ? "" : season.getName()).append("venue", venue)
-                .append("homeTeam", homeTeam).append("awayTeam", awayTeam).append("zonedDateTime", matchStart)
+                .append("homeTeam", homeTeam).append("awayTeam", awayTeam).append("matchStart", matchStart)
                 .toString();
     }
 
-    public void setFinalScore(int home, int away) {
-        finalScore = new Score(home, away);
-    }
 }

@@ -3,8 +3,6 @@ package se.dandel.gameon.domain.model;
 import org.apache.commons.collections4.MapUtils;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -46,36 +44,38 @@ public class TestTournamentFactory {
         return tournament;
     }
 
-    private static void createMatch(Season season, LocalDateTime localDateTime, Team homeTeam, Team awayTeam) {
-        ZonedDateTime matchDateTime = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
-        Match match = new Match(season);
+    private static void createMatch(Season season, LocalDateTime matchDateTime, Team homeTeam, Team awayTeam) {
+        Match match = new Match();
+        match.setSeason(season);
+        season.addMatch(match);
         match.setRemoteKey(RemoteKey.of(remoteKey.getAndIncrement()));
         match.setMatchStart(matchDateTime);
-        match.setTeams(homeTeam, awayTeam);
+        match.setHomeTeam(homeTeam);
+        match.setAwayTeam(awayTeam);
     }
 
     private static Map<String, Team> createTeamsEngland() {
         Collection<Team> c = new ArrayList<>();
-        c.add(createTeam("ARSENAL", "Arsenal"));
-        c.add(createTeam("ASTON_VILLA", "Aston Villa"));
-        c.add(createTeam("BRIGHTON_HOVE_ALBION", "Brighton & Hove Albion"));
-        c.add(createTeam("BURNLEY", "Burnley"));
-        c.add(createTeam("CHELSEA", "Chelsea"));
-        c.add(createTeam("CRYSTAL_PALACE", "Crystal Palace"));
-        c.add(createTeam("EVERTON", "Everton"));
-        c.add(createTeam("FULHAM", "Fulham"));
-        c.add(createTeam("LEEDS_UNITED", "Leeds United"));
-        c.add(createTeam("LEICESTER_CITY", "Leicester City"));
-        c.add(createTeam("LIVERPOOL", "Liverpool"));
-        c.add(createTeam("MANCHESTER_CITY", "Manchester City"));
-        c.add(createTeam("MANCHESTER_UNITED", "Manchester United"));
-        c.add(createTeam("NEWCASTLE_UNITED", "Newcastle United"));
-        c.add(createTeam("SHEFFIELD_UNITED", "Sheffield United"));
-        c.add(createTeam("SOUTHAMPTON", "Southampton"));
-        c.add(createTeam("TOTTENHAM_HOTSPUR", "Tottenham Hotspur"));
-        c.add(createTeam("WEST_BROMWICH_ALBION", "West Bromwich Albion"));
-        c.add(createTeam("WEST_HAM_UNITED", "West Ham United"));
-        c.add(createTeam("WOLVERHAMPTON_WANDERERS", "Wolverhampton Wanderers"));
+        c.add(createTeam("Arsenal"));
+        c.add(createTeam("Aston Villa"));
+        c.add(createTeam("Brighton & Hove Albion"));
+        c.add(createTeam("Burnley"));
+        c.add(createTeam("Chelsea"));
+        c.add(createTeam("Crystal Palace"));
+        c.add(createTeam("Everton"));
+        c.add(createTeam("Fulham"));
+        c.add(createTeam("Leeds United"));
+        c.add(createTeam("Leicester City"));
+        c.add(createTeam("Liverpool"));
+        c.add(createTeam("Manchester City"));
+        c.add(createTeam("Manchester United"));
+        c.add(createTeam("Newcastle United"));
+        c.add(createTeam("Sheffield United"));
+        c.add(createTeam("Southampton"));
+        c.add(createTeam("Tottenham Hotspur"));
+        c.add(createTeam("West Bromwich Albion"));
+        c.add(createTeam("West Ham United"));
+        c.add(createTeam("Wolverhampton Wanderers"));
         Map<String, Team> teams = new HashMap<>();
         MapUtils.populateMap(teams, c, t -> t.getName());
         return teams;
@@ -96,50 +96,52 @@ public class TestTournamentFactory {
 
         Team homeTeam = teams.get("Russia");
         Team awayTeam = teams.get("Saudi Arabia");
-        ZonedDateTime matchDateTime =
-                ZonedDateTime.of(LocalDateTime.parse("2018-06-14T00:00:00"), ZoneId.systemDefault());
-        Match match = new Match(season);
+        LocalDateTime matchStart = LocalDateTime.parse("2018-06-14T00:00:00");
+        Match match = new Match();
+        match.setSeason(season);
+        season.addMatch(match);
         match.setRemoteKey(RemoteKey.of(remoteKey.getAndIncrement()));
-        match.setMatchStart(matchDateTime);
-        match.setTeams(homeTeam, awayTeam);
+        match.setMatchStart(matchStart);
+        match.setHomeTeam(homeTeam);
+        match.setAwayTeam(awayTeam);
 
         return tournament;
     }
 
     public static Map<String, Team> createTeamsWorldCup2018() {
         Collection<Team> c = new ArrayList<>();
-        c.add(createTeam("ARGENTINA", "Argentina"));
-        c.add(createTeam("AUSTRALIA", "Australia"));
-        c.add(createTeam("BELGIUM", "Belgium"));
-        c.add(createTeam("BRAZIL", "Brazil"));
-        c.add(createTeam("COLOMBIA", "Colombia"));
-        c.add(createTeam("COSTA_RICA", "Costa Rica"));
-        c.add(createTeam("CROATIA", "Croatia"));
-        c.add(createTeam("DENMARK", "Denmark"));
-        c.add(createTeam("EGYPT", "Egypt"));
-        c.add(createTeam("ENGLAND", "England"));
-        c.add(createTeam("FRANCE", "France"));
-        c.add(createTeam("GERMANY", "Germany"));
-        c.add(createTeam("ICELAND", "Iceland"));
-        c.add(createTeam("IRAN", "Iran"));
-        c.add(createTeam("JAPAN", "Japan"));
-        c.add(createTeam("MEXICO", "Mexico"));
-        c.add(createTeam("MOROCCO", "Morocco"));
-        c.add(createTeam("NIGERIA", "Nigeria"));
-        c.add(createTeam("PANAMA", "Panama"));
-        c.add(createTeam("PERU", "Peru"));
-        c.add(createTeam("POLAND", "Poland"));
-        c.add(createTeam("PORTUGAL", "Portugal"));
-        c.add(createTeam("RUSSIA", "Russia"));
-        c.add(createTeam("SAUDI_ARABIA", "Saudi Arabia"));
-        c.add(createTeam("SENEGAL", "Senegal"));
-        c.add(createTeam("SERBIA", "Serbia"));
-        c.add(createTeam("SOUTH_KOREA", "South Korea"));
-        c.add(createTeam("SPAIN", "Spain"));
-        c.add(createTeam("SWEDEN", "Sweden"));
-        c.add(createTeam("SWITZERLAND", "Switzerland"));
-        c.add(createTeam("TUNISIA", "Tunisia"));
-        c.add(createTeam("URUGUAY", "Uruguay"));
+        c.add(createTeam("Argentina"));
+        c.add(createTeam("Australia"));
+        c.add(createTeam("Belgium"));
+        c.add(createTeam("Brazil"));
+        c.add(createTeam("Colombia"));
+        c.add(createTeam("Costa Rica"));
+        c.add(createTeam("Croatia"));
+        c.add(createTeam("Denmark"));
+        c.add(createTeam("Egypt"));
+        c.add(createTeam("England"));
+        c.add(createTeam("France"));
+        c.add(createTeam("Germany"));
+        c.add(createTeam("Iceland"));
+        c.add(createTeam("Iran"));
+        c.add(createTeam("Japan"));
+        c.add(createTeam("Mexico"));
+        c.add(createTeam("Morocco"));
+        c.add(createTeam("Nigeria"));
+        c.add(createTeam("Panama"));
+        c.add(createTeam("Peru"));
+        c.add(createTeam("Poland"));
+        c.add(createTeam("Portugal"));
+        c.add(createTeam("Russia"));
+        c.add(createTeam("Saudi Arabia"));
+        c.add(createTeam("Senegal"));
+        c.add(createTeam("Serbia"));
+        c.add(createTeam("South Korea"));
+        c.add(createTeam("Spain"));
+        c.add(createTeam("Sweden"));
+        c.add(createTeam("Switzerland"));
+        c.add(createTeam("Tunisia"));
+        c.add(createTeam("Uruguay"));
 
         Map<String, Team> teams = new HashMap<>();
         MapUtils.populateMap(teams, c, t -> t.getName());

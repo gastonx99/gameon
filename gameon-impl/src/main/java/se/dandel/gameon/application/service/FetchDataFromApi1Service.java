@@ -55,10 +55,43 @@ public class FetchDataFromApi1Service {
         }
     }
 
+    public void fetchAndSaveMatches(RemoteKey seasonRemoteKey) {
+        Optional<Season> season = tournamentRepository.findSeasonByRemoteKey(seasonRemoteKey);
+        if (season.isPresent()) {
+            Collection<Match> fixtures = api1Port.fetchMatches(season.get());
+            fixtures.forEach(fixture -> createOrUpdate(season.get(), fixture));
+        } else {
+            throw new GameonRuntimeException("Unable to find season with remote key %s", seasonRemoteKey);
+        }
+    }
+
     public void fetchAndSaveCountries() {
         Collection<Country> countries = api1Port.fetchCountry();
         countries.forEach(country -> createOrUpdate(country));
     }
+
+    private void createOrUpdate(Season season, Match fixture) {
+        Optional<Match> persisted = tournamentRepository.findMatchByRemoteKey(fixture.getRemoteKey());
+        if (persisted.isPresent()) {
+            apply(fixture, persisted.get());
+        } else {
+            fixture.setVenue(null);
+            Team homeTeam = fixture.getHomeTeam();
+            fixture.setHomeTeam(getPersistedTeam(fixture.getHomeTeam()));
+            fixture.setAwayTeam(getPersistedTeam(fixture.getAwayTeam()));
+            fixture.setSeason(season);
+            season.addMatch(fixture);
+            tournamentRepository.persist(fixture);
+        }
+    }
+
+    private void apply(Match source, Match target) {
+        target.setMatchStart(source.getMatchStart());
+        target.setFinalScore(source.getFinalScore());
+        target.setHomeTeam(getPersistedTeam(source.getHomeTeam()));
+        target.setAwayTeam(getPersistedTeam(source.getAwayTeam()));
+    }
+
 
     private void createOrUpdate(Tournament tournament, Season season) {
         Optional<Season> persisted = tournamentRepository.find(tournament, season);
@@ -119,5 +152,14 @@ public class FetchDataFromApi1Service {
         target.setName(source.getName());
         target.setCountryCode(source.getCountryCode());
     }
+
+    private Team getPersistedTeam(Team team) {
+        Optional<Team> persistedTeam = teamRepository.find(team);
+        if (!persistedTeam.isPresent()) {
+            throw new GameonRuntimeException("Expected persisted team with remote key %s was not found", team.getRemoteKey());
+        }
+        return persistedTeam.get();
+    }
+
 
 }

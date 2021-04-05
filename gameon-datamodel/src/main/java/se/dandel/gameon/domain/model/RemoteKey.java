@@ -28,4 +28,10 @@ public class RemoteKey {
         this.remoteKey = remoteKey;
     }
 
+    @Override
+    public String toString() {
+        return "RemoteKey{" +
+                "remoteKey='" + remoteKey + '\'' +
+                '}';
+    }
 }

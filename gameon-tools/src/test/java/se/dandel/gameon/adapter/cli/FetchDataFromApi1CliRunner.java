@@ -23,7 +23,10 @@ public class FetchDataFromApi1CliRunner {
     void all() {
         country();
         team("se");
-        league("567");
+        league("se");
+        season("567");
+        match("875");
+        match("1748");
     }
 
     @Test
@@ -67,6 +70,18 @@ public class FetchDataFromApi1CliRunner {
     void season(String leagueId) {
         // Given
         String[] args = {"-t", "season", "-p", GAMEON_PROPERTIES, "-a", "leagueid=" + leagueId};
+
+        // When
+        int actual = FetchDataFromApi1Cli.mainInner(args);
+        assertThat(actual, is(equalTo(0)));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"875"})
+    @Disabled("Test is run manually only since it makes a live connection")
+    void match(String seasonId) {
+        // Given
+        String[] args = {"-t", "match", "-p", GAMEON_PROPERTIES, "-a", "seasonid=" + seasonId};
 
         // When
         int actual = FetchDataFromApi1Cli.mainInner(args);

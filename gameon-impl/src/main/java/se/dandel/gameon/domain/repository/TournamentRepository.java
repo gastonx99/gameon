@@ -53,4 +53,18 @@ public class TournamentRepository extends AbstractRepository {
         query.setParameter("remoteKey", season.getRemoteKey());
         return getSingleResult(query);
     }
+
+    public Optional<Season> findSeasonByRemoteKey(RemoteKey remoteKey) {
+        TypedQuery<Season> query =
+                getEntityManager().createQuery("select s from Season s where s.remoteKey = :remoteKey", Season.class);
+        query.setParameter("remoteKey", remoteKey);
+        return getSingleResult(query);
+    }
+
+    public Optional<Match> findMatchByRemoteKey(RemoteKey remoteKey) {
+        TypedQuery<Match> query =
+                getEntityManager().createQuery("select m from Match m where m.remoteKey = :remoteKey", Match.class);
+        query.setParameter("remoteKey", remoteKey);
+        return getSingleResult(query);
+    }
 }
