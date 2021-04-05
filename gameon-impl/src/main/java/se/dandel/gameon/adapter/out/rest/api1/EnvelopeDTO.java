@@ -3,18 +3,9 @@ package se.dandel.gameon.adapter.out.rest.api1;
 import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-public class EnvelopeDTO<Q extends AbstractQueryDTO, D> {
-//    private Q query;
+public class EnvelopeDTO<D> {
 
     private D data;
-
-//    public Q getQuery() {
-//        return query;
-//    }
-//
-//    public void setQuery(Q queryDTO) {
-//        this.query = queryDTO;
-//    }
 
     public D getData() {
         return data;

@@ -35,8 +35,8 @@ public class Api1PortInvoker {
     <T> Collection<T> invoke(Type envelopeClazz, String path, Map<String, String> queryParams) {
         String json = invoke(path, queryParams);
         ParameterizedType parameterizedType = ParameterizedType.class.cast(envelopeClazz);
-        ParameterizedType actualTypeArgument2 = ParameterizedType.class.cast(parameterizedType.getActualTypeArguments()[1]);
-        if (actualTypeArgument2.getRawType() == Map.class) {
+        ParameterizedType actualTypeArgument = ParameterizedType.class.cast(parameterizedType.getActualTypeArguments()[0]);
+        if (actualTypeArgument.getRawType() == Map.class) {
             return (Collection<T>) getMapData(json, envelopeClazz).values();
         } else {
             return getCollectionData(json, envelopeClazz);
@@ -44,11 +44,11 @@ public class Api1PortInvoker {
     }
 
     private <R, T> Map<R, T> getMapData(String json, Type envelopeClazz) {
-        return ((EnvelopeDTO<? extends AbstractQueryDTO, Map<R, T>>) jsonb.fromJson(json, envelopeClazz)).getData();
+        return ((EnvelopeDTO<Map<R, T>>) jsonb.fromJson(json, envelopeClazz)).getData();
     }
 
     private <T> Collection<T> getCollectionData(String json, Type envelopeClazz) {
-        return ((EnvelopeDTO<? extends AbstractQueryDTO, Collection<T>>) jsonb.fromJson(json, envelopeClazz)).getData();
+        return ((EnvelopeDTO<Collection<T>>) jsonb.fromJson(json, envelopeClazz)).getData();
     }
 
     private String invoke(String path, Map<String, String> queryParams) {

@@ -26,16 +26,7 @@ class Api1PortAdapterTest {
     private static final String COUNTRY_CODE = "se";
 
     @Mock
-    private TeamMapper teamMapper;
-
-    @Mock
-    private TournamentMapper tournamentMapper;
-
-    @Mock
-    private SeasonMapper seasonMapper;
-
-    @Mock
-    private CountryMapper countryMapper;
+    private DtoMapper dtoMapper;
 
     @Mock
     private Api1PortInvoker invoker;
@@ -58,7 +49,7 @@ class Api1PortAdapterTest {
         // Then
         verify(invoker).invoke(any(), any(), mapArgumentCaptor.capture());
         assertTrue(mapArgumentCaptor.getValue().isEmpty());
-        verify(countryMapper).fromDTO(expected);
+        verify(dtoMapper).fromDTO(expected);
     }
 
 
@@ -76,7 +67,7 @@ class Api1PortAdapterTest {
         verify(invoker).invoke(any(), any(), mapArgumentCaptor.capture());
         assertTrue(mapArgumentCaptor.getValue().containsKey("country_id"));
         assertTrue(mapArgumentCaptor.getValue().containsValue(country.getRemoteKey().getRemoteKey()));
-        verify(teamMapper).fromDTO(expected);
+        verify(dtoMapper).fromDTO(expected);
     }
 
     @Test
@@ -93,7 +84,7 @@ class Api1PortAdapterTest {
         verify(invoker).invoke(any(), any(), mapArgumentCaptor.capture());
         assertTrue(mapArgumentCaptor.getValue().containsKey("country_id"));
         assertTrue(mapArgumentCaptor.getValue().containsValue(country.getRemoteKey().getRemoteKey()));
-        verify(tournamentMapper).fromDTO(expected);
+        verify(dtoMapper).fromDTO(expected);
     }
 
     @Test
@@ -110,7 +101,7 @@ class Api1PortAdapterTest {
         verify(invoker).invoke(any(), any(), mapArgumentCaptor.capture());
         assertTrue(mapArgumentCaptor.getValue().containsKey("league_id"));
         assertTrue(mapArgumentCaptor.getValue().containsValue(tournament.getRemoteKey().getRemoteKey()));
-        verify(seasonMapper).fromDTO(expected);
+        verify(dtoMapper).fromDTO(expected);
     }
 
     private Tournament createTournament() {
