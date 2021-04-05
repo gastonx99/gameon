@@ -29,7 +29,7 @@ public class FetchDataFromApi1Service {
         Optional<Country> country = countryRepository.findByCountryCode(countryCode);
         if (country.isPresent()) {
             Collection<Team> teams = api1Port.fetchTeams(country.get());
-            teams.forEach(team -> createOrUpdate(team));
+            teams.forEach(team -> createOrUpdateTeam(team));
         } else {
             throw new GameonRuntimeException("Unable to find country with code %s", countryCode);
         }
@@ -39,7 +39,7 @@ public class FetchDataFromApi1Service {
         Optional<Country> country = countryRepository.findByCountryCode(countryCode);
         if (country.isPresent()) {
             Collection<Tournament> tournaments = api1Port.fetchLeagues(country.get());
-            tournaments.forEach(tournament -> createOrUpdate(tournament));
+            tournaments.forEach(tournament -> createOrUpdateTournament(tournament));
         } else {
             throw new GameonRuntimeException("Unable to find country with code %s", countryCode);
         }
@@ -49,7 +49,7 @@ public class FetchDataFromApi1Service {
         Optional<Tournament> tournament = tournamentRepository.findByRemoteKey(remoteKey);
         if (tournament.isPresent()) {
             Collection<Season> seasons = api1Port.fetchSeasons(tournament.get());
-            seasons.forEach(season -> createOrUpdate(tournament.get(), season));
+            seasons.forEach(season -> createOrUpdateSeason(tournament.get(), season));
         } else {
             throw new GameonRuntimeException("Unable to find tournament with remote key %s", remoteKey);
         }
@@ -59,7 +59,7 @@ public class FetchDataFromApi1Service {
         Optional<Season> season = tournamentRepository.findSeasonByRemoteKey(seasonRemoteKey);
         if (season.isPresent()) {
             Collection<Match> fixtures = api1Port.fetchMatches(season.get());
-            fixtures.forEach(fixture -> createOrUpdate(season.get(), fixture));
+            fixtures.forEach(fixture -> createOrUpdateFixture(season.get(), fixture));
         } else {
             throw new GameonRuntimeException("Unable to find season with remote key %s", seasonRemoteKey);
         }
@@ -67,16 +67,15 @@ public class FetchDataFromApi1Service {
 
     public void fetchAndSaveCountries() {
         Collection<Country> countries = api1Port.fetchCountry();
-        countries.forEach(country -> createOrUpdate(country));
+        countries.forEach(country -> createOrUpdateCountry(country));
     }
 
-    private void createOrUpdate(Season season, Match fixture) {
+    private void createOrUpdateFixture(Season season, Match fixture) {
         Optional<Match> persisted = tournamentRepository.findMatchByRemoteKey(fixture.getRemoteKey());
         if (persisted.isPresent()) {
-            apply(fixture, persisted.get());
+            applyFixture(fixture, persisted.get());
         } else {
             fixture.setVenue(null);
-            Team homeTeam = fixture.getHomeTeam();
             fixture.setHomeTeam(getPersistedTeam(fixture.getHomeTeam()));
             fixture.setAwayTeam(getPersistedTeam(fixture.getAwayTeam()));
             fixture.setSeason(season);
@@ -85,7 +84,7 @@ public class FetchDataFromApi1Service {
         }
     }
 
-    private void apply(Match source, Match target) {
+    private void applyFixture(Match source, Match target) {
         target.setMatchStart(source.getMatchStart());
         target.setFinalScore(source.getFinalScore());
         target.setHomeTeam(getPersistedTeam(source.getHomeTeam()));
@@ -93,10 +92,10 @@ public class FetchDataFromApi1Service {
     }
 
 
-    private void createOrUpdate(Tournament tournament, Season season) {
+    private void createOrUpdateSeason(Tournament tournament, Season season) {
         Optional<Season> persisted = tournamentRepository.find(tournament, season);
         if (persisted.isPresent()) {
-            apply(season, persisted.get());
+            applySeason(season, persisted.get());
         } else {
             season.setTournament(tournament);
             tournament.addSeason(season);
@@ -104,51 +103,51 @@ public class FetchDataFromApi1Service {
         }
     }
 
-    private void apply(Season source, Season target) {
+    private void applySeason(Season source, Season target) {
         target.setName(source.getName());
     }
 
-    private void createOrUpdate(Country country) {
+    private void createOrUpdateCountry(Country country) {
         Optional<Country> persisted = countryRepository.find(country);
         if (persisted.isPresent()) {
-            apply(country, persisted.get());
+            applyCountry(country, persisted.get());
         } else {
             countryRepository.persist(country);
         }
     }
 
-    private void apply(Country source, Country target) {
+    private void applyCountry(Country source, Country target) {
         target.setName(source.getName());
         target.setCountryCode(source.getCountryCode());
         target.setContinent(source.getContinent());
         target.setRemoteKey(source.getRemoteKey());
     }
 
-    private void createOrUpdate(Team team) {
+    private void createOrUpdateTeam(Team team) {
         Optional<Team> persisted = teamRepository.find(team);
         if (persisted.isPresent()) {
-            apply(team, persisted.get());
+            applyTeam(team, persisted.get());
         } else {
             teamRepository.persist(team);
         }
     }
 
-    private void apply(Team source, Team target) {
+    private void applyTeam(Team source, Team target) {
         target.setName(source.getName());
         target.setCountryCode(source.getCountryCode());
         target.setLogo(source.getLogo());
     }
 
-    private void createOrUpdate(Tournament tournament) {
+    private void createOrUpdateTournament(Tournament tournament) {
         Optional<Tournament> persisted = tournamentRepository.find(tournament);
         if (persisted.isPresent()) {
-            apply(tournament, persisted.get());
+            applyTournament(tournament, persisted.get());
         } else {
             teamRepository.persist(tournament);
         }
     }
 
-    private void apply(Tournament source, Tournament target) {
+    private void applyTournament(Tournament source, Tournament target) {
         target.setName(source.getName());
         target.setCountryCode(source.getCountryCode());
     }

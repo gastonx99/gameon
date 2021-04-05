@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.mock.Expectation;
+import org.mockserver.model.HttpRequest;
 import org.mockserver.model.MediaType;
+import org.mockserver.model.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +15,7 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
@@ -46,103 +49,58 @@ class Api1MockServerExpectionsTestRunner {
 
     private Expectation createExpectationCountries() throws Exception {
         String filename = "D:/gaston/restapi/sportdataapi/countries.json";
-
-        String json;
-        try (FileInputStream fis = new FileInputStream(filename)) {
-            json = IOUtils.toString(fis, "UTF-8");
-        }
-        Expectation expectation = Expectation.when(
-                request()
-                        .withMethod("GET")
-                        .withPath("/api1/api/v1/soccer/countries")
-        ).thenRespond(
-                response()
-                        .withStatusCode(200)
-                        .withContentType(MediaType.APPLICATION_JSON)
-                        .withBody(json)
-        ).withId("api1-countries");
-        return expectation;
+        String path = "/api1/api/v1/soccer/countries";
+        String expectationId = "api1-countries";
+        return createExpectation(expectationId, path, null, filename);
     }
 
     private Expectation createExpectationTeams(String countryId) throws Exception {
         String filename = String.format("D:/gaston/restapi/sportdataapi/teams-countryid-%s.json", countryId);
         String expectationId = String.format("api1-teams-countryid-%s", countryId);
+        String path = "/api1/api/v1/soccer/teams";
+        Parameter parameter = Parameter.param("country_id", countryId);
 
-        String json;
-        try (FileInputStream fis = new FileInputStream(filename)) {
-            json = IOUtils.toString(fis, "UTF-8");
-        }
-        Expectation expectation = Expectation.when(
-                request()
-                        .withMethod("GET")
-                        .withPath("/api1/api/v1/soccer/teams")
-                        .withQueryStringParameter("country_id", countryId)
-        ).thenRespond(
-                response()
-                        .withStatusCode(200)
-                        .withContentType(MediaType.APPLICATION_JSON)
-                        .withBody(json)
-        ).withId(expectationId);
-        return expectation;
+        return createExpectation(expectationId, path, parameter, filename);
     }
 
     private Expectation createExpectationLeagues(String countryId) throws Exception {
         String filename = String.format("D:/gaston/restapi/sportdataapi/leagues-countryid-%s.json", countryId);
         String expectationId = String.format("api1-leagues-countryid-%s", countryId);
+        String path = "/api1/api/v1/soccer/leagues";
+        Parameter parameter = Parameter.param("country_id", countryId);
 
-        String json;
-        try (FileInputStream fis = new FileInputStream(filename)) {
-            json = IOUtils.toString(fis, "UTF-8");
-        }
-        Expectation expectation = Expectation.when(
-                request()
-                        .withMethod("GET")
-                        .withPath("/api1/api/v1/soccer/leagues")
-                        .withQueryStringParameter("country_id", countryId)
-        ).thenRespond(
-                response()
-                        .withStatusCode(200)
-                        .withContentType(MediaType.APPLICATION_JSON)
-                        .withBody(json)
-        ).withId(expectationId);
-        return expectation;
+        return createExpectation(expectationId, path, parameter, filename);
     }
 
     private Expectation createExpectationSeasons(String leagueId) throws Exception {
         String filename = String.format("D:/gaston/restapi/sportdataapi/seasons-leagueid-%s.json", leagueId);
         String expectationId = String.format("api1-seasons-leagueid-%s", leagueId);
-
-        String json;
-        try (FileInputStream fis = new FileInputStream(filename)) {
-            json = IOUtils.toString(fis, "UTF-8");
-        }
-        Expectation expectation = Expectation.when(
-                request()
-                        .withMethod("GET")
-                        .withPath("/api1/api/v1/soccer/seasons")
-                        .withQueryStringParameter("country_id", leagueId)
-        ).thenRespond(
-                response()
-                        .withStatusCode(200)
-                        .withContentType(MediaType.APPLICATION_JSON)
-                        .withBody(json)
-        ).withId(expectationId);
-        return expectation;
+        String path = "/api1/api/v1/soccer/seasons";
+        Parameter parameter = Parameter.param("league_id", leagueId);
+        return createExpectation(expectationId, path, parameter, filename);
     }
 
     private Expectation createExpectationMatches(String seasonId) throws Exception {
         String filename = String.format("D:/gaston/restapi/sportdataapi/matches-seasonid-%s.json", seasonId);
         String expectationId = String.format("api1-matches-seasonid-%s", seasonId);
+        String path = "/api1/api/v1/soccer/matches";
+        Parameter parameter = Parameter.param("season_id", seasonId);
+        return createExpectation(expectationId, path, parameter, filename);
+    }
 
+    private Expectation createExpectation(String expectationId, String path, Parameter parameter, String filename) throws IOException {
         String json;
         try (FileInputStream fis = new FileInputStream(filename)) {
             json = IOUtils.toString(fis, "UTF-8");
         }
+        HttpRequest request = request()
+                .withMethod("GET")
+                .withPath(path);
+        if (parameter != null) {
+            request = request.withQueryStringParameters(parameter);
+        }
         Expectation expectation = Expectation.when(
-                request()
-                        .withMethod("GET")
-                        .withPath("/api1/api/v1/soccer/matches")
-                        .withQueryStringParameter("season_id", seasonId)
+                request
         ).thenRespond(
                 response()
                         .withStatusCode(200)
@@ -151,5 +109,6 @@ class Api1MockServerExpectionsTestRunner {
         ).withId(expectationId);
         return expectation;
     }
+
 
 }
