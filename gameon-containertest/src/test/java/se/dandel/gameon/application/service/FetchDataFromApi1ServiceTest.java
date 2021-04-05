@@ -31,7 +31,7 @@ import static org.mockserver.model.HttpResponse.response;
 @MockServerSettings(ports = {9999})
 class FetchDataFromApi1ServiceTest {
 
-    private static final String COUNTRY_CODE = "sv";
+    private static final String COUNTRY_CODE = "se";
 
     @Inject
     FetchDataFromApi1Service service;
