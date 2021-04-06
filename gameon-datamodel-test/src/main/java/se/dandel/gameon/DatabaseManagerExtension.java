@@ -1,6 +1,7 @@
 package se.dandel.gameon;
 
 import org.apache.commons.lang3.Validate;
+import org.hibernate.internal.SessionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +53,7 @@ public class DatabaseManagerExtension implements Extension {
         if (!entityManager.getTransaction().isActive()) {
             entityManager.getTransaction().begin();
         }
-        Connection connection = entityManager.unwrap(Connection.class);
+        Connection connection = entityManager.unwrap(SessionImpl.class).connection();
         Validate.notNull(connection, "Unwrapping connection from entity manager returns null, maybe no transaction exists?");
         return connection;
     }
