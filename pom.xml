@@ -60,6 +60,8 @@
         <smallrye-config.version>1.12.0</smallrye-config.version>
         <jersey.version>2.32</jersey.version>
         <liquibase-slf4j.version>4.0.0</liquibase-slf4j.version>
+        <cdi-api.version>2.0</cdi-api.version>
+        <jetty-maven-plugin.version>11.0.2</jetty-maven-plugin.version>
     </properties>
 
     <modules>
@@ -133,6 +135,11 @@
                     <groupId>com.lazerycode.selenium</groupId>
                     <artifactId>driver-binary-downloader-maven-plugin</artifactId>
                     <version>${driver-binary-downloader-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>${jetty-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -394,6 +401,11 @@
                 <groupId>org.eclipse</groupId>
                 <artifactId>yasson</artifactId>
                 <version>${yasson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>${cdi-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
