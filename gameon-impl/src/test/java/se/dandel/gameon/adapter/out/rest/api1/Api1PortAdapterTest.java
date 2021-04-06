@@ -14,6 +14,7 @@ import se.dandel.gameon.domain.model.TournamentType;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -71,14 +72,30 @@ class Api1PortAdapterTest {
     }
 
     @Test
-    void fetchLeagues() {
+    void fetchAllLeagues() {
         // Given
         LeagueDTO expected = new LeagueDTO();
         when(invoker.invoke(any(), any(), any())).thenReturn(Collections.singletonList(expected));
         Country country = createCountry();
 
         // When
-        adapter.fetchLeagues(country);
+        adapter.fetchLeagues(Optional.empty());
+
+        // Then
+        verify(invoker).invoke(any(), any(), mapArgumentCaptor.capture());
+        assertTrue(mapArgumentCaptor.getValue().isEmpty());
+        verify(dtoMapper).fromDTO(expected);
+    }
+
+    @Test
+    void fetchLeaguesForCountry() {
+        // Given
+        LeagueDTO expected = new LeagueDTO();
+        when(invoker.invoke(any(), any(), any())).thenReturn(Collections.singletonList(expected));
+        Country country = createCountry();
+
+        // When
+        adapter.fetchLeagues(Optional.of(country));
 
         // Then
         verify(invoker).invoke(any(), any(), mapArgumentCaptor.capture());
@@ -113,7 +130,7 @@ class Api1PortAdapterTest {
     private Country createCountry() {
         Country country = new Country();
         country.setName("Sweden");
-        country.setCountryCode(COUNTRY_CODE);
+        country.setCountryCode("se");
         country.setRemoteKey(RemoteKey.of("114"));
         country.setContinent("Europe");
         return country;

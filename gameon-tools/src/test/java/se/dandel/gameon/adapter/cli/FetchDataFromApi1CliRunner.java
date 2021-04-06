@@ -22,11 +22,16 @@ public class FetchDataFromApi1CliRunner {
     @Disabled("Test is run manually only since it makes a live connection")
     void all() {
         country();
-        team("se");
-        league("se");
-        season("567");
-        match("875");
-        match("1748");
+        team("48"); // Germany
+        team("114"); // Sweden
+        league("4"); // Euro
+        league("48"); // Germany
+        league("114"); // Sweden
+        season("271"); // Euro
+        season("567"); // Allsvenskan
+        match("510"); // Euro 2021
+        match("875"); // Allsvenskan 2020
+        match("1748"); // Allsvenskan 2021
     }
 
     @Test
@@ -41,11 +46,11 @@ public class FetchDataFromApi1CliRunner {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"se"})
+    @ValueSource(strings = {"114"})
     @Disabled("Test is run manually only since it makes a live connection")
-    void team(String countryCode) {
+    void team(String countryId) {
         // Given
-        String[] args = {"-t", "team", "-p", GAMEON_PROPERTIES, "-a", "countrycode=" + countryCode};
+        String[] args = {"-t", "team", "-p", GAMEON_PROPERTIES, "-a", "countryid=" + countryId};
 
         // When
         int actual = FetchDataFromApi1Cli.mainInner(args);
@@ -53,11 +58,11 @@ public class FetchDataFromApi1CliRunner {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"se"})
+    @ValueSource(strings = {"114"})
     @Disabled("Test is run manually only since it makes a live connection")
-    void league(String countryCode) {
+    void league(String countryId) {
         // Given
-        String[] args = {"-t", "league", "-p", GAMEON_PROPERTIES, "-a", "countrycode=" + countryCode};
+        String[] args = {"-t", "league", "-p", GAMEON_PROPERTIES, "-a", "countryid=" + countryId};
 
         // When
         int actual = FetchDataFromApi1Cli.mainInner(args);
@@ -77,7 +82,7 @@ public class FetchDataFromApi1CliRunner {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"875"})
+    @ValueSource(strings = {"510"})
     @Disabled("Test is run manually only since it makes a live connection")
     void match(String seasonId) {
         // Given

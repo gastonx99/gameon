@@ -35,13 +35,16 @@ class Api1MockServerExpectionsTestRunner {
 
         // When
         client.upsert(createExpectationCountries(),
-                createExpectationTeams("48"),
-                createExpectationTeams("114"),
-                createExpectationLeagues("48"),
-                createExpectationLeagues("114"),
-                createExpectationSeasons("567"),
-                createExpectationMatches("875"),
-                createExpectationMatches("1748")
+                createExpectationTeams("48"), // Germany
+                createExpectationTeams("114"), // Sweden
+                createExpectationLeagues("4"), // Euro
+                createExpectationLeagues("48"), // Germany
+                createExpectationLeagues("114"), // Sweden
+                createExpectationSeasons("271"), // Euro
+                createExpectationSeasons("567"), // Allsvenskan
+                createExpectationMatches("510"), // Euro 2021
+                createExpectationMatches("875"), // Allswvenska 2020
+                createExpectationMatches("1748") // Allsvenskan 2021
         );
 
         // Then

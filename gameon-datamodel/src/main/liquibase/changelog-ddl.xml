@@ -69,11 +69,13 @@
                 <constraints primaryKey="true" primaryKeyName="PK_SEASON"/>
             </column>
             <column name="TOURNAMENT_PK" type="INTEGER">
-                <constraints nullable="false" foreignKeyName="FK_SEASON_TOURNAMENT" referencedTableName="TOURNAMENT"
-                             referencedColumnNames="PK"/>
+                <constraints nullable="false"
+                             foreignKeyName="FK_SEASON_TOURNAMENT" referencedTableName="TOURNAMENT" referencedColumnNames="PK"
+                             unique="true" uniqueConstraintName="SEASON_NAME_TOURNAMENT_IDX"/>
             </column>
             <column name="NAME" type="VARCHAR(512)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="SEASON_NAME_IDX"/>
+                <constraints nullable="false"
+                             unique="true" uniqueConstraintName="SEASON_NAME_TOURNAMENT_IDX"/>
             </column>
             <column name="STATUS" type="VARCHAR(100)">
                 <constraints nullable="false"/>

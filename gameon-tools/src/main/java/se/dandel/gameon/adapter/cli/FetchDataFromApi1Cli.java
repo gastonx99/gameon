@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 
@@ -86,7 +87,9 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
                 callService();
                 entityManager.getTransaction().commit();
             } catch (Throwable t) {
-                entityManager.getTransaction().rollback();
+                if (entityManager.getTransaction().isActive()) {
+                    entityManager.getTransaction().rollback();
+                }
                 throw t;
             }
         }
@@ -98,10 +101,10 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
                     service.fetchAndSaveCountries();
                     break;
                 case team:
-                    service.fetchAndSaveTeams(getCountryCode());
+                    service.fetchAndSaveTeams(getCountryId().get());
                     break;
                 case league:
-                    service.fetchAndSaveLeagues(getCountryCode());
+                    service.fetchAndSaveLeagues(getCountryId());
                     break;
                 case season:
                     service.fetchAndSaveSeasons(RemoteKey.of(getLeagueId()));
@@ -114,8 +117,10 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
             }
         }
 
-        private String getCountryCode() {
-            return config.getValue(PARAM_PREFIX + ".countrycode", String.class);
+        private Optional<RemoteKey> getCountryId() {
+            String propertyName = PARAM_PREFIX + ".countryid";
+            Optional<String> value = config.getOptionalValue(propertyName, String.class);
+            return value.isPresent() ? Optional.of(RemoteKey.of(value.get())) : Optional.empty();
         }
 
         private String getLeagueId() {

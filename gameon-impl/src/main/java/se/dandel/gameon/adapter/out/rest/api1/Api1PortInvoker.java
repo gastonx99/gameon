@@ -1,5 +1,6 @@
 package se.dandel.gameon.adapter.out.rest.api1;
 
+import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.slf4j.Logger;
@@ -66,7 +67,7 @@ public class Api1PortInvoker {
             throw new GameonRuntimeException("Unable to connect to target %s, got response status %d", target, response.getStatus());
         }
         String json = response.readEntity(String.class);
-        LOGGER.debug("Response JSON: {}", json);
+        LOGGER.debug("Response JSON: {}", StringUtils.abbreviate(json, 500));
         return json;
     }
 

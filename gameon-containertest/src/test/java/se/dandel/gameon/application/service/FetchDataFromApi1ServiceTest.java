@@ -2,6 +2,7 @@ package se.dandel.gameon.application.service;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.client.MockServerClient;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -31,7 +33,7 @@ import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
 @MockServerSettings(ports = {9999})
 class FetchDataFromApi1ServiceTest {
 
-    private static final String COUNTRY_CODE = "se";
+    private static final RemoteKey REMOTE_KEY_COUNTRY = RemoteKey.of(41);
 
     private static final String LEAGUE_ID = "567";
 
@@ -76,7 +78,7 @@ class FetchDataFromApi1ServiceTest {
         entityManager.persist(createCountry());
 
         // When
-        service.fetchAndSaveTeams(COUNTRY_CODE);
+        service.fetchAndSaveTeams(REMOTE_KEY_COUNTRY);
 
         // Then
         Collection<Team> actuals = allPurposeTestRepository.findAll(Team.class);
@@ -84,13 +86,27 @@ class FetchDataFromApi1ServiceTest {
     }
 
     @Test
-    void fetchAndSaveLeagues() throws Exception {
+    void fetchAndSaveAllLeagues() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-leagues", "/api1/soccer/leagues", "/json/api1/leagues.json"));
         entityManager.persist(createCountry());
 
         // When
-        service.fetchAndSaveLeagues(COUNTRY_CODE);
+        service.fetchAndSaveLeagues(Optional.empty());
+
+        // Then
+        Collection<Tournament> actuals = allPurposeTestRepository.findAll(Tournament.class);
+        assertThat(actuals.size(), is(equalTo(6)));
+    }
+
+    @Test
+    void fetchAndSaveLeaguesForCountry() throws Exception {
+        // Given
+        mockServerClient.upsert(createExpectation("api1-leagues", "/api1/soccer/leagues", "/json/api1/leagues.json"));
+        entityManager.persist(createCountry());
+
+        // When
+        service.fetchAndSaveLeagues(Optional.of(REMOTE_KEY_COUNTRY));
 
         // Then
         Collection<Tournament> actuals = allPurposeTestRepository.findAll(Tournament.class);
@@ -132,6 +148,22 @@ class FetchDataFromApi1ServiceTest {
         assertThat(actuals.size(), is(equalTo(3)));
     }
 
+    @Test
+    @Disabled
+    void fetchAndSaveMatchesAllowCreationOfTeamsIfCountryIsContinent() throws Exception {
+        // Given
+        mockServerClient.upsert(createExpectation("api1-matches", "/api1/soccer/matches", "/json/api1/matches.json"));
+        Season season = createSeason(createLeague());
+        entityManager.persist(season.getTournament());
+
+        // When
+        service.fetchAndSaveMatches(season.getRemoteKey());
+
+        // Then
+        Collection<Match> actuals = allPurposeTestRepository.findAll(Match.class);
+        assertThat(actuals.size(), is(equalTo(3)));
+    }
+
     private Expectation createExpectation(String expectationId, String path, String resource) throws Exception {
         String expected = IOUtils.toString(getClass().getResourceAsStream(resource), "UTF-8");
         Expectation expectation = Expectation.when(
@@ -150,8 +182,8 @@ class FetchDataFromApi1ServiceTest {
     private Country createCountry() {
         Country country = new Country();
         country.setName("Sweden");
-        country.setCountryCode(COUNTRY_CODE);
-        country.setRemoteKey(RemoteKey.of("114"));
+        country.setCountryCode("se");
+        country.setRemoteKey(REMOTE_KEY_COUNTRY);
         country.setContinent("Europe");
         return country;
     }

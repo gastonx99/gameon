@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -63,8 +64,9 @@ public class Api1PortAdapter implements Api1Port {
     }
 
     @Override
-    public Collection<Tournament> fetchLeagues(Country country) {
-        Collection<LeagueDTO> dtos = invoker.invoke(ENVELOPE_LEAGUES, PATH_SOCCER_LEAGUES, Collections.singletonMap("country_id", country.getRemoteKey().getRemoteKey()));
+    public Collection<Tournament> fetchLeagues(Optional<Country> country) {
+        Map<String, String> queryParams = country.isPresent() ? Collections.singletonMap("country_id", country.get().getRemoteKey().getRemoteKey()) : Collections.emptyMap();
+        Collection<LeagueDTO> dtos = invoker.invoke(ENVELOPE_LEAGUES, PATH_SOCCER_LEAGUES, queryParams);
         LOGGER.debug("Number of leagues: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
     }

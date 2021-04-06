@@ -25,24 +25,28 @@ public class FetchDataFromApi1Service {
     @Inject
     private CountryRepository countryRepository;
 
-    public void fetchAndSaveTeams(String countryCode) {
-        Optional<Country> country = countryRepository.findByCountryCode(countryCode);
+    public void fetchAndSaveTeams(RemoteKey countryRemoteKey) {
+        Optional<Country> country = countryRepository.findByRemoteKey(countryRemoteKey);
         if (country.isPresent()) {
             Collection<Team> teams = api1Port.fetchTeams(country.get());
             teams.forEach(team -> createOrUpdateTeam(team));
         } else {
-            throw new GameonRuntimeException("Unable to find country with code %s", countryCode);
+            throw new GameonRuntimeException("Unable to find country with remote key %s", countryRemoteKey);
         }
     }
 
-    public void fetchAndSaveLeagues(String countryCode) {
-        Optional<Country> country = countryRepository.findByCountryCode(countryCode);
-        if (country.isPresent()) {
-            Collection<Tournament> tournaments = api1Port.fetchLeagues(country.get());
-            tournaments.forEach(tournament -> createOrUpdateTournament(tournament));
+    public void fetchAndSaveLeagues(Optional<RemoteKey> countryRemoteKey) {
+        Optional<Country> country;
+        if (countryRemoteKey.isPresent()) {
+            country = countryRepository.findByRemoteKey(countryRemoteKey.get());
+            if (!country.isPresent()) {
+                throw new GameonRuntimeException("Unable to find country with remote key %s", countryRemoteKey);
+            }
         } else {
-            throw new GameonRuntimeException("Unable to find country with code %s", countryCode);
+            country = Optional.empty();
         }
+        Collection<Tournament> tournaments = api1Port.fetchLeagues(country);
+        tournaments.forEach(tournament -> createOrUpdateTournament(tournament));
     }
 
     public void fetchAndSaveSeasons(RemoteKey remoteKey) {
