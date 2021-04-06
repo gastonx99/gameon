@@ -1,5 +1,6 @@
 package se.dandel.gameon.domain.repository;
 
+import se.dandel.gameon.domain.model.RemoteKey;
 import se.dandel.gameon.domain.model.Team;
 
 import javax.persistence.TypedQuery;
@@ -13,10 +14,10 @@ public class TeamRepository extends AbstractRepository {
         return query.getResultList();
     }
 
-    public Optional<Team> find(Team team) {
+    public Optional<Team> findByRemoteKey(RemoteKey remoteKey) {
         TypedQuery<Team> query =
-                getEntityManager().createQuery("select t from Team t where t.name = :name", Team.class);
-        query.setParameter("name", team.getName());
+                getEntityManager().createQuery("select t from Team t where t.remoteKey = :remoteKey", Team.class);
+        query.setParameter("remoteKey", remoteKey);
         return getSingleResult(query);
     }
 }

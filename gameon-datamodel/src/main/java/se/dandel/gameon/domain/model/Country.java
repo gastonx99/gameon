@@ -1,5 +1,7 @@
 package se.dandel.gameon.domain.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.*;
 
 @Entity
@@ -57,5 +59,9 @@ public class Country {
 
     public void setRemoteKey(RemoteKey remoteKey) {
         this.remoteKey = remoteKey;
+    }
+
+    public boolean isContinent() {
+        return StringUtils.isBlank(countryCode);
     }
 }

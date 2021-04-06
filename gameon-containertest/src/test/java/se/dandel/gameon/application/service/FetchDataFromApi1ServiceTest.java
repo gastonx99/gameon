@@ -2,7 +2,6 @@ package se.dandel.gameon.application.service;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.client.MockServerClient;
@@ -12,6 +11,7 @@ import org.mockserver.mock.Expectation;
 import org.mockserver.model.MediaType;
 import se.dandel.gameon.ContainerTest;
 import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
+import se.dandel.gameon.domain.GameonRuntimeException;
 import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.repository.AllPurposeTestRepository;
 
@@ -24,6 +24,8 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.matchesPattern;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
@@ -64,6 +66,7 @@ class FetchDataFromApi1ServiceTest {
         mockServerClient.upsert(createExpectation("api1-countries", "/api1/soccer/countries", "/json/api1/countries.json"));
 
         // When
+        persistManager.reset();
         service.fetchAndSaveCountries();
 
         // Then
@@ -78,6 +81,7 @@ class FetchDataFromApi1ServiceTest {
         allPurposeTestRepository.persist(TestCountryFactory.createCountry(REMOTE_KEY_COUNTRY));
 
         // When
+        persistManager.reset();
         service.fetchAndSaveTeams(REMOTE_KEY_COUNTRY);
 
         // Then
@@ -92,6 +96,7 @@ class FetchDataFromApi1ServiceTest {
         allPurposeTestRepository.persist(TestCountryFactory.createCountry(REMOTE_KEY_COUNTRY));
 
         // When
+        persistManager.reset();
         service.fetchAndSaveLeagues(Optional.empty());
 
         // Then
@@ -106,6 +111,7 @@ class FetchDataFromApi1ServiceTest {
         allPurposeTestRepository.persist(TestCountryFactory.createCountry(REMOTE_KEY_COUNTRY));
 
         // When
+        persistManager.reset();
         service.fetchAndSaveLeagues(Optional.of(REMOTE_KEY_COUNTRY));
 
         // Then
@@ -141,6 +147,7 @@ class FetchDataFromApi1ServiceTest {
         ).forEach(team -> persistManager.deepPersist(team));
 
         // When
+        persistManager.reset();
         service.fetchAndSaveMatches(season.getRemoteKey());
 
         // Then
@@ -149,14 +156,30 @@ class FetchDataFromApi1ServiceTest {
     }
 
     @Test
-    @Disabled
-    void fetchAndSaveMatchesAllowCreationOfTeamsIfCountryIsContinent() throws Exception {
+    void fetchAndSaveMatchesTeamCountryIsMissing() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-matches", "/api1/soccer/matches", "/json/api1/matches.json"));
         Season season = createSeason(createLeague());
         persistManager.deepPersist(season);
 
         // When
+        persistManager.reset();
+        GameonRuntimeException actual = assertThrows(GameonRuntimeException.class, () -> service.fetchAndSaveMatches(season.getRemoteKey()));
+
+        // Then
+        assertThat(actual.getMessage(), matchesPattern("Persisted team .* does not exist"));
+    }
+
+    @Test
+    void fetchAndSaveMatchesAllowCreationOfTeamsIfCountryIsContinent() throws Exception {
+        // Given
+        mockServerClient.upsert(createExpectation("api1-matches", "/api1/soccer/matches", "/json/api1/matches.json"));
+        Season season = createSeason(createLeague());
+        season.getTournament().getCountry().setCountryCode(null);
+        persistManager.deepPersist(season);
+
+        // When
+        persistManager.reset();
         service.fetchAndSaveMatches(season.getRemoteKey());
 
         // Then

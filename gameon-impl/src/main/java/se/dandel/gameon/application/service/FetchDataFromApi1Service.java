@@ -8,8 +8,9 @@ import se.dandel.gameon.domain.repository.TeamRepository;
 import se.dandel.gameon.domain.repository.TournamentRepository;
 
 import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
+
+import static java.util.stream.Collectors.toList;
 
 public class FetchDataFromApi1Service {
 
@@ -62,11 +63,36 @@ public class FetchDataFromApi1Service {
     public void fetchAndSaveMatches(RemoteKey seasonRemoteKey) {
         Optional<Season> season = tournamentRepository.findSeasonByRemoteKey(seasonRemoteKey);
         if (season.isPresent()) {
-            Collection<Match> fixtures = api1Port.fetchMatches(season.get());
-            fixtures.forEach(fixture -> createOrUpdateFixture(season.get(), fixture));
+            Collection<Match> matches = api1Port.fetchMatches(season.get());
+
+            List<Match> matchesHavingTeams = matches.stream().filter(match -> match.getHomeTeam() != null && match.getAwayTeam() != null).collect(toList());
+
+            if (season.get().getTournament().getCountry().isContinent()) {
+                persistMissingTeams(matchesHavingTeams);
+            }
+            matchesHavingTeams.forEach(match -> createOrUpdateMatch(season.get(), match));
         } else {
             throw new GameonRuntimeException("Unable to find season with remote key %s", seasonRemoteKey);
         }
+    }
+
+    private void persistMissingTeams(Collection<Match> matches) {
+        Map<RemoteKey, Team> teams = new HashMap<>();
+        for (Match match : matches) {
+            if (!teams.containsKey(match.getHomeTeam().getRemoteKey())) {
+                teams.put(match.getHomeTeam().getRemoteKey(), match.getHomeTeam());
+            }
+            if (!teams.containsKey(match.getAwayTeam().getRemoteKey())) {
+                teams.put(match.getAwayTeam().getRemoteKey(), match.getAwayTeam());
+            }
+        }
+        teams.values().forEach(team -> {
+            Optional<Team> persisted = teamRepository.findByRemoteKey(team.getRemoteKey());
+            if (!persisted.isPresent()) {
+                team.setCountry(getPersistedCountry(team.getCountry()));
+                teamRepository.persist(team);
+            }
+        });
     }
 
     public void fetchAndSaveCountries() {
@@ -74,21 +100,21 @@ public class FetchDataFromApi1Service {
         countries.forEach(country -> createOrUpdateCountry(country));
     }
 
-    private void createOrUpdateFixture(Season season, Match fixture) {
-        Optional<Match> persisted = tournamentRepository.findMatchByRemoteKey(fixture.getRemoteKey());
+    private void createOrUpdateMatch(Season season, Match match) {
+        Optional<Match> persisted = tournamentRepository.findMatchByRemoteKey(match.getRemoteKey());
         if (persisted.isPresent()) {
-            applyFixture(fixture, persisted.get());
+            applyMatch(match, persisted.get());
         } else {
-            fixture.setVenue(null);
-            fixture.setHomeTeam(getPersistedTeam(fixture.getHomeTeam()));
-            fixture.setAwayTeam(getPersistedTeam(fixture.getAwayTeam()));
-            fixture.setSeason(season);
-            season.addMatch(fixture);
-            tournamentRepository.persist(fixture);
+            match.setVenue(null);
+            match.setHomeTeam(getPersistedTeam(match.getHomeTeam()));
+            match.setAwayTeam(getPersistedTeam(match.getAwayTeam()));
+            match.setSeason(season);
+            season.addMatch(match);
+            tournamentRepository.persist(match);
         }
     }
 
-    private void applyFixture(Match source, Match target) {
+    private void applyMatch(Match source, Match target) {
         target.setMatchStart(source.getMatchStart());
         target.setFinalScore(source.getFinalScore());
         target.setHomeTeam(getPersistedTeam(source.getHomeTeam()));
@@ -128,7 +154,7 @@ public class FetchDataFromApi1Service {
     }
 
     private void createOrUpdateTeam(Team team) {
-        Optional<Team> persisted = teamRepository.find(team);
+        Optional<Team> persisted = teamRepository.findByRemoteKey(team.getRemoteKey());
         if (persisted.isPresent()) {
             applyTeam(team, persisted.get());
         } else {
@@ -161,15 +187,15 @@ public class FetchDataFromApi1Service {
     private Country getPersistedCountry(Country country) {
         Optional<Country> persisted = countryRepository.findByRemoteKey(country.getRemoteKey());
         if (!persisted.isPresent()) {
-            throw new GameonRuntimeException("Persisted country with remote key %s was not found", country.getRemoteKey());
+            throw new GameonRuntimeException("Persisted country with remote key %s does not exist", country.getRemoteKey());
         }
         return persisted.get();
     }
 
     private Team getPersistedTeam(Team team) {
-        Optional<Team> persisted = teamRepository.find(team);
+        Optional<Team> persisted = teamRepository.findByRemoteKey(team.getRemoteKey());
         if (!persisted.isPresent()) {
-            throw new GameonRuntimeException("Expected persisted team with remote key %s was not found", team.getRemoteKey());
+            throw new GameonRuntimeException("Persisted team with remote key %s does not exist", team.getRemoteKey());
         }
         return persisted.get();
     }
