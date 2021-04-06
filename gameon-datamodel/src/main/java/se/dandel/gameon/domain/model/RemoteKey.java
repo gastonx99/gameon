@@ -1,11 +1,9 @@
 package se.dandel.gameon.domain.model;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class RemoteKey {
-    @Column(name = "REMOTE_KEY")
     private String remoteKey;
 
     public static RemoteKey of(String remoteKey) {

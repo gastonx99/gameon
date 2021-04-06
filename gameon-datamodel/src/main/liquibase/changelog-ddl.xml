@@ -17,7 +17,7 @@
             <column name="CONTINENT" type="VARCHAR(512)">
                 <constraints nullable="true"/>
             </column>
-            <column name="REMOTE_KEY" type="VARCHAR(100)">
+            <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_COUNTRY"/>
             </column>
         </createTable>
@@ -31,13 +31,16 @@
             <column name="NAME" type="VARCHAR(512)">
                 <constraints nullable="false"/>
             </column>
+            <column name="SHORTCODE" type="VARCHAR(20)">
+                <constraints nullable="true"/>
+            </column>
             <column name="COUNTRY_PK" type="INTEGER">
                 <constraints nullable="false" foreignKeyName="FK_TEAM_COUNTRY" referencedTableName="COUNTRY" referencedColumnNames="PK"/>
             </column>
             <column name="LOGO" type="VARCHAR(1000)">
                 <constraints nullable="true"/>
             </column>
-            <column name="REMOTE_KEY" type="VARCHAR(100)">
+            <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_TEAM"/>
             </column>
         </createTable>
@@ -57,7 +60,7 @@
             <column name="COUNTRY_PK" type="INTEGER">
                 <constraints nullable="false" foreignKeyName="FK_TOURNAMENT_COUNTRY" referencedTableName="COUNTRY" referencedColumnNames="PK"/>
             </column>
-            <column name="REMOTE_KEY" type="VARCHAR(100)">
+            <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_TOURNAMENT"/>
             </column>
         </createTable>
@@ -86,7 +89,7 @@
             <column name="END_DATE" type="DATE">
                 <constraints nullable="true"/>
             </column>
-            <column name="REMOTE_KEY" type="VARCHAR(100)">
+            <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_SEASON"/>
             </column>
         </createTable>
@@ -109,7 +112,7 @@
             <column name="CAPACITY" type="INTEGER">
                 <constraints nullable="true"/>
             </column>
-            <column name="REMOTE_KEY" type="VARCHAR(100)">
+            <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_VENUE"/>
             </column>
         </createTable>
@@ -139,13 +142,28 @@
             <column name="MATCHSTART" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
+            <column name="STATUS" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUSTEXT" type="VARCHAR(512)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="STAGE" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="GROUP_TEXT" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ROUND" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
             <column name="FINAL_SCORE_HOME" type="INTEGER">
                 <constraints nullable="true"/>
             </column>
             <column name="FINAL_SCORE_AWAY" type="INTEGER">
                 <constraints nullable="true"/>
             </column>
-            <column name="REMOTE_KEY" type="VARCHAR(100)">
+            <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_FIXTURE"/>
             </column>
         </createTable>

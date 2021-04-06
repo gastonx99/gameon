@@ -4,5 +4,5 @@ public enum MatchStatus {
     NOT_STARTED,
     INPLAY,
     ENDED,
-    POSTPONED;
+    CANCELLED;
 }

@@ -115,12 +115,16 @@ public class FetchDataFromApi1Service {
     }
 
     private void applyMatch(Match source, Match target) {
+        target.setStatus(source.getStatus());
+        target.setStatustext(source.getStatustext());
         target.setMatchStart(source.getMatchStart());
+        target.setStage(source.getStage());
+        target.setGroup(source.getGroup());
+        target.setRound(source.getRound());
         target.setFinalScore(source.getFinalScore());
         target.setHomeTeam(getPersistedTeam(source.getHomeTeam()));
         target.setAwayTeam(getPersistedTeam(source.getAwayTeam()));
     }
-
 
     private void createOrUpdateSeason(Tournament tournament, Season season) {
         Optional<Season> persisted = tournamentRepository.find(tournament, season);
@@ -165,6 +169,7 @@ public class FetchDataFromApi1Service {
 
     private void applyTeam(Team source, Team target) {
         target.setName(source.getName());
+        target.setShortCode(source.getShortCode());
         target.setCountry(getPersistedCountry(source.getCountry()));
         target.setLogo(source.getLogo());
     }

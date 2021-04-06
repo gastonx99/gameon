@@ -34,6 +34,18 @@ public class Match {
 
     private LocalDateTime matchStart;
 
+    @Enumerated(EnumType.STRING)
+    private MatchStatus status;
+
+    private String statustext;
+
+    private String stage;
+
+    @Column(name = "GROUP_TEXT")
+    private String group;
+
+    private String round;
+
     @Embedded
     @AttributeOverrides({@AttributeOverride(name = "home", column = @Column(name = "FINAL_SCORE_HOME")),
             @AttributeOverride(name = "away", column = @Column(name = "FINAL_SCORE_AWAY"))})
@@ -92,6 +104,46 @@ public class Match {
 
     public LocalDateTime getMatchStart() {
         return matchStart;
+    }
+
+    public MatchStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MatchStatus status) {
+        this.status = status;
+    }
+
+    public String getStatustext() {
+        return statustext;
+    }
+
+    public void setStatustext(String statusText) {
+        this.statustext = statusText;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getRound() {
+        return round;
+    }
+
+    public void setRound(String round) {
+        this.round = round;
     }
 
     public Season getSeason() {

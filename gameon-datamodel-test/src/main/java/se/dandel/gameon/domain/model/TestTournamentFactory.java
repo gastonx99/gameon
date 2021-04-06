@@ -41,15 +41,6 @@ public class TestTournamentFactory {
         return tournament;
     }
 
-    private static void createMatch(Season season, LocalDateTime matchDateTime, Team homeTeam, Team awayTeam) {
-        Match match = new Match();
-        match.setSeason(season);
-        season.addMatch(match);
-        match.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
-        match.setMatchStart(matchDateTime);
-        match.setHomeTeam(homeTeam);
-        match.setAwayTeam(awayTeam);
-    }
 
     private static Map<String, Team> createTeamsEngland() {
         Collection<Team> c = new ArrayList<>();
@@ -93,13 +84,8 @@ public class TestTournamentFactory {
         Team homeTeam = teams.get("Russia");
         Team awayTeam = teams.get("Saudi Arabia");
         LocalDateTime matchStart = LocalDateTime.parse("2018-06-14T00:00:00");
-        Match match = new Match();
-        match.setSeason(season);
-        season.addMatch(match);
-        match.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
-        match.setMatchStart(matchStart);
-        match.setHomeTeam(homeTeam);
-        match.setAwayTeam(awayTeam);
+        RemoteKey remoteKey = RemoteKey.of(REMOTE_KEY.getAndIncrement());
+        createMatch(season, homeTeam, awayTeam, matchStart, remoteKey);
 
         return tournament;
     }
@@ -150,6 +136,22 @@ public class TestTournamentFactory {
         tournament.setCountry(TestCountryFactory.createCountry());
         tournament.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
         return tournament;
+    }
+
+    private static void createMatch(Season season, LocalDateTime matchDateTime, Team homeTeam, Team awayTeam) {
+        createMatch(season, homeTeam, awayTeam, matchDateTime, RemoteKey.of(REMOTE_KEY.getAndIncrement()));
+    }
+
+    private static Match createMatch(Season season, Team homeTeam, Team awayTeam, LocalDateTime matchStart, RemoteKey remoteKey) {
+        Match match = new Match();
+        match.setStatus(MatchStatus.NOT_STARTED);
+        match.setSeason(season);
+        season.addMatch(match);
+        match.setRemoteKey(remoteKey);
+        match.setMatchStart(matchStart);
+        match.setHomeTeam(homeTeam);
+        match.setAwayTeam(awayTeam);
+        return match;
     }
 
 }

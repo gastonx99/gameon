@@ -16,6 +16,8 @@ public class Team {
 
     private String name;
 
+    private String shortCode;
+
     @ManyToOne
     private Country country;
 
@@ -42,6 +44,14 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getShortCode() {
+        return shortCode;
+    }
+
+    public void setShortCode(String shortCode) {
+        this.shortCode = shortCode;
     }
 
     public String getLogo() {

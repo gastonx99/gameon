@@ -23,6 +23,12 @@ public class MatchDTO {
 
     private StatsDTO stats;
 
+    private StageDTO stage;
+
+    private GroupDTO group;
+
+    private RoundDTO round;
+
     private VenueDTO venue;
 
     public int getMatchId() {
@@ -97,6 +103,30 @@ public class MatchDTO {
         this.stats = stats;
     }
 
+    public StageDTO getStage() {
+        return stage;
+    }
+
+    public void setStage(StageDTO stage) {
+        this.stage = stage;
+    }
+
+    public GroupDTO getGroup() {
+        return group;
+    }
+
+    public void setGroup(GroupDTO group) {
+        this.group = group;
+    }
+
+    public RoundDTO getRound() {
+        return round;
+    }
+
+    public void setRound(RoundDTO round) {
+        this.round = round;
+    }
+
     public VenueDTO getVenue() {
         return venue;
     }
@@ -108,5 +138,100 @@ public class MatchDTO {
     @Override
     public String toString() {
         return ReflectionToStringBuilder.toString(this, RecursiveToStringStyle.SHORT_PREFIX_STYLE);
+    }
+
+    public static class StageDTO {
+        private int stageId;
+
+        private String name;
+
+        public int getStageId() {
+            return stageId;
+        }
+
+        public void setStageId(int stageId) {
+            this.stageId = stageId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    public static class GroupDTO {
+        private int groupId;
+
+        private String groupName;
+
+        public int getGroupId() {
+            return groupId;
+        }
+
+        public void setGroupId(int groupId) {
+            this.groupId = groupId;
+        }
+
+        public String getGroupName() {
+            return groupName;
+        }
+
+        public void setGroupName(String groupName) {
+            this.groupName = groupName;
+        }
+    }
+
+    public static class RoundDTO {
+        private int roundId;
+
+        private String name;
+
+        public int getRoundId() {
+            return roundId;
+        }
+
+        public void setRoundId(int roundId) {
+            this.roundId = roundId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    public static class StatsDTO {
+
+        private int homeScore;
+
+        private int awayScore;
+
+        public int getHomeScore() {
+            return homeScore;
+        }
+
+        public void setHomeScore(int homeScore) {
+            this.homeScore = homeScore;
+        }
+
+        public int getAwayScore() {
+            return awayScore;
+        }
+
+        public void setAwayScore(int awayScore) {
+            this.awayScore = awayScore;
+        }
+
+        @Override
+        public String toString() {
+            return ReflectionToStringBuilder.toString(this, RecursiveToStringStyle.SHORT_PREFIX_STYLE);
+        }
+
     }
 }

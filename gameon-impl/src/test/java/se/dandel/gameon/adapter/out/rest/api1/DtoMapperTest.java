@@ -2,6 +2,7 @@ package se.dandel.gameon.adapter.out.rest.api1;
 
 import org.junit.jupiter.api.Test;
 import se.dandel.gameon.domain.model.Match;
+import se.dandel.gameon.domain.model.MatchStatus;
 
 import java.time.format.DateTimeFormatter;
 
@@ -29,19 +30,46 @@ public class DtoMapperTest {
         assertThat(actual.getAwayTeam().getRemoteKey().getRemoteKey(), is(equalTo(String.valueOf(expected.getAwayTeam().getTeamId()))));
         assertThat(actual.getFinalScore().getHome(), is(equalTo(expected.getStats().getHomeScore())));
         assertThat(actual.getFinalScore().getAway(), is(equalTo(expected.getStats().getAwayScore())));
+        assertThat(actual.getStatus(), is(equalTo(MatchStatus.INPLAY)));
+        assertThat(actual.getStatustext(), is(equalTo("Event is in break waiting for extra time or penalties.")));
+        assertThat(actual.getStage(), is(equalTo(expected.getStage().getName())));
+        assertThat(actual.getGroup(), is(equalTo(expected.getGroup().getGroupName())));
+        assertThat(actual.getRound(), is(equalTo(expected.getRound().getName())));
     }
 
     private MatchDTO createMatchDTO() {
-        MatchDTO expected = new MatchDTO();
-        expected.setMatchStart(MATCH_START);
-        expected.setHomeTeam(createTeamDTO(17, "Hemmalaget"));
-        expected.setAwayTeam(createTeamDTO(71, "Bortalaget"));
-        expected.setStats(createStatsDTO(3, 4));
-        return expected;
+        MatchDTO dto = new MatchDTO();
+        dto.setStatusCode(14);
+        dto.setMatchStart(MATCH_START);
+        dto.setHomeTeam(createTeamDTO(17, "Hemmalaget"));
+        dto.setAwayTeam(createTeamDTO(71, "Bortalaget"));
+        dto.setStats(createStatsDTO(3, 4));
+        dto.setStage(createStageDTO("Group stage"));
+        dto.setGroup(createGroupDTO("Grupp A"));
+        dto.setRound(createRoundDTO("Round 2"));
+        return dto;
     }
 
-    private StatsDTO createStatsDTO(int homeScore, int awayScore) {
-        StatsDTO dto = new StatsDTO();
+    private MatchDTO.RoundDTO createRoundDTO(String name) {
+        MatchDTO.RoundDTO dto = new MatchDTO.RoundDTO();
+        dto.setName(name);
+        return dto;
+    }
+
+    private MatchDTO.StageDTO createStageDTO(String name) {
+        MatchDTO.StageDTO dto = new MatchDTO.StageDTO();
+        dto.setName(name);
+        return dto;
+    }
+
+    private MatchDTO.GroupDTO createGroupDTO(String name) {
+        MatchDTO.GroupDTO dto = new MatchDTO.GroupDTO();
+        dto.setGroupName(name);
+        return dto;
+    }
+
+    private MatchDTO.StatsDTO createStatsDTO(int homeScore, int awayScore) {
+        MatchDTO.StatsDTO dto = new MatchDTO.StatsDTO();
         dto.setHomeScore(homeScore);
         dto.setAwayScore(awayScore);
         return dto;
