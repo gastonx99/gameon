@@ -3,10 +3,10 @@ package se.dandel.gameon.domain.model;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class TestTeamFactory {
-    private static final AtomicLong remoteKey = new AtomicLong(1);
+    private static final AtomicLong REMOTE_KEY = new AtomicLong(1);
 
     public static Team createTeam(String name) {
-        String remoteKey = String.valueOf(TestTeamFactory.remoteKey.getAndIncrement());
+        String remoteKey = String.valueOf(REMOTE_KEY.getAndIncrement());
         return createTeam(remoteKey, name);
     }
 
@@ -14,6 +14,7 @@ public class TestTeamFactory {
         Team team = new Team();
         team.setRemoteKey(RemoteKey.of(remoteKey));
         team.setName(name);
+        team.setCountry(TestCountryFactory.createCountry());
         return team;
     }
 

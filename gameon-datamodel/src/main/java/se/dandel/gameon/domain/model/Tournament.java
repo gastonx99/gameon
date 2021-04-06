@@ -20,7 +20,8 @@ public class Tournament {
 
     private String name;
 
-    private String countryCode;
+    @ManyToOne
+    private Country country;
 
     @Enumerated(EnumType.STRING)
     private TournamentType type;
@@ -55,12 +56,12 @@ public class Tournament {
         this.name = name;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public RemoteKey getRemoteKey() {

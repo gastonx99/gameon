@@ -16,7 +16,8 @@ public class Team {
 
     private String name;
 
-    private String countryCode;
+    @ManyToOne
+    private Country country;
 
     private String logo;
 
@@ -51,12 +52,12 @@ public class Team {
         this.logo = logo;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public RemoteKey getRemoteKey() {

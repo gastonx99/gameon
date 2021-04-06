@@ -12,18 +12,15 @@ import java.util.concurrent.atomic.AtomicLong;
 import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
 
 public class TestTournamentFactory {
-
-    private static final AtomicLong remoteKey = new AtomicLong(1);
+    private static final AtomicLong REMOTE_KEY = new AtomicLong(1);
 
     public static Tournament createTournamentPremierLeague20202021() {
-        Tournament tournament = new Tournament(TournamentType.LEAGUE);
-        tournament.setRemoteKey(RemoteKey.of(remoteKey.getAndIncrement()));
-        tournament.setName("Premier League");
+        Tournament tournament = createTournament(TournamentType.LEAGUE, "Premier League");
 
         Map<String, Team> teams = createTeamsEngland();
 
         Season season = new Season();
-        season.setRemoteKey(RemoteKey.of(remoteKey.getAndIncrement()));
+        season.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
         season.setTournament(tournament);
         season.setName("2020/2021");
         tournament.addSeason(season);
@@ -48,7 +45,7 @@ public class TestTournamentFactory {
         Match match = new Match();
         match.setSeason(season);
         season.addMatch(match);
-        match.setRemoteKey(RemoteKey.of(remoteKey.getAndIncrement()));
+        match.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
         match.setMatchStart(matchDateTime);
         match.setHomeTeam(homeTeam);
         match.setAwayTeam(awayTeam);
@@ -82,14 +79,13 @@ public class TestTournamentFactory {
     }
 
     public static Tournament createTournamentWorldCup2018() {
-        Tournament tournament = new Tournament(TournamentType.CUP);
-        tournament.setRemoteKey(RemoteKey.of(remoteKey.getAndIncrement()));
-        tournament.setName("Men's Football World Cup");
+        Tournament tournament = createTournament(TournamentType.CUP, "Men's Football World Cup");
+        tournament.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
 
         Map<String, Team> teams = createTeamsWorldCup2018();
 
         Season season = new Season();
-        season.setRemoteKey(RemoteKey.of(remoteKey.getAndIncrement()));
+        season.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
         season.setTournament(tournament);
         season.setName("2018");
         tournament.addSeason(season);
@@ -100,7 +96,7 @@ public class TestTournamentFactory {
         Match match = new Match();
         match.setSeason(season);
         season.addMatch(match);
-        match.setRemoteKey(RemoteKey.of(remoteKey.getAndIncrement()));
+        match.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
         match.setMatchStart(matchStart);
         match.setHomeTeam(homeTeam);
         match.setAwayTeam(awayTeam);
@@ -146,6 +142,14 @@ public class TestTournamentFactory {
         Map<String, Team> teams = new HashMap<>();
         MapUtils.populateMap(teams, c, t -> t.getName());
         return teams;
+    }
+
+    private static Tournament createTournament(TournamentType type, String name) {
+        Tournament tournament = new Tournament(type);
+        tournament.setName(name);
+        tournament.setCountry(TestCountryFactory.createCountry());
+        tournament.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
+        return tournament;
     }
 
 }

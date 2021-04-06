@@ -11,7 +11,7 @@ import org.mockserver.junit.jupiter.MockServerSettings;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.MediaType;
 import se.dandel.gameon.ContainerTest;
-import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
+import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.repository.AllPurposeTestRepository;
 
@@ -33,7 +33,7 @@ import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
 @MockServerSettings(ports = {9999})
 class FetchDataFromApi1ServiceTest {
 
-    private static final RemoteKey REMOTE_KEY_COUNTRY = RemoteKey.of(41);
+    private static final RemoteKey REMOTE_KEY_COUNTRY = RemoteKey.of(48);
 
     private static final String LEAGUE_ID = "567";
 
@@ -75,7 +75,7 @@ class FetchDataFromApi1ServiceTest {
     void fetchAndSaveTeams() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-teams", "/api1/soccer/teams", "/json/api1/teams.json"));
-        entityManager.persist(createCountry());
+        allPurposeTestRepository.persist(TestCountryFactory.createCountry(REMOTE_KEY_COUNTRY));
 
         // When
         service.fetchAndSaveTeams(REMOTE_KEY_COUNTRY);
@@ -89,7 +89,7 @@ class FetchDataFromApi1ServiceTest {
     void fetchAndSaveAllLeagues() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-leagues", "/api1/soccer/leagues", "/json/api1/leagues.json"));
-        entityManager.persist(createCountry());
+        allPurposeTestRepository.persist(TestCountryFactory.createCountry(REMOTE_KEY_COUNTRY));
 
         // When
         service.fetchAndSaveLeagues(Optional.empty());
@@ -103,7 +103,7 @@ class FetchDataFromApi1ServiceTest {
     void fetchAndSaveLeaguesForCountry() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-leagues", "/api1/soccer/leagues", "/json/api1/leagues.json"));
-        entityManager.persist(createCountry());
+        allPurposeTestRepository.persist(TestCountryFactory.createCountry(REMOTE_KEY_COUNTRY));
 
         // When
         service.fetchAndSaveLeagues(Optional.of(REMOTE_KEY_COUNTRY));
@@ -117,7 +117,7 @@ class FetchDataFromApi1ServiceTest {
     void fetchAndSaveSeasons() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-seasons", "/api1/soccer/seasons", "/json/api1/seasons.json"));
-        entityManager.persist(createLeague());
+        persistManager.deepPersist(createLeague());
 
         // When
         service.fetchAndSaveSeasons(RemoteKey.of(LEAGUE_ID));
@@ -132,13 +132,13 @@ class FetchDataFromApi1ServiceTest {
         // Given
         mockServerClient.upsert(createExpectation("api1-matches", "/api1/soccer/matches", "/json/api1/matches.json"));
         Season season = createSeason(createLeague());
-        entityManager.persist(season.getTournament());
+        persistManager.deepPersist(season);
 
         Arrays.asList(
                 createTeam("3993", "1. FC Union Berlin"), createTeam("4075", "FC Augsburg"),
                 createTeam("4070", "Werder Bremen"), createTeam("4067", "Hertha BSC"),
                 createTeam("3991", "1. FC Cologne"), createTeam("4079", "TSG 1899 Hoffenheim")
-        ).forEach(team -> allPurposeTestRepository.persist(team));
+        ).forEach(team -> persistManager.deepPersist(team));
 
         // When
         service.fetchAndSaveMatches(season.getRemoteKey());
@@ -154,7 +154,7 @@ class FetchDataFromApi1ServiceTest {
         // Given
         mockServerClient.upsert(createExpectation("api1-matches", "/api1/soccer/matches", "/json/api1/matches.json"));
         Season season = createSeason(createLeague());
-        entityManager.persist(season.getTournament());
+        persistManager.deepPersist(season);
 
         // When
         service.fetchAndSaveMatches(season.getRemoteKey());
@@ -192,6 +192,7 @@ class FetchDataFromApi1ServiceTest {
         Tournament tournament = new Tournament(TournamentType.LEAGUE);
         tournament.setName("Allsvenskan");
         tournament.setRemoteKey(RemoteKey.of(LEAGUE_ID));
+        tournament.setCountry(createCountry());
         return tournament;
     }
 

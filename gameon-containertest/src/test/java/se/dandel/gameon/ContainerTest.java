@@ -4,7 +4,7 @@ import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.AddExtensions;
 import org.jboss.weld.junit5.auto.AddPackages;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
-import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
+import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

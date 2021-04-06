@@ -3,7 +3,6 @@ package se.dandel.gameon;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.dandel.gameon.datamodel.test.jpa.DbContentHandler;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.*;
@@ -40,9 +39,11 @@ public class DatabaseManagerExtension implements Extension {
     public void afterEach(@Observes BeforeShutdown beforeShutdown) {
         LOGGER.debug("After each test");
         EntityManager entityManager = getEntityManager();
-        entityManager.flush();
-        if (!entityManager.getTransaction().getRollbackOnly()) {
-            entityManager.getTransaction().commit();
+        if (entityManager.getTransaction().isActive()) {
+            entityManager.flush();
+            if (!entityManager.getTransaction().getRollbackOnly()) {
+                entityManager.getTransaction().commit();
+            }
         }
     }
 

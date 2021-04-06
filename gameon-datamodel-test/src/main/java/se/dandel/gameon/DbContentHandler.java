@@ -1,4 +1,4 @@
-package se.dandel.gameon.datamodel.test.jpa;
+package se.dandel.gameon;
 
 import liquibase.Liquibase;
 import liquibase.database.jvm.JdbcConnection;

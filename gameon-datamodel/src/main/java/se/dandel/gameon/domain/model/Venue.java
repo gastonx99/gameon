@@ -15,7 +15,8 @@ public class Venue {
 
     private String city;
 
-    private String countryCode;
+    @ManyToOne
+    private Country country;
 
     @Embedded
     private RemoteKey remoteKey;
@@ -52,12 +53,12 @@ public class Venue {
         this.city = city;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public RemoteKey getRemoteKey() {

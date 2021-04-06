@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.dandel.gameon.RepositoryTest;
-import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
-import se.dandel.gameon.domain.model.RemoteKey;
+import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.Team;
+import se.dandel.gameon.domain.model.TestTeamFactory;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -30,9 +30,8 @@ class TeamRepositoryTest {
     @Test
     void persist() {
         // Given
-        Team persisted = new Team();
-        persisted.setName("Gurka");
-        persisted.setRemoteKey(RemoteKey.of(1));
+        Team persisted = TestTeamFactory.createTeam("Gurka");
+        repository.persist(persisted.getCountry());
 
         // When
         repository.persist(persisted);
@@ -45,10 +44,9 @@ class TeamRepositoryTest {
     @Test
     void findAll() {
         // Given
-        Team expected = new Team();
-        expected.setName("Gurka");
-        expected.setRemoteKey(RemoteKey.of(1));
-        repository.persist(expected);
+        Team expected = TestTeamFactory.createTeam("Gurka");
+        persistManager.deepPersist(expected);
+        persistManager.reset();
 
         // When
         Collection<Team> actuals = repository.findAll();

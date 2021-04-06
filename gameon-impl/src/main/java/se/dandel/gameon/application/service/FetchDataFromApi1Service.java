@@ -132,13 +132,14 @@ public class FetchDataFromApi1Service {
         if (persisted.isPresent()) {
             applyTeam(team, persisted.get());
         } else {
+            team.setCountry(getPersistedCountry(team.getCountry()));
             teamRepository.persist(team);
         }
     }
 
     private void applyTeam(Team source, Team target) {
         target.setName(source.getName());
-        target.setCountryCode(source.getCountryCode());
+        target.setCountry(getPersistedCountry(source.getCountry()));
         target.setLogo(source.getLogo());
     }
 
@@ -147,21 +148,30 @@ public class FetchDataFromApi1Service {
         if (persisted.isPresent()) {
             applyTournament(tournament, persisted.get());
         } else {
-            teamRepository.persist(tournament);
+            tournament.setCountry(getPersistedCountry(tournament.getCountry()));
+            tournamentRepository.persist(tournament);
         }
     }
 
     private void applyTournament(Tournament source, Tournament target) {
         target.setName(source.getName());
-        target.setCountryCode(source.getCountryCode());
+        target.setCountry(getPersistedCountry(source.getCountry()));
+    }
+
+    private Country getPersistedCountry(Country country) {
+        Optional<Country> persisted = countryRepository.findByRemoteKey(country.getRemoteKey());
+        if (!persisted.isPresent()) {
+            throw new GameonRuntimeException("Persisted country with remote key %s was not found", country.getRemoteKey());
+        }
+        return persisted.get();
     }
 
     private Team getPersistedTeam(Team team) {
-        Optional<Team> persistedTeam = teamRepository.find(team);
-        if (!persistedTeam.isPresent()) {
+        Optional<Team> persisted = teamRepository.find(team);
+        if (!persisted.isPresent()) {
             throw new GameonRuntimeException("Expected persisted team with remote key %s was not found", team.getRemoteKey());
         }
-        return persistedTeam.get();
+        return persisted.get();
     }
 
 

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.dandel.gameon.RepositoryTest;
-import se.dandel.gameon.datamodel.test.jpa.PersistenceTestManager;
+import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.TestTournamentFactory;
@@ -32,11 +32,12 @@ class TournamentRepositoryTest {
     PersistenceTestManager persistManager;
 
     @Test
-    void findAll() {
+    void findAllMatches() {
         // Given
         Tournament expected = TestTournamentFactory.createTournamentWorldCup2018();
+        repository.persist(expected.getCountry());
         List<Team> teams = expected.getSeasons().stream().flatMap(t -> t.getTeams().stream()).collect(toList());
-        teams.forEach(team -> repository.persist(team));
+        teams.forEach(team -> persistManager.deepPersist(team));
         repository.persist(expected);
 
         // When

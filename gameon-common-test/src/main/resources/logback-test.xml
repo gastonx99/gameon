@@ -19,7 +19,7 @@
 
     <logger name="se.dandel.gameon.domain.repository" level="INFO"/>
 
-    <logger name="se.dandel.gameon.datamodel.test.jpa.DbContentHandler" level="INFO"/>
+    <logger name="se.dandel.gameon.DbContentHandler" level="INFO"/>
 
     <logger name="se.dandel.gameon.adapter.jpa.ContainerTestEntityManagerProducer" level="INFO"/>
 

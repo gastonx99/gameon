@@ -31,8 +31,8 @@
             <column name="NAME" type="VARCHAR(512)">
                 <constraints nullable="false"/>
             </column>
-            <column name="COUNTRYCODE" type="VARCHAR(2)">
-                <constraints nullable="true"/>
+            <column name="COUNTRY_PK" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="FK_TEAM_COUNTRY" referencedTableName="COUNTRY" referencedColumnNames="PK"/>
             </column>
             <column name="LOGO" type="VARCHAR(1000)">
                 <constraints nullable="true"/>
@@ -54,8 +54,8 @@
             <column name="TYPE" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="COUNTRYCODE" type="VARCHAR(2)">
-                <constraints nullable="true"/>
+            <column name="COUNTRY_PK" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="FK_TOURNAMENT_COUNTRY" referencedTableName="COUNTRY" referencedColumnNames="PK"/>
             </column>
             <column name="REMOTE_KEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_TOURNAMENT"/>
@@ -103,8 +103,8 @@
             <column name="CITY" type="VARCHAR(512)">
                 <constraints nullable="true"/>
             </column>
-            <column name="COUNTRYCODE" type="VARCHAR(2)">
-                <constraints nullable="true"/>
+            <column name="COUNTRY_PK" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="FK_VENUE_COUNTRY" referencedTableName="COUNTRY" referencedColumnNames="PK"/>
             </column>
             <column name="CAPACITY" type="INTEGER">
                 <constraints nullable="true"/>

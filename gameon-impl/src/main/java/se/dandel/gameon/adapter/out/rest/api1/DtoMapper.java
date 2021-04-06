@@ -14,6 +14,7 @@ public interface DtoMapper {
 
     @Mapping(target = "type", constant = "LEAGUE")
     @Mapping(source = "leagueId", target = "remoteKey.remoteKey")
+    @Mapping(source = "countryId", target = "country.remoteKey.remoteKey")
     Tournament fromDTO(LeagueDTO source);
 
     @Mapping(source = "seasonId", target = "remoteKey.remoteKey")
