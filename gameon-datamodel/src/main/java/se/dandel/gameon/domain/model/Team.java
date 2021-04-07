@@ -7,7 +7,6 @@ import javax.persistence.*;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 @Entity
-@Table(name = "TEAM")
 public class Team {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +24,12 @@ public class Team {
 
     @Embedded
     private RemoteKey remoteKey;
+
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     public Team() {
         // For JPA

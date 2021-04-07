@@ -1,5 +1,6 @@
 package se.dandel.gameon.domain.model.bet;
 
+import se.dandel.gameon.domain.model.Audit;
 import se.dandel.gameon.domain.model.Season;
 import se.dandel.gameon.domain.model.User;
 
@@ -24,6 +25,12 @@ public class BettingGame {
 
     @ManyToMany
     private Collection<BettingGameUser> participants = new ArrayList<>();
+
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     protected BettingGame() {
         super();

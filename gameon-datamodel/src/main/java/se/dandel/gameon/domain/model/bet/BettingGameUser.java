@@ -1,5 +1,6 @@
 package se.dandel.gameon.domain.model.bet;
 
+import se.dandel.gameon.domain.model.Audit;
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Score;
 import se.dandel.gameon.domain.model.User;
@@ -30,6 +31,12 @@ public class BettingGameUser {
 
     @Enumerated(value = EnumType.STRING)
     private BettingGameUserStatus status;
+
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     protected BettingGameUser() {
         super();

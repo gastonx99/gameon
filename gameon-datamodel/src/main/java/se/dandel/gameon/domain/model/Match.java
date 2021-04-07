@@ -54,6 +54,16 @@ public class Match {
     @Embedded
     private RemoteKey remoteKey;
 
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
+
+    public Audit getAudit() {
+        return audit;
+    }
+
     public Match() {
     }
 

@@ -1,5 +1,6 @@
 package se.dandel.gameon.domain.model.bet;
 
+import se.dandel.gameon.domain.model.Audit;
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Score;
 
@@ -19,6 +20,12 @@ public class Bet {
 
     @Embedded
     private Score score;
+
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     protected Bet() {
         super();

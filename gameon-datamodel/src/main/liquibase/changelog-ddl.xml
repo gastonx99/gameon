@@ -20,6 +20,15 @@
             <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_COUNTRY"/>
             </column>
+            <column name="VERSION" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -43,6 +52,15 @@
             <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_TEAM"/>
             </column>
+            <column name="VERSION" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -62,6 +80,15 @@
             </column>
             <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_TOURNAMENT"/>
+            </column>
+            <column name="VERSION" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
@@ -92,6 +119,15 @@
             <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_SEASON"/>
             </column>
+            <column name="VERSION" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -114,6 +150,15 @@
             </column>
             <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_VENUE"/>
+            </column>
+            <column name="VERSION" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
@@ -165,6 +210,15 @@
             </column>
             <column name="REMOTEKEY" type="VARCHAR(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="AK_FIXTURE"/>
+            </column>
+            <column name="VERSION" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>

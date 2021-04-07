@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "COUNTRY")
 public class Country {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +19,12 @@ public class Country {
 
     @Embedded
     private RemoteKey remoteKey;
+
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     public long getPk() {
         return pk;
@@ -64,4 +69,5 @@ public class Country {
     public boolean isContinent() {
         return StringUtils.isBlank(countryCode);
     }
+
 }

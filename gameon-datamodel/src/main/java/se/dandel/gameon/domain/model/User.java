@@ -1,19 +1,21 @@
 package se.dandel.gameon.domain.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "USER")
 public class User {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long pk;
+
     private String username;
+
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     private User() {
         super();

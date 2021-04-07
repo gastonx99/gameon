@@ -3,7 +3,6 @@ package se.dandel.gameon.domain.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "VENUE")
 public class Venue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -20,6 +19,12 @@ public class Venue {
 
     @Embedded
     private RemoteKey remoteKey;
+
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     public long getPk() {
         return pk;

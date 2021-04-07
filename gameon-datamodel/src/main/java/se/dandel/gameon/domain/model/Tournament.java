@@ -11,7 +11,6 @@ import java.util.Optional;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 @Entity
-@Table(name = "TOURNAMENT")
 public class Tournament {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +30,12 @@ public class Tournament {
 
     @Embedded
     private RemoteKey remoteKey;
+
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     private Tournament() {
         // For JPA

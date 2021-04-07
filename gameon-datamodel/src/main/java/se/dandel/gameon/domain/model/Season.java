@@ -10,7 +10,6 @@ import java.util.*;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 @Entity
-@Table(name = "SEASON")
 public class Season {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +34,12 @@ public class Season {
 
     @Embedded
     private RemoteKey remoteKey;
+
+    @Version
+    private long version;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     public Season() {
         this.status = SeasonStatus.NOT_STARTED;
