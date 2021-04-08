@@ -18,7 +18,17 @@ export default class Dashboard extends HTMLElement {
             </thead>
             <tbody id="body">
             <tr>
-                <td><a route="/usergame/17">Gurras Premier League 2020/2021</a></td>
+                <td><a route="/usergame/1">Gurras Premier League 2020/2021</a></td>
+                <td>4</td>
+                <td>11</td>
+                <td>2</td>
+                <td>Ongoing, bets missing</td>
+                <td>2020-09-14 15:00</td>
+                <td>2021-05-24 15:00</td>
+            </tr>
+            <tbody id="body">
+            <tr>
+                <td><a route="/usergame/3">Gurras Euro 2020</a></td>
                 <td>4</td>
                 <td>11</td>
                 <td>2</td>

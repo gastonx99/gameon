@@ -51,27 +51,41 @@ class MockServerExpectionsTestRunner {
         Collection<Expectation> expectations = new ArrayList<>();
         expectations.addAll(createExpecationTournaments());
         expectations.add(createExpectationTeams());
-        expectations.add(createExpectationGameUser17());
-        expectations.add(createPostExpectationGameUser17());
+        expectations.addAll(createExpectationGameUser1());
+        expectations.addAll(createExpectationGameUser2());
+        expectations.addAll(createExpectationGameUser3());
         client.upsert(expectations.toArray(Expectation[]::new));
 
         // Then
     }
 
-    private Expectation createPostExpectationGameUser17() {
-        String expectationId = "game-user-17-post";
-        return createExpectationGameUser17(expectationId, "POST");
-    }
-
-    private Expectation createExpectationGameUser17() {
-        String expectationId = "game-user-17";
-        return createExpectationGameUser17(expectationId, "GET");
-    }
-
-    private Expectation createExpectationGameUser17(String expectationId, String method) {
+    private Collection<Expectation> createExpectationGameUser1() {
         BettingGame bettingGame = TestBettingGameFactory.createBettingGamePremierLeague20202021();
         BettingGameUser bettingGameUser = bettingGame.getParticipants().iterator().next();
-        bettingGameUser.setPk(17);
+        bettingGameUser.setPk(1);
+        return List.of(createExpectationGameUser(bettingGameUser, "GET"), createExpectationGameUser(bettingGameUser, "POST"));
+    }
+
+    private Collection<Expectation> createExpectationGameUser2() {
+        BettingGame bettingGame = TestBettingGameFactory.createBettingGameWorldCup2018();
+        BettingGameUser bettingGameUser = bettingGame.getParticipants().iterator().next();
+        bettingGameUser.setPk(2);
+        return List.of(createExpectationGameUser(bettingGameUser, "GET"), createExpectationGameUser(bettingGameUser, "POST"));
+    }
+
+    private Collection<Expectation> createExpectationGameUser3() {
+        BettingGame bettingGame = TestBettingGameFactory.createBettingGameEuro2021();
+        BettingGameUser bettingGameUser = bettingGame.getParticipants().iterator().next();
+        bettingGameUser.setPk(3);
+        return List.of(createExpectationGameUser(bettingGameUser, "GET"), createExpectationGameUser(bettingGameUser, "POST"));
+    }
+
+
+    private Expectation createExpectationGameUser(BettingGameUser bettingGameUser, String method) {
+        String expectationId = String.format("game-user-%d", bettingGameUser.getPk());
+        if ("POST".equals(method)) {
+            expectationId += "-post";
+        }
         BettingGameUserModel bettingGameUserModel = bettingGameUserModelMapper.toModel(bettingGameUser);
         String expected = jsonb.toJson(bettingGameUserModel);
 

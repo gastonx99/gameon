@@ -38,11 +38,23 @@ public class BettingGameUserModel {
         public int finalHomeScore;
 
         public int finalAwayScore;
+
+        public String status;
+
+        public String statustext;
+
+        public String stage;
+
+        public String group;
+
+        public String round;
     }
 
 
     public static class TeamModel {
         public String name;
+
+        public String countryName;
 
         public String countryCode;
 

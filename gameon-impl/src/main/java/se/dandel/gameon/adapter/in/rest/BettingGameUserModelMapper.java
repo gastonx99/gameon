@@ -25,5 +25,7 @@ public interface BettingGameUserModelMapper {
     @Mapping(source = "matchStart", target = "matchStart", dateFormat = "yyyy-MM-dd HH:mm")
     BettingGameUserModel.MatchModel toModel(Match source);
 
+    @Mapping(source = "country.name", target = "countryName")
+    @Mapping(source = "country.countryCode", target = "countryCode")
     BettingGameUserModel.TeamModel toModel(Team source);
 }

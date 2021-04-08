@@ -43,7 +43,7 @@ public class TestTournamentFactory {
             "Wolverhampton Wanderers"
     );
 
-    private static final List<String> TEAMS_EURO_2018 = List.of(
+    private static final List<String> TEAMS_WORLDCUP_2018 = List.of(
             "Argentina",
             "Australia",
             "Belgium",
@@ -78,6 +78,33 @@ public class TestTournamentFactory {
             "Uruguay"
     );
 
+    private static final List<String> TEAMS_EURO_2020 = List.of(
+            "Austria",
+            "Belgium",
+            "Croatia",
+            "Czech Republic",
+            "Denmark",
+            "England",
+            "Finland",
+            "France",
+            "Germany",
+            "Hungary",
+            "Italy",
+            "Netherlands",
+            "North Macedonia",
+            "Poland",
+            "Portugal",
+            "Russia",
+            "Scotland",
+            "Slovakia",
+            "Spain",
+            "Sweden",
+            "Switzerland",
+            "Turkey",
+            "Ukraine",
+            "Wales"
+    );
+
     private static final AtomicLong REMOTE_KEY = new AtomicLong(1);
 
     public static final LocalTime AFTERNOON = LocalTime.of(19, 0);
@@ -86,7 +113,7 @@ public class TestTournamentFactory {
 
     public static Tournament createTournamentPremierLeague20202021() {
         Tournament tournament = createTournament(TournamentType.LEAGUE, "Premier League");
-        Season season = createSeason(tournament, "2020/2021", LocalDate.of(2020, 9, 10));
+        Season season = createSeason(tournament, "2020/2021", LocalDate.parse("2020-09-10"));
         Country country = TestCountryFactory.createCountry("en", "England", "Europe");
         List<Team> teams = TEAMS_ENGLAND_2021.stream().map(name -> createTeam(name, country)).collect(Collectors.toList());
         // Sort in predictable, but not apparent alphabetical, order
@@ -99,10 +126,27 @@ public class TestTournamentFactory {
         Tournament tournament = createTournament(TournamentType.CUP, "Men's Football World Cup");
         tournament.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
 
-        Season season = createSeason(tournament, "2018", LocalDate.of(2018, 6, 20));
+        Season season = createSeason(tournament, "2018", LocalDate.parse("2018-06-20"));
 
         Country world = TestCountryFactory.createCountry(null, "World", "World");
-        List<Team> teams = TEAMS_EURO_2018.stream().map(name -> createTeam(name, world)).collect(Collectors.toList());
+        List<Team> teams = TEAMS_WORLDCUP_2018.stream().map(name -> createTeam(name, world)).collect(Collectors.toList());
+        // Sort in predictable, but not apparent alphabetical, order
+        teams.sort(comparing(team -> StringUtils.reverse(team.getName())));
+        int groupSize = 4;
+        createRoundRobinMatches(season, teams, groupSize, 0);
+        createPlayoffMatches(season);
+        return tournament;
+    }
+
+    public static Tournament createTournamentEuro2021() {
+        Tournament tournament = createTournament(TournamentType.CUP, "Men's Football Euro");
+        tournament.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
+
+        Season season = createSeason(tournament, "2020", LocalDate.parse("2021-06-11"));
+        season.setEndDate(LocalDate.parse("2021-07-12"));
+
+        Country world = TestCountryFactory.createCountry(null, "World", "World");
+        List<Team> teams = TEAMS_EURO_2020.stream().map(name -> createTeam(name, world)).collect(Collectors.toList());
         // Sort in predictable, but not apparent alphabetical, order
         teams.sort(comparing(team -> StringUtils.reverse(team.getName())));
         int groupSize = 4;

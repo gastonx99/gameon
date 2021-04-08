@@ -20,12 +20,32 @@ public class TestBettingGameFactory {
     private static final AtomicLong remoteKey = new AtomicLong(1);
 
     public static BettingGame createBettingGamePremierLeague20202021() {
-        User owner = TestUserFactory.createUser();
         Tournament tournament = TestTournamentFactory.createTournamentPremierLeague20202021();
+        Season season = tournament.getSeason("2020/2021");
+        String name = "Gurras Premier League 2020/2021";
+        return createBettingGame(season, name);
+    }
+
+    public static BettingGame createBettingGameWorldCup2018() {
+        Tournament tournament = TestTournamentFactory.createTournamentWorldCup2018();
+        Season season = tournament.getSeason("2018");
+        String name = "Gurras World Cup 2018";
+        return createBettingGame(season, name);
+    }
+
+    public static BettingGame createBettingGameEuro2021() {
+        Tournament tournament = TestTournamentFactory.createTournamentEuro2021();
+        Season season = tournament.getSeason("2020");
+        String name = "Gurras Euro 2021";
+        return createBettingGame(season, name);
+    }
+
+    private static BettingGame createBettingGame(Season season, String name) {
+        User owner = TestUserFactory.createUser();
         BettingGame bettingGame = new BettingGame();
-        bettingGame.setSeason(tournament.getSeason("2020/2021"));
+        bettingGame.setSeason(season);
         bettingGame.setOwner(owner);
-        bettingGame.setName("Gurras Premier League 2020/2021");
+        bettingGame.setName(name);
         User participant = TestUserFactory.createUser("kallekula");
         BettingGameUser bettingGameUser = createBettingGameUser(participant, bettingGame);
         bettingGame.addParticipant(bettingGameUser);
