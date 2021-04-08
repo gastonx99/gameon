@@ -10,11 +10,21 @@ public class TestTeamFactory {
         return createTeam(remoteKey, name);
     }
 
+    public static Team createTeam(String name, Country country) {
+        RemoteKey remoteKey = RemoteKey.of(REMOTE_KEY.getAndIncrement());
+        return createTeam(remoteKey, name, country);
+    }
+
     public static Team createTeam(String remoteKey, String name) {
+        Country country = TestCountryFactory.createCountry();
+        return createTeam(RemoteKey.of(remoteKey), name, country);
+    }
+
+    private static Team createTeam(RemoteKey remoteKey, String name, Country country) {
         Team team = new Team();
-        team.setRemoteKey(RemoteKey.of(remoteKey));
+        team.setRemoteKey(remoteKey);
         team.setName(name);
-        team.setCountry(TestCountryFactory.createCountry());
+        team.setCountry(country);
         return team;
     }
 

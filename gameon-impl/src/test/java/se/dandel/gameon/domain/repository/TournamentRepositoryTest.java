@@ -5,17 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.dandel.gameon.RepositoryTest;
 import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
-import se.dandel.gameon.domain.model.Match;
-import se.dandel.gameon.domain.model.Team;
-import se.dandel.gameon.domain.model.TestTournamentFactory;
-import se.dandel.gameon.domain.model.Tournament;
+import se.dandel.gameon.domain.model.*;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
@@ -32,21 +26,22 @@ class TournamentRepositoryTest {
     PersistenceTestManager persistManager;
 
     @Test
-    void findAllMatches() {
+    void persist() {
         // Given
-        Tournament expected = TestTournamentFactory.createTournamentWorldCup2018();
-        repository.persist(expected.getCountry());
-        List<Team> teams = expected.getSeasons().stream().flatMap(t -> t.getTeams().stream()).collect(toList());
-        teams.forEach(team -> persistManager.deepPersist(team));
+        Country country = TestCountryFactory.createCountry();
+        repository.persist(country);
+        Tournament expected = new Tournament(TournamentType.LEAGUE);
+        expected.setName("My league");
+        expected.setRemoteKey(RemoteKey.of(1));
+        expected.setCountry(country);
         repository.persist(expected);
 
         // When
         persistManager.reset();
-        Collection<Match> actualMatches = repository.findAllMatches();
+        Collection<Tournament> actuals = repository.findAllTournaments();
 
         // Then
-        assertThat(actualMatches.size(), is(equalTo(1)));
-        Match actual = actualMatches.iterator().next();
+        Tournament actual = actuals.iterator().next();
         assertThat(actual.getPk(), is(greaterThan(0L)));
 
     }

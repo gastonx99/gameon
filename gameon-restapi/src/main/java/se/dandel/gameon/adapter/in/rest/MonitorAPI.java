@@ -19,7 +19,7 @@ public class MonitorAPI {
     private TournamentRepository tournamentRepository;
 
     @Inject
-    private TournamentMapper mapper;
+    private TournamentModelMapper mapper;
 
     @GET
     @Path("/ping")

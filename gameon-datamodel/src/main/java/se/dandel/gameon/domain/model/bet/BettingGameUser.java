@@ -38,14 +38,17 @@ public class BettingGameUser {
     @Embedded
     private Audit audit = new Audit();
 
-    protected BettingGameUser() {
+    public BettingGameUser() {
         super();
+        this.status = BettingGameUserStatus.INVITED;
     }
 
-    public BettingGameUser(BettingGame bettingGame, User user) {
+    public void setBettingGame(BettingGame bettingGame) {
         this.bettingGame = bettingGame;
+    }
+
+    public void setUser(User user) {
         this.user = user;
-        this.status = BettingGameUserStatus.INVITED;
     }
 
     public long getPk() {

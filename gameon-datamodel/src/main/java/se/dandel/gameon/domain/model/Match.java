@@ -1,16 +1,9 @@
 package se.dandel.gameon.domain.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
-
-import static java.util.Comparator.comparing;
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 @Entity
 @Table(name = "FIXTURE")
@@ -65,15 +58,6 @@ public class Match {
     }
 
     public Match() {
-    }
-
-    public static Set<Team> getDistinctTeams(Collection<Match> matches) {
-        Set<Team> c = new TreeSet<>(comparing(Team::getName));
-        matches.forEach(m -> {
-            c.add(m.getHomeTeam());
-            c.add(m.getAwayTeam());
-        });
-        return c;
     }
 
     public long getPk() {
@@ -188,10 +172,20 @@ public class Match {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, SHORT_PREFIX_STYLE).append("pk", pk)
-                .append("season", season == null ? "" : season.getName()).append("venue", venue)
-                .append("homeTeam", homeTeam).append("awayTeam", awayTeam).append("matchStart", matchStart)
-                .toString();
+        return "Match{" +
+                "pk=" + pk +
+                ", season=" + season +
+                ", venue=" + venue +
+                ", homeTeam=" + homeTeam +
+                ", awayTeam=" + awayTeam +
+                ", matchStart=" + matchStart +
+                ", status=" + status +
+                ", statustext='" + statustext + '\'' +
+                ", stage='" + stage + '\'' +
+                ", group='" + group + '\'' +
+                ", round='" + round + '\'' +
+                ", finalScore=" + finalScore +
+                ", remoteKey=" + remoteKey +
+                '}';
     }
-
 }

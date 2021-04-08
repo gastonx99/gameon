@@ -22,7 +22,10 @@ public class TestBettingGameFactory {
     public static BettingGame createBettingGamePremierLeague20202021() {
         User owner = TestUserFactory.createUser();
         Tournament tournament = TestTournamentFactory.createTournamentPremierLeague20202021();
-        BettingGame bettingGame = new BettingGame(tournament.getSeason("2020/2021"), owner, "Gurras Premier League 2020/2021");
+        BettingGame bettingGame = new BettingGame();
+        bettingGame.setSeason(tournament.getSeason("2020/2021"));
+        bettingGame.setOwner(owner);
+        bettingGame.setName("Gurras Premier League 2020/2021");
         User participant = TestUserFactory.createUser("kallekula");
         BettingGameUser bettingGameUser = createBettingGameUser(participant, bettingGame);
         bettingGame.addParticipant(bettingGameUser);
@@ -30,7 +33,10 @@ public class TestBettingGameFactory {
     }
 
     private static BettingGameUser createBettingGameUser(User participant, BettingGame bettingGame) {
-        BettingGameUser bettingGameUser = new BettingGameUser(bettingGame, participant);
+        BettingGameUser bettingGameUser = new BettingGameUser();
+        bettingGameUser.setUser(participant);
+        bettingGameUser.setBettingGame(bettingGame);
+        bettingGame.addParticipant(bettingGameUser);
         Collection<Match> matches = bettingGame.getSeason().getMatches();
         for (Match match : matches) {
             Bet bet = bettingGameUser.addBet(match, 1, 0);

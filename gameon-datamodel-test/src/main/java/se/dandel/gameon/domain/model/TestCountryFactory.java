@@ -13,6 +13,10 @@ public class TestCountryFactory {
         return createCountry("se", "Sweden", "Europe", remoteKey);
     }
 
+    public static Country createCountry(String countryCode, String name, String continent) {
+        return createCountry(countryCode, name, continent, RemoteKey.of(REMOTE_KEY.getAndIncrement()));
+    }
+
     private static Country createCountry(String countryCode, String name, String continent, RemoteKey remoteKey) {
         Country country = new Country();
         country.setCountryCode(countryCode);
@@ -21,4 +25,5 @@ public class TestCountryFactory {
         country.setRemoteKey(remoteKey);
         return country;
     }
+
 }

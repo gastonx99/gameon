@@ -32,14 +32,8 @@ public class BettingGame {
     @Embedded
     private Audit audit = new Audit();
 
-    protected BettingGame() {
+    public BettingGame() {
         super();
-    }
-
-    public BettingGame(Season season, User owner, String name) {
-        this.season = season;
-        this.owner = owner;
-        this.name = name;
     }
 
     public long getPk() {
@@ -50,12 +44,24 @@ public class BettingGame {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Season getSeason() {
         return season;
     }
 
+    public void setSeason(Season season) {
+        this.season = season;
+    }
+
     public User getOwner() {
         return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Collection<BettingGameUser> getParticipants() {

@@ -5,7 +5,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
@@ -107,10 +110,6 @@ public class Season {
 
     public Collection<Match> getMatches() {
         return Collections.unmodifiableCollection(matches);
-    }
-
-    public Set<Team> getTeams() {
-        return Match.getDistinctTeams(matches);
     }
 
     public Optional<Match> getMatch(LocalDateTime matchStart, Team homeTeam, Team awayTeam) {
