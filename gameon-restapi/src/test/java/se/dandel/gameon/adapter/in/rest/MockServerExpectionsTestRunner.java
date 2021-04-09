@@ -9,22 +9,21 @@ import org.mockserver.model.MediaType;
 import org.mockserver.model.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.dandel.gameon.domain.model.Team;
-import se.dandel.gameon.domain.model.TestBettingGameFactory;
-import se.dandel.gameon.domain.model.TestTournamentFactory;
-import se.dandel.gameon.domain.model.Tournament;
+import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.model.bet.BettingGame;
 import se.dandel.gameon.domain.model.bet.BettingGameUser;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
-import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
 
 class MockServerExpectionsTestRunner {
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -94,9 +93,9 @@ class MockServerExpectionsTestRunner {
     }
 
     private Expectation createExpectationTeams() {
-        List<Team> teams1 = Arrays.asList(createTeam("Borussia Dortmund U19"), createTeam("RB Leipzig U19"));
-        Collection<TeamModel> teams = teams1.stream().map(team -> teamModelMapper.toModel(team)).collect(toList());
-        String expected = jsonb.toJson(teams);
+        List<Team> teams = TestTeamFactory.createTeamsEuro2020();
+        Collection<TeamModel> models = teams.stream().map(team -> teamModelMapper.toModel(team)).collect(toList());
+        String expected = jsonb.toJson(models);
         Expectation expectation = createExpectation("teams", expected, "/api/team");
         return expectation;
     }

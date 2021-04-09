@@ -11,99 +11,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
-import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
 
 public class TestTournamentFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestTournamentFactory.class);
-
-    private static final List<String> TEAMS_ENGLAND_2021 = List.of(
-            "Arsenal",
-            "Aston Villa",
-            "Brighton & Hove Albion",
-            "Burnley",
-            "Chelsea",
-            "Crystal Palace",
-            "Everton",
-            "Fulham",
-            "Leeds United",
-            "Leicester City",
-            "Liverpool",
-            "Manchester City",
-            "Manchester United",
-            "Newcastle United",
-            "Sheffield United",
-            "Southampton",
-            "Tottenham Hotspur",
-            "West Bromwich Albion",
-            "West Ham United",
-            "Wolverhampton Wanderers"
-    );
-
-    private static final List<String> TEAMS_WORLDCUP_2018 = List.of(
-            "Argentina",
-            "Australia",
-            "Belgium",
-            "Brazil",
-            "Colombia",
-            "Costa Rica",
-            "Croatia",
-            "Denmark",
-            "Egypt",
-            "England",
-            "France",
-            "Germany",
-            "Iceland",
-            "Iran",
-            "Japan",
-            "Mexico",
-            "Morocco",
-            "Nigeria",
-            "Panama",
-            "Peru",
-            "Poland",
-            "Portugal",
-            "Russia",
-            "Saudi Arabia",
-            "Senegal",
-            "Serbia",
-            "South Korea",
-            "Spain",
-            "Sweden",
-            "Switzerland",
-            "Tunisia",
-            "Uruguay"
-    );
-
-    private static final List<String> TEAMS_EURO_2020 = List.of(
-            "Austria",
-            "Belgium",
-            "Croatia",
-            "Czech Republic",
-            "Denmark",
-            "England",
-            "Finland",
-            "France",
-            "Germany",
-            "Hungary",
-            "Italy",
-            "Netherlands",
-            "North Macedonia",
-            "Poland",
-            "Portugal",
-            "Russia",
-            "Scotland",
-            "Slovakia",
-            "Spain",
-            "Sweden",
-            "Switzerland",
-            "Turkey",
-            "Ukraine",
-            "Wales"
-    );
 
     private static final AtomicLong REMOTE_KEY = new AtomicLong(1);
 
@@ -114,8 +27,7 @@ public class TestTournamentFactory {
     public static Tournament createTournamentPremierLeague20202021() {
         Tournament tournament = createTournament(TournamentType.LEAGUE, "Premier League");
         Season season = createSeason(tournament, "2020/2021", LocalDate.parse("2020-09-10"));
-        Country country = TestCountryFactory.createCountry("en", "England", "Europe");
-        List<Team> teams = TEAMS_ENGLAND_2021.stream().map(name -> createTeam(name, country)).collect(Collectors.toList());
+        List<Team> teams = TestTeamFactory.createTeamsEngland2021();
         // Sort in predictable, but not apparent alphabetical, order
         teams.sort(comparing(team -> StringUtils.reverse(team.getName())));
         createRoundRobinMatches(season, teams, teams.size(), 7);
@@ -128,8 +40,7 @@ public class TestTournamentFactory {
 
         Season season = createSeason(tournament, "2018", LocalDate.parse("2018-06-20"));
 
-        Country world = TestCountryFactory.createCountry(null, "World", "World");
-        List<Team> teams = TEAMS_WORLDCUP_2018.stream().map(name -> createTeam(name, world)).collect(Collectors.toList());
+        List<Team> teams = TestTeamFactory.createTeamsWorldcup2018();
         // Sort in predictable, but not apparent alphabetical, order
         teams.sort(comparing(team -> StringUtils.reverse(team.getName())));
         int groupSize = 4;
@@ -145,8 +56,7 @@ public class TestTournamentFactory {
         Season season = createSeason(tournament, "2020", LocalDate.parse("2021-06-11"));
         season.setEndDate(LocalDate.parse("2021-07-12"));
 
-        Country world = TestCountryFactory.createCountry(null, "World", "World");
-        List<Team> teams = TEAMS_EURO_2020.stream().map(name -> createTeam(name, world)).collect(Collectors.toList());
+        List<Team> teams = TestTeamFactory.createTeamsEuro2020();
         // Sort in predictable, but not apparent alphabetical, order
         teams.sort(comparing(team -> StringUtils.reverse(team.getName())));
         int groupSize = 4;
