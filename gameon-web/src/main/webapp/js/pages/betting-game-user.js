@@ -8,37 +8,35 @@ export default class BettingGameUser extends HTMLElement {
     connectedCallback() {
         console.log("ConnectedCallback: BettingGameUser");
         this.innerHTML = `
-<div class="page">
-    <div id="betting-game-user-header"></div>
-    
-    <div>
-        <span>Rules</span>
-        <ul>
-            <li>1 point for correct result</li>
-            <li>2 point for correct score</li>
-        </ul>
-    </div>
+<div id="betting-game-user-header"></div>
 
-    <form id="form-betting-game-user">
-        <table>
-            <thead>
-            <tr>
-                <th>Date/time</th>
-                <th colspan="2">Teams</th>
-                <th colspan="2"></th>
-                <th colspan="2">Final</th>
-                <th>Points</th>
-            </tr>
-            </thead>
-            <tbody id="betting-game-user-tbody">
-            </tbody>
-        </table>
-    </form>    
-    
-    <input id="save-betting-game-user" type="button" value="Save">
-    <input type="button" value="Back">
-    <input id="reset-betting-game-user" type="button" value="Reset">
+<div>
+    <span>Rules</span>
+    <ul>
+        <li>1 point for correct result</li>
+        <li>2 point for correct score</li>
+    </ul>
 </div>
+
+<form id="form-betting-game-user">
+    <table>
+        <thead>
+        <tr>
+            <th>Date/time</th>
+            <th colspan="2">Teams</th>
+            <th colspan="2"></th>
+            <th colspan="2">Final</th>
+            <th>Points</th>
+        </tr>
+        </thead>
+        <tbody id="betting-game-user-tbody">
+        </tbody>
+    </table>
+</form>    
+
+<input id="save-betting-game-user" type="button" value="Save">
+<input type="button" value="Back">
+<input id="reset-betting-game-user" type="button" value="Reset">
         `;
 
         this.form = document.getElementById("form-betting-game-user");

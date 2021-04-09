@@ -26,7 +26,6 @@ tr:nth-of-type(odd) {
     background: #eee;
 }
 
-
 .nav {
     padding: 10px;
 }
@@ -51,4 +50,8 @@ tr:nth-of-type(odd) {
 
 .page {
     padding: 10px;
+}
+
+.dashboard-widget table {
+    width: 80%;
 }

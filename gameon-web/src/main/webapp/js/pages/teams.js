@@ -1,20 +1,18 @@
 export default class Teams extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
-<div class="page">
-    <h1>Teams</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Job Title</th>
-        </tr>
-        </thead>
-        <tbody id="teams-tbody">
-        </tbody>
-    </table>
-</div>
+<h1>Teams</h1>
+<table>
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Job Title</th>
+    </tr>
+    </thead>
+    <tbody id="teams-tbody">
+    </tbody>
+</table>
     `;
         this.teamsBody = document.getElementById("teams-tbody");
         this.fetchTeams();
