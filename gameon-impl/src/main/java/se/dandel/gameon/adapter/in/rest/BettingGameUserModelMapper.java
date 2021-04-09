@@ -2,12 +2,16 @@ package se.dandel.gameon.adapter.in.rest;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValueMappingStrategy;
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.bet.Bet;
 import se.dandel.gameon.domain.model.bet.BettingGameUser;
 
-@Mapper(componentModel = "cdi")
+@Mapper(
+        componentModel = "cdi",
+        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT
+)
 public interface BettingGameUserModelMapper {
     @Mapping(source = "pk", target = "pk")
     @Mapping(source = "bettingGame.season.name", target = "season")

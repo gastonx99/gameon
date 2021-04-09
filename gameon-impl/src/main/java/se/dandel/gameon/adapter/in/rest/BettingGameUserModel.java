@@ -5,16 +5,7 @@ import java.util.Collection;
 
 public class BettingGameUserModel {
 
-    public long pk;
-
-    public String name;
-
-    public String bettingGameOwner;
-
-    public String tournament;
-
-    public String season;
-
+ 
     public Collection<BetModel> bets = new ArrayList<>();
 
     public static class BetModel {
@@ -52,12 +43,12 @@ public class BettingGameUserModel {
 
 
     public static class TeamModel {
-        public String name;
+        public String name = "";
 
-        public String countryName;
+        public String countryName = "";
 
-        public String countryCode;
+        public String countryCode = "";
 
-        public String logo;
+        public String logo = "";
     }
 }
