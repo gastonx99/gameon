@@ -34,7 +34,7 @@ export default class Teams extends HTMLElement {
     }
 
     async fetchTeams() {
-        const response = await fetch("http://localhost:9080/api/team");
+        const response = await fetch("/api/team");
         const teams = await response.json();
         console.log("Teams: " + teams);
         for (let team of teams) {

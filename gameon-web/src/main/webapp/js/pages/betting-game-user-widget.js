@@ -45,7 +45,7 @@ export default class BettingGameUserWidget extends HTMLElement {
     }
 
     async fetch() {
-        const url = "http://localhost:9080/api/game/user?gamestatus=" + this.gamestatus;
+        const url = "/api/game/user?gamestatus=" + this.gamestatus;
         console.log("Fetching url", url);
         const response = await fetch(url);
         const model = await response.json();

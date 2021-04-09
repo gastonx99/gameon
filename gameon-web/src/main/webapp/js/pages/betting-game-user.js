@@ -60,7 +60,7 @@ export default class BettingGameUser extends HTMLElement {
 
     async saveGame() {
         console.log("Save game");
-        const url = "http://localhost:9080/api/game/user/" + this.usergamePk;
+        const url = "/api/game/user/" + this.usergamePk;
         console.log("Save game using url", url);
         const formdata = new FormData(this.form);
         const response = await fetch(url, {
@@ -72,7 +72,7 @@ export default class BettingGameUser extends HTMLElement {
     }
 
     async fetch() {
-        const url = "http://localhost:9080/api/game/user/" + this.usergamePk;
+        const url = "/api/game/user/" + this.usergamePk;
         console.log("Fetching url", url);
         const response = await fetch(url);
         const model = await response.json();
