@@ -47,14 +47,14 @@ export default class BettingGameUser extends HTMLElement {
         this.bettingGameUserHeader = document.getElementById("betting-game-user-header");
         this.tableBody = document.getElementById("betting-game-user-tbody");
 
-        this.usergamePk = this.getAttribute("id");
+        this.usergamePk = this.location.params.id;
         if (this.usergamePk && this.usergamePk !== null) {
             this.fetch();
         } else {
             console.error("No user game pk!");
         }
 
-        const instance  = this;
+        const instance = this;
         this.saveButton.addEventListener('click', () => {
             instance.saveGame();
         })

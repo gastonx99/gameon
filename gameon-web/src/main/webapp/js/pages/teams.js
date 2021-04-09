@@ -27,7 +27,7 @@ export default class Teams extends HTMLElement {
         for (let team of teams) {
             console.log("Team: " + team.name);
             let tr = document.createElement("tr");
-            tr.innerHTML = `<td><a route="/team/${team.pk}">${team.name}</a></td><td>${team.name}</td><td>${team.name}</td>`;
+            tr.innerHTML = `<td><a href="/team/${team.pk}">${team.name}</a></td><td>${team.name}</td><td>${team.name}</td>`;
             this.teamsBody.appendChild(tr);
         }
         this.teams = teams;

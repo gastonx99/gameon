@@ -15,7 +15,7 @@ export default class TeamTable extends HTMLElement {
     </thead>
     <tbody id="teams-tbody">
     <tr>
-    <td><a route="/team/17">gurka</a></td>
+    <td><a href="/team/17">gurka</a></td>
     </tr>
     </tbody>
 </table>
@@ -33,7 +33,7 @@ export default class TeamTable extends HTMLElement {
         for (let team of teams) {
             console.log("Team: " + team.name);
             let tr = document.createElement("tr");
-            tr.innerHTML = `<td><a route="/team/${team.pk}">${team.name}</a></td><td>${team.name}</td><td>${team.name}</td>`;
+            tr.innerHTML = `<td><a href="/team/${team.pk}">${team.name}</a></td><td>${team.name}</td><td>${team.name}</td>`;
             this.teamsBody.appendChild(tr);
         }
         this.teams = teams;
