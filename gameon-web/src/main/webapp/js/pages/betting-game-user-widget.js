@@ -12,7 +12,6 @@ export default class BettingGameUserWidget extends HTMLElement {
         const linkElem = document.createElement('link');
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', '/css/main.css');
-        const shadow = this.attachShadow({mode: 'open'});
         const div = document.createElement('div');
         div.className = "dashboard-widget";
         div.innerHTML = `
@@ -34,6 +33,7 @@ export default class BettingGameUserWidget extends HTMLElement {
         `;
         const span = document.createElement("span");
         span.innerText = "Your " + this.gamestatus + " games";
+        const shadow = this.attachShadow({mode: 'open'});
         shadow.appendChild(linkElem);
         shadow.appendChild(span);
         shadow.appendChild(div);

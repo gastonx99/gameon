@@ -1,20 +1,35 @@
 export default class Teams extends HTMLElement {
-    connectedCallback() {
-        this.innerHTML = `
+    constructor() {
+        super();
+
+        const linkElem = document.createElement('link');
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', '/css/main.css');
+
+        const div = document.createElement('div');
+
+        div.innerHTML = `
 <h1>Teams</h1>
 <table>
     <thead>
     <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Job Title</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Continent</th>
     </tr>
     </thead>
-    <tbody id="teams-tbody">
+    <tbody id="tbody">
     </tbody>
 </table>
     `;
-        this.teamsBody = document.getElementById("teams-tbody");
+
+        const shadow = this.attachShadow({mode: 'open'});
+        shadow.appendChild(linkElem);
+        shadow.appendChild(div);
+        this.teamsBody = shadow.getElementById("tbody");
+    }
+
+    connectedCallback() {
         this.fetchTeams();
     }
 
@@ -25,7 +40,9 @@ export default class Teams extends HTMLElement {
         for (let team of teams) {
             console.log("Team: " + team.name);
             let tr = document.createElement("tr");
-            tr.innerHTML = `<td><a href="/team/${team.pk}">${team.name}</a></td><td>${team.name}</td><td>${team.name}</td>`;
+            tr.innerHTML = `
+<td><a href="/team/${team.pk}">${team.name}</a></td><td>${team.countryName}</td><td>${team.countryContinent}</td>
+`;
             this.teamsBody.appendChild(tr);
         }
         this.teams = teams;
