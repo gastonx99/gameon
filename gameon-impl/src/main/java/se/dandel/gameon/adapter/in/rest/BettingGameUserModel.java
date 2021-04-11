@@ -45,9 +45,15 @@ public class BettingGameUserModel {
 
         public String stage;
 
+        public int stageIndex;
+
         public String group;
 
+        public int groupIndex;
+
         public String round;
+
+        public int roundIndex;
     }
 
 
@@ -60,4 +66,5 @@ public class BettingGameUserModel {
 
         public String logo = "";
     }
+
 }

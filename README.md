@@ -6,7 +6,7 @@
 mvn mockserver:run -f gameon-web/
 mvn mockserver:stop -f gameon-web/
 mvn mockserver:runForked -f gameon-web/
-mvn mockserver:mockserver:stopForked -f gameon-web/
+mvn mockserver:stopForked -f gameon-web/
 ```
 
 Mockserver dashboard: http://localhost:9080/mockserver/dashboard

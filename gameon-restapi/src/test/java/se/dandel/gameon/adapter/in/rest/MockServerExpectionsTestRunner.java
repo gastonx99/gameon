@@ -40,7 +40,6 @@ class MockServerExpectionsTestRunner {
 
     private BettingGameUserWidgetModelMapper bettingGameUserWidgetModelMapper = new BettingGameUserWidgetModelMapperImpl();
 
-
     @Test
     @Disabled
     void mockAll() {

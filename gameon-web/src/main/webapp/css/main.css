@@ -55,3 +55,11 @@ tr:nth-of-type(odd) {
 .dashboard-widget table {
     width: 80%;
 }
+
+.betting-game-user td.group-header {
+    font-weight: bold;
+}
+
+.betting-game-user td.round-header {
+    font-style: italic;
+}

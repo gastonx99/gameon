@@ -8,6 +8,7 @@ router.setRoutes([{
     animate: true,
     children: [
         {path: '/', component: 'go-home'},
+        {path: '/rules', component: 'go-rules'},
         {path: '/about', component: 'go-about'},
         {path: '/dashboard', component: 'go-dashboard'},
         {path: '/usergame/:id', component: 'go-bettinggameuser'},

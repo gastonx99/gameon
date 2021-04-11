@@ -5,20 +5,18 @@ export default class BettingGameUser extends HTMLElement {
         return ["id"];
     }
 
-    connectedCallback() {
-        console.log("ConnectedCallback: BettingGameUser");
-        this.innerHTML = `
-<div id="betting-game-user-header"></div>
+    constructor() {
+        super();
 
-<div>
-    <span>Rules</span>
-    <ul>
-        <li>1 point for correct result</li>
-        <li>2 point for correct score</li>
-    </ul>
-</div>
+        const linkElem = document.createElement('link');
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', '/css/main.css');
+        const div = document.createElement('div');
+        div.className = "betting-game-user";
+        div.innerHTML = `
+<div id="header"></div>
 
-<form id="form-betting-game-user">
+<form id="form">
     <table>
         <thead>
         <tr>
@@ -29,33 +27,39 @@ export default class BettingGameUser extends HTMLElement {
             <th>Points</th>
         </tr>
         </thead>
-        <tbody id="betting-game-user-tbody">
+        <tbody id="tbody">
         </tbody>
     </table>
-</form>    
+</form>
 
-<input id="save-betting-game-user" type="button" value="Save">
-<input type="button" value="Back">
-<input id="reset-betting-game-user" type="button" value="Reset">
+<input id="save-button" type="button" value="Save">
+<input id="back-button" type="button" value="Back">
+<input id="reset-button" type="button" value="Reset">
         `;
+        const shadow = this.attachShadow({mode: 'open'});
+        shadow.appendChild(linkElem);
+        shadow.appendChild(div);
 
-        this.form = document.getElementById("form-betting-game-user");
-        this.saveButton = document.getElementById("save-betting-game-user");
-        this.resetButton = document.getElementById("reset-betting-game-user");
-        this.bettingGameUserHeader = document.getElementById("betting-game-user-header");
-        this.tableBody = document.getElementById("betting-game-user-tbody");
+        this.header = shadow.getElementById("header");
+        this.form = shadow.getElementById("form");
+        this.saveButton = shadow.getElementById("save-button");
+        this.resetButton = shadow.getElementById("reset-button");
+        this.tableBody = shadow.getElementById("tbody");
 
+        const instance = this;
+        this.saveButton.addEventListener('click', () => {
+            instance.saveGame();
+        })
+    }
+
+    connectedCallback() {
+        console.log("ConnectedCallback: BettingGameUser");
         this.usergamePk = this.location.params.id;
         if (this.usergamePk && this.usergamePk !== null) {
             this.fetch();
         } else {
             console.error("No user game pk!");
         }
-
-        const instance = this;
-        this.saveButton.addEventListener('click', () => {
-            instance.saveGame();
-        })
     }
 
     async saveGame() {
@@ -77,7 +81,7 @@ export default class BettingGameUser extends HTMLElement {
         const response = await fetch(url);
         const model = await response.json();
 
-        this.bettingGameUserHeader.innerHTML = `
+        this.header.innerHTML = `
             <span${model.name}</span>
             <br/>
             <span>${model.tournament} ${model.season}</span>
@@ -86,15 +90,40 @@ export default class BettingGameUser extends HTMLElement {
         `;
 
         console.log("Bets: " + model.bets.length);
+        let previousStageIndex = -1;
+        let previousRoundIndex = -1;
+
         for (let bet of model.bets) {
+            if (bet.match.stageIndex != previousStageIndex) {
+                let tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td colspan="8" class="group-header">${bet.match.stage}</td>
+                `;
+                this.tableBody.appendChild(tr);
+                previousStageIndex = bet.match.stageIndex;
+            }
+            if (bet.match.roundIndex != previousRoundIndex) {
+                let roundPrefix = "";
+                if (bet.match.stageIndex == 0) {
+                    roundPrefix = "Group " + bet.match.group + " - Round ";
+                } else if (bet.match.stageIndex == 1 && !isNaN(bet.match.round)) {
+                    roundPrefix = "Round ";
+                }
+                let tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td colspan="8" class="round-header">${roundPrefix}${bet.match.round}</td>
+                `;
+                this.tableBody.appendChild(tr);
+                previousRoundIndex = bet.match.roundIndex;
+            }
             let tr = document.createElement("tr");
             tr.innerHTML = `
                 <input type="hidden" name="bet_pk" value="${bet.pk}"/>
                 <td>${bet.match.matchStart}</td>
                 <td>${bet.match.homeTeam.name}</td>
                 <td>${bet.match.awayTeam.name}</td>
-                <td><input type="text" size="4" value="${bet.homeScore}" name="homescore"></td>
-                <td><input type="text" size="4" value="${bet.awayScore}" name="awayscore"></td>
+                <td><input type="text" size="2" value="${bet.homeScore}" name="homescore"></td>
+                <td><input type="text" size="2" value="${bet.awayScore}" name="awayscore"></td>
                 <td>${bet.match.finalHomeScore}</td>
                 <td>${bet.match.finalAwayScore}</td>
                 <td>3</td>
