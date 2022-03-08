@@ -40,7 +40,7 @@
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.8.0</commons-io.version>
-        <liquibase.version>4.3.2</liquibase.version>
+        <liquibase.version>4.8.0</liquibase.version>
         <jupiter.version>5.7.1</jupiter.version>
         <jupiter-platform-launcher.version>1.7.1</jupiter-platform-launcher.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
