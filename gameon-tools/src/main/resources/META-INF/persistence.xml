@@ -9,13 +9,13 @@
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-            <!--            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>-->
-            <!--            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/gameon-xdb"/>-->
-            <!--            <property name="javax.persistence.jdbc.user" value="SA"/>-->
-            <!--            <property name="javax.persistence.jdbc.password" value=""/>-->
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gameon"/>
-            <property name="javax.persistence.jdbc.user" value="gameon"/>
-            <property name="javax.persistence.jdbc.password" value="gameon"/>
+            <!--            <property name="jakarta.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>-->
+            <!--            <property name="jakarta.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/gameon-xdb"/>-->
+            <!--            <property name="jakarta.persistence.jdbc.user" value="SA"/>-->
+            <!--            <property name="jakarta.persistence.jdbc.password" value=""/>-->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gameon"/>
+            <property name="jakarta.persistence.jdbc.user" value="gameon"/>
+            <property name="jakarta.persistence.jdbc.password" value="gameon"/>
         </properties>
     </persistence-unit>
 </persistence>

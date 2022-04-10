@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.port.Api1Port;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;

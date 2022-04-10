@@ -13,9 +13,9 @@ import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.model.bet.BettingGame;
 import se.dandel.gameon.domain.model.bet.BettingGameUser;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
+import jakarta.json.bind.JsonbConfig;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

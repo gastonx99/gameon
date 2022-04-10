@@ -3,10 +3,10 @@ package se.dandel.gameon.adapter.out.rest.api2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
-import javax.json.bind.config.PropertyNamingStrategy;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
+import jakarta.json.bind.JsonbConfig;
+import jakarta.json.bind.config.PropertyNamingStrategy;
 import java.util.ArrayList;
 import java.util.Collection;
 

@@ -5,7 +5,7 @@ import se.dandel.gameon.domain.model.RemoteKey;
 import se.dandel.gameon.domain.model.Season;
 import se.dandel.gameon.domain.model.Tournament;
 
-import javax.persistence.TypedQuery;
+import jakarta.persistence.TypedQuery;
 import java.util.Collection;
 import java.util.Optional;
 

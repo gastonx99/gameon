@@ -3,18 +3,18 @@ package se.dandel.gameon.adapter.mdb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Resource;
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
-import javax.ejb.MessageDrivenContext;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.TextMessage;
+import jakarta.annotation.Resource;
+import jakarta.ejb.ActivationConfigProperty;
+import jakarta.ejb.MessageDriven;
+import jakarta.ejb.MessageDrivenContext;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.MessageListener;
+import jakarta.jms.TextMessage;
 
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "java:/jms/queue/Team.Q"),
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "jakarta.jms.Queue")
 })
 public class TeamMDB implements MessageListener {
 

@@ -4,13 +4,13 @@ import se.dandel.gameon.domain.model.bet.BettingGameUser;
 import se.dandel.gameon.domain.repository.BettingGameRepository;
 import se.dandel.gameon.adapter.in.rest.BettingGameUserModelMapper;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/betting")
 public class BettingAPI {

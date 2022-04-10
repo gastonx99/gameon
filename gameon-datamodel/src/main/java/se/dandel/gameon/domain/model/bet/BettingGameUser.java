@@ -5,7 +5,7 @@ import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Score;
 import se.dandel.gameon.domain.model.User;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 

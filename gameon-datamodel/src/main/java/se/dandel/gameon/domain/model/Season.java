@@ -2,7 +2,7 @@ package se.dandel.gameon.domain.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

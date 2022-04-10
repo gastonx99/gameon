@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.dandel.gameon.domain.model.Match;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.TypedQuery;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NonUniqueResultException;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 

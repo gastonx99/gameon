@@ -11,8 +11,8 @@
 
         <!-- properties, se se.rsv.in.common.test.jpa.JpaTestManager.startupFactory -->
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:jpa;close_result=true"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:hsqldb:mem:jpa;close_result=true"/>
         </properties>
     </persistence-unit>
 </persistence>

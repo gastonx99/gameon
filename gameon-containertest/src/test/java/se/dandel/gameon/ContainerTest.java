@@ -23,7 +23,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @AddPackages({se.dandel.gameon.domain.port.Api1Port.class})
 @AddPackages({se.dandel.gameon.domain.repository.TournamentRepository.class})
 @AddPackages({se.dandel.gameon.ContainerTest.class})
-@AddBeanClasses({io.smallrye.config.inject.ConfigProducer.class})
 @AddBeanClasses({PersistenceTestManager.class})
 public @interface ContainerTest {
 

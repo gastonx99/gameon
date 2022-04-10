@@ -7,7 +7,7 @@ import se.dandel.gameon.RepositoryTest;
 import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.*;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.is;

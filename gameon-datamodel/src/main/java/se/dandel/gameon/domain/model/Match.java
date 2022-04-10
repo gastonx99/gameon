@@ -2,7 +2,7 @@ package se.dandel.gameon.domain.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

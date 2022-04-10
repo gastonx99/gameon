@@ -10,6 +10,7 @@
         <ignoreVersion type="regex">(?i).*[-.]rc([0-9]+)?</ignoreVersion>
         <ignoreVersion type="regex">(?i).*[-.]m([0-9]+)?</ignoreVersion>
         <ignoreVersion type="regex">(?i).*[-.]pr([0-9]+)?</ignoreVersion>
+        <ignoreVersion type="regex">(?i).*[-.]CR([0-9]+)?</ignoreVersion>
     </ignoreVersions>
     <rules>
         <!-- Obvious mismatches -->

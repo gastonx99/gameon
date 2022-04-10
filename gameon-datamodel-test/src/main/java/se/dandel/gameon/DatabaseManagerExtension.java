@@ -5,10 +5,12 @@ import org.hibernate.internal.SessionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.*;
-import javax.persistence.EntityManager;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.spi.*;
+import jakarta.persistence.EntityManager;
+
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class DatabaseManagerExtension implements Extension {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -53,7 +55,12 @@ public class DatabaseManagerExtension implements Extension {
         if (!entityManager.getTransaction().isActive()) {
             entityManager.getTransaction().begin();
         }
-        Connection connection = entityManager.unwrap(SessionImpl.class).connection();
+        Connection connection = null;
+        try {
+            connection = entityManager.unwrap(SessionImpl.class).getJdbcConnectionAccess().obtainConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
         Validate.notNull(connection, "Unwrapping connection from entity manager returns null, maybe no transaction exists?");
         return connection;
     }

@@ -4,7 +4,7 @@ import se.dandel.gameon.domain.model.Audit;
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Score;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Bet {

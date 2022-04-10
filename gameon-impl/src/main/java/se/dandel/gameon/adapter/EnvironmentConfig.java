@@ -1,22 +1,32 @@
 package se.dandel.gameon.adapter;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.Config;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
+import org.eclipse.microprofile.config.ConfigProvider;
 
+@ApplicationScoped
 public class EnvironmentConfig {
-    @Inject
     private Config config;
 
     public String getApi1BaseUrl() {
-        return config.getValue("se.dandel.gameon.api1.base.url", String.class);
+        return getConfig().getValue("se.dandel.gameon.api1.base.url", String.class);
     }
 
     public String getAPi1Apikey() {
-        return config.getValue("se.dandel.gameon.api1.apikey", String.class);
+        return getConfig().getValue("se.dandel.gameon.api1.apikey", String.class);
     }
 
     public String getApi2BaseUrl() {
-        return config.getValue("se.dandel.gameon.api2.base.url", String.class);
+        return getConfig().getValue("se.dandel.gameon.api2.base.url", String.class);
     }
+
+    private Config getConfig() {
+        if (config == null) {
+            config = ConfigProvider.getConfig();
+        }
+        return config;
+    }
+
 }

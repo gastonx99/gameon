@@ -11,8 +11,8 @@ import se.dandel.gameon.application.service.FetchDataFromApi1Service;
 import se.dandel.gameon.domain.GameonRuntimeException;
 import se.dandel.gameon.domain.model.RemoteKey;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
