@@ -7,19 +7,22 @@ services:
     build:
       context: ./src/wildfly
       dockerfile: Dockerfile-wildfly
+    volumes:
+      - C:\\WS\\docker\\volumes\\gameon\\wildfly\\wildfly-standalone-deployments:/opt/jboss/wildfly/standalone/deployments
     ports:
-      - 8080:8080
+      - 8088:8080
       - 9990:9990
 
-  postgres:
-    environment:
-      - TZ=Europe/Stockholm
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=gameon-xdb
-    image: postgres:12.4-alpine
-    ports:
-      - 5432:5432
+
+#  postgres:
+#    environment:
+#      - TZ=Europe/Stockholm
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_DB=gameon-xdb
+#    image: postgres:12.4-alpine
+#    ports:
+#      - 5432:5432
 
   wildfly-config:
     environment:

@@ -1,9 +1,9 @@
-FROM jboss/wildfly:20.0.1.Final
+FROM quay.io/wildfly/wildfly:26.0.1.Final
 
 COPY modules/ /opt/jboss/wildfly/modules/
 
-EXPOSE 8080
-EXPOSE 9990
+#EXPOSE 8080
+#EXPOSE 9990
 
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
 

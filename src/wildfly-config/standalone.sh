@@ -1,4 +1,4 @@
-echo "Sleeping for a while to let wildfly container fire up"
+echo "Sleeping for a while to let wildfly container fire up before configuring"
 sleep 10
 CONFIG_FILE=/tmp/standalone.config
 echo "Configure wildfly using config file $CONFIG_FILE"

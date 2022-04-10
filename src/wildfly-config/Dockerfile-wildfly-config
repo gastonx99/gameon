@@ -1,4 +1,4 @@
-FROM jboss/wildfly:20.0.1.Final
+FROM quay.io/wildfly/wildfly:26.0.1.Final
 
 COPY standalone.sh /tmp/
 COPY standalone.config /tmp/
