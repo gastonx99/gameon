@@ -21,3 +21,6 @@ buildNumber.properties
 # Misc
 database/
 *.jar
+
+# Bash
+.envrc

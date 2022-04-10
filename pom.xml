@@ -32,21 +32,21 @@
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
 
         <!-- Thirdparty versions -->
-        <hsqldb.version>2.5.1</hsqldb.version>
-        <postgresql.version>42.2.18.jre7</postgresql.version>
-        <mysql-connector-java.version>8.0.23</mysql-connector-java.version>
-        <slf4j.version>1.7.30</slf4j.version>
-        <logback.version>1.2.3</logback.version>
+        <hsqldb.version>2.6.1</hsqldb.version>
+        <postgresql.version>42.3.3</postgresql.version>
+        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
+        <slf4j.version>1.7.36</slf4j.version>
+        <logback.version>1.2.11</logback.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-io.version>2.8.0</commons-io.version>
-        <liquibase.version>4.3.2</liquibase.version>
-        <jupiter.version>5.7.1</jupiter.version>
-        <jupiter-platform-launcher.version>1.7.1</jupiter-platform-launcher.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <liquibase.version>4.9.1</liquibase.version>
+        <jupiter.version>5.8.2</jupiter.version>
+        <jupiter-platform-launcher.version>1.8.2</jupiter-platform-launcher.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <microprofile.version>3.3</microprofile.version>
-        <mockito.version>3.8.0</mockito.version>
-        <mockserver.version>5.11.2</mockserver.version>
+        <mockito.version>4.4.0</mockito.version>
+        <mockserver.version>5.13.2</mockserver.version>
         <hamcrest.version>2.2</hamcrest.version>
         <weld-se.version>3.1.7.Final</weld-se.version>
         <weld-junit5.version>2.0.2.Final</weld-junit5.version>
@@ -55,11 +55,11 @@
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
         <javax.persistence-api.version>2.2</javax.persistence-api.version>
         <yasson.version>1.0.8</yasson.version>
-        <archunit.version>0.17.0</archunit.version>
-        <picocli.version>4.6.1</picocli.version>
+        <archunit.version>0.23.1</archunit.version>
+        <picocli.version>4.6.3</picocli.version>
         <smallrye-config.version>1.12.0</smallrye-config.version>
         <jersey.version>2.32</jersey.version>
-        <liquibase-slf4j.version>4.0.0</liquibase-slf4j.version>
+        <liquibase-slf4j.version>4.1.0</liquibase-slf4j.version>
         <cdi-api.version>2.0</cdi-api.version>
         <jetty-maven-plugin.version>11.0.2</jetty-maven-plugin.version>
         <hibernate.version>5.4.30.Final</hibernate.version>
