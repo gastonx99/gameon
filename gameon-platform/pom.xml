@@ -32,6 +32,17 @@
             <artifactId>microprofile</artifactId>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>${javax.annotation-api.version}</version>
+        </dependency>
+        <dependency>
+            <!-- Uncertain why this is needed but without it, compile gives this error: -->
+            <!-- [ERROR] Couldn't find type javax.enterprise.context.ApplicationScoped. Are you missing a dependency on your classpath?-->
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+        </dependency>
     </dependencies>
 
 
