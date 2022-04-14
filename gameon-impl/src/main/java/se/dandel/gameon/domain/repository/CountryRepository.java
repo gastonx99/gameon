@@ -3,7 +3,7 @@ package se.dandel.gameon.domain.repository;
 import se.dandel.gameon.domain.model.Country;
 import se.dandel.gameon.domain.model.RemoteKey;
 
-import jakarta.persistence.TypedQuery;
+import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 public class CountryRepository extends AbstractRepository {

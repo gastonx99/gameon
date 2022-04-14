@@ -7,7 +7,7 @@ import se.dandel.gameon.domain.repository.CountryRepository;
 import se.dandel.gameon.domain.repository.TeamRepository;
 import se.dandel.gameon.domain.repository.TournamentRepository;
 
-import jakarta.inject.Inject;
+import javax.inject.Inject;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;

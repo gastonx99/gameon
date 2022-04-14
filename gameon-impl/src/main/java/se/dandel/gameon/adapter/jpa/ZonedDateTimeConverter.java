@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import jakarta.persistence.AttributeConverter;
+import javax.persistence.AttributeConverter;
 
 public class ZonedDateTimeConverter implements AttributeConverter<ZonedDateTime, Timestamp> {
     @Override

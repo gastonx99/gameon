@@ -16,8 +16,8 @@ import se.dandel.gameon.domain.GameonRuntimeException;
 import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.repository.AllPurposeTestRepository;
 
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import java.util.Arrays;
 import java.util.Collection;

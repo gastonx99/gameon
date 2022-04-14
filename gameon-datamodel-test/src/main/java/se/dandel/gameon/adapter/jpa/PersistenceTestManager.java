@@ -7,8 +7,8 @@ import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.Tournament;
 import se.dandel.gameon.domain.model.Venue;
 
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 public class PersistenceTestManager {
     final Logger LOGGER = LoggerFactory.getLogger(getClass());

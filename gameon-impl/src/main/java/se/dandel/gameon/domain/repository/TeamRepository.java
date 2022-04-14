@@ -3,7 +3,7 @@ package se.dandel.gameon.domain.repository;
 import se.dandel.gameon.domain.model.RemoteKey;
 import se.dandel.gameon.domain.model.Team;
 
-import jakarta.persistence.TypedQuery;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 

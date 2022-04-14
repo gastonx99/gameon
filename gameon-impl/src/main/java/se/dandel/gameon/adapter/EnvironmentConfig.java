@@ -1,9 +1,9 @@
 package se.dandel.gameon.adapter;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.Config;
 
-import jakarta.inject.Inject;
+import javax.inject.Inject;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 @ApplicationScoped

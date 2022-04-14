@@ -1,6 +1,6 @@
 package se.dandel.gameon.domain.model;
 
-import jakarta.persistence.Embeddable;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class Score {

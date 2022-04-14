@@ -5,9 +5,9 @@ import org.hibernate.internal.SessionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.enterprise.event.Observes;
-import jakarta.enterprise.inject.spi.*;
-import jakarta.persistence.EntityManager;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.*;
+import javax.persistence.EntityManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;

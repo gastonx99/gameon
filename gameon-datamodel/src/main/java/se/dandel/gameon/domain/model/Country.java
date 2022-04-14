@@ -2,7 +2,7 @@ package se.dandel.gameon.domain.model;
 
 import org.apache.commons.lang3.StringUtils;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Country {

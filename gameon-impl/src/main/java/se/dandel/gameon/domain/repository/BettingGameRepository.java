@@ -4,7 +4,7 @@ import se.dandel.gameon.domain.model.bet.BettingGame;
 import se.dandel.gameon.domain.model.bet.BettingGameUser;
 import se.dandel.gameon.domain.repository.AbstractRepository;
 
-import jakarta.persistence.TypedQuery;
+import javax.persistence.TypedQuery;
 import java.util.Collection;
 
 public class BettingGameRepository extends AbstractRepository {

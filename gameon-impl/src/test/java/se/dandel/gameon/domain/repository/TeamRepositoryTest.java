@@ -8,7 +8,7 @@ import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.TestTeamFactory;
 
-import jakarta.inject.Inject;
+import javax.inject.Inject;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.equalTo;

@@ -1,8 +1,8 @@
 package se.dandel.gameon.adapter.jpa;
 
-import jakarta.enterprise.inject.Produces;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import javax.enterprise.inject.Produces;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public class EntityManagerProducer {
 

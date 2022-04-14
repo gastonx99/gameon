@@ -2,7 +2,7 @@ package se.dandel.gameon.domain.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
