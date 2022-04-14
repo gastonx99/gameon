@@ -14,15 +14,17 @@ services:
       - 9990:9990
 
 
-#  postgres:
-#    environment:
-#      - TZ=Europe/Stockholm
-#      - POSTGRES_USER=postgres
-#      - POSTGRES_PASSWORD=postgres
-#      - POSTGRES_DB=gameon-xdb
-#    image: postgres:12.4-alpine
-#    ports:
-#      - 5432:5432
+  postgres:
+    image: postgres:12.4-alpine
+    environment:
+      - TZ=Europe/Stockholm
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=gameon-xdb
+    volumes:
+      - C:\\WS\\docker\\volumes\\gameon\\postgresql\\postgresql-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
   wildfly-config:
     environment:
