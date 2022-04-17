@@ -92,8 +92,6 @@ class FetchDataFromApi1ServiceTest {
     }
 
     @Test
-    // FIXME - Funkar om man kör testet enskilt men sabbar för andra tester i sviten
-    @Disabled
     void fetchAndSaveAllLeagues() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-leagues", "/api1/soccer/leagues", "/json/api1/leagues.json"));
@@ -109,8 +107,6 @@ class FetchDataFromApi1ServiceTest {
     }
 
     @Test
-    // FIXME - Funkar om man kör testet enskilt men sabbar för andra tester i sviten
-    @Disabled
     void fetchAndSaveLeaguesForCountry() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-leagues", "/api1/soccer/leagues", "/json/api1/leagues.json"));
