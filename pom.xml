@@ -34,18 +34,18 @@
 
         <!-- Thirdparty versions -->
         <hsqldb.version>2.6.1</hsqldb.version>
-        <postgresql.version>42.3.3</postgresql.version>
-        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
+        <postgresql.version>42.4.0</postgresql.version>
+        <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
         <slf4j.version>1.7.36</slf4j.version>
         <logback.version>1.2.11</logback.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.11.0</commons-io.version>
-        <liquibase.version>4.9.1</liquibase.version>
+        <liquibase.version>4.14.0</liquibase.version>
         <jupiter.version>5.8.2</jupiter.version>
         <jupiter-platform-launcher.version>1.8.2</jupiter-platform-launcher.version>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <mockito.version>4.4.0</mockito.version>
+        <mapstruct.version>1.5.2.Final</mapstruct.version>
+        <mockito.version>4.6.1</mockito.version>
         <mockserver.version>5.13.2</mockserver.version>
         <hamcrest.version>2.2</hamcrest.version>
         <archunit.version>0.23.1</archunit.version>
@@ -402,7 +402,7 @@
                 <weld-se.version>3.1.9.Final</weld-se.version>
                 <weld-junit5.version>2.0.2.Final</weld-junit5.version>
                 <yasson.version>1.0.11</yasson.version>
-                <smallrye-config.version>2.10.0</smallrye-config.version>
+                <smallrye-config.version>2.11.0</smallrye-config.version>
                 <jersey.version>2.35</jersey.version>
                 <hibernate.version>5.6.8.Final</hibernate.version>
             </properties>
