@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   wildfly:
     environment:
@@ -15,16 +13,9 @@ services:
 
 
   postgres:
-    image: postgres:12.4-alpine
-    environment:
-      - TZ=Europe/Stockholm
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=gameon-xdb
-    volumes:
-      - C:\\WS\\docker\\volumes\\gameon\\postgresql\\postgresql-data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
+    extends:
+      file: docker-compose-postgresql.yml
+      service: postgres
 
   wildfly-config:
     environment:

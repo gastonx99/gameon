@@ -5,6 +5,10 @@
 
   docker-compose -f docker-compose-gameon.yml down
 
+=== Standalone postgresql
+  docker-compose -f docker-compose-postgresql.yml up -d --build
+
+
 == Database ==
   mvn -f gameon-datamodel liquibase:update -Ppostgres
 
