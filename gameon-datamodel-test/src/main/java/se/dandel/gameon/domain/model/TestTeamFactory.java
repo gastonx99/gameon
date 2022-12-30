@@ -103,7 +103,7 @@ public class TestTeamFactory {
     }
 
     public static Team createTeam(String remoteKey, String name) {
-        Country country = TestCountryFactory.createCountry();
+        Country country = TestCountryFactory.createCountrySweden();
         return createTeam(RemoteKey.of(remoteKey), name, country);
     }
 

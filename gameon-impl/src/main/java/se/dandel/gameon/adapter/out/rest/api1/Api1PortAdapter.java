@@ -57,30 +57,30 @@ public class Api1PortAdapter implements Api1Port {
     }
 
     @Override
-    public Collection<Team> fetchTeams(Country country) {
-        Collection<TeamDTO> dtos = invoker.invoke(ENVELOPE_TEAMS, PATH_SOCCER_TEAMS, Collections.singletonMap("country_id", country.getRemoteKey().getRemoteKey()));
+    public Collection<Team> fetchTeams(RemoteKey remoteKeyCountry) {
+        Collection<TeamDTO> dtos = invoker.invoke(ENVELOPE_TEAMS, PATH_SOCCER_TEAMS, Collections.singletonMap("country_id", remoteKeyCountry.getRemoteKey()));
         LOGGER.debug("Number of teams: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
     }
 
     @Override
-    public Collection<Tournament> fetchLeagues(Optional<Country> country) {
-        Map<String, String> queryParams = country.isPresent() ? Collections.singletonMap("country_id", country.get().getRemoteKey().getRemoteKey()) : Collections.emptyMap();
+    public Collection<Tournament> fetchLeagues(Optional<RemoteKey> remoteKeyCountry) {
+        Map<String, String> queryParams = remoteKeyCountry.isPresent() ? Collections.singletonMap("country_id", remoteKeyCountry.get().getRemoteKey()) : Collections.emptyMap();
         Collection<LeagueDTO> dtos = invoker.invoke(ENVELOPE_LEAGUES, PATH_SOCCER_LEAGUES, queryParams);
         LOGGER.debug("Number of leagues: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
     }
 
     @Override
-    public Collection<Season> fetchSeasons(Tournament tournament) {
-        Collection<SeasonDTO> dtos = invoker.invoke(ENVELOPE_SEASONS, PATH_SOCCER_SEASONS, Collections.singletonMap("league_id", tournament.getRemoteKey().getRemoteKey()));
+    public Collection<Season> fetchSeasons(RemoteKey remoteKeyTournament) {
+        Collection<SeasonDTO> dtos = invoker.invoke(ENVELOPE_SEASONS, PATH_SOCCER_SEASONS, Collections.singletonMap("league_id", remoteKeyTournament.getRemoteKey()));
         LOGGER.debug("Number of seasons: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
     }
 
     @Override
-    public Collection<Match> fetchMatches(Season season) {
-        Collection<MatchDTO> dtos = invoker.invoke(ENVELOPE_MATCHES, PATH_SOCCER_MATCHES, Collections.singletonMap("season_id", season.getRemoteKey().getRemoteKey()));
+    public Collection<Match> fetchMatches(RemoteKey remoteKeySeason) {
+        Collection<MatchDTO> dtos = invoker.invoke(ENVELOPE_MATCHES, PATH_SOCCER_MATCHES, Collections.singletonMap("season_id", remoteKeySeason.getRemoteKey()));
         LOGGER.debug("Number of matches: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
     }

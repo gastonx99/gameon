@@ -1,49 +1,49 @@
 @startuml
 skinparam componentStyle uml2
 
-
 legend top
 Components
 end legend
-
 
 component CLI
 
 node App {
     component Batch
 
-
     interface DataProducerControllerInterface as "REST"
 
     component DataProducerController {
-        component JaxRsClient
-        component TopicProducer
+        component Service as ProducerService
+        component RestClient
+        component MessageProducer
     }
 
 
-    queue Topic
+    queue Queue
 
     component DataConsumerController {
-        component TopicConsumer
+        component Service as ConsumerService
+        component MessageConsumer
         component Repository
     }
 }
 
-interface SportsDataInterface
-
+interface ExternalDataInterface
 
 database Database
 
-Batch --> DataProducerController
+Batch --> ProducerService
 CLI --> DataProducerControllerInterface
-DataProducerControllerInterface --> DataProducerController
+DataProducerControllerInterface --> ProducerService
 
-JaxRsClient --> SportsDataInterface
+ProducerService --> RestClient
+ProducerService --> MessageProducer
+RestClient --> ExternalDataInterface
+MessageProducer --> Queue
 
-TopicProducer --> Topic
-
-Topic --> TopicConsumer
-
+Queue --> MessageConsumer
+MessageConsumer --> ConsumerService
+ConsumerService --> Repository
 Repository --> Database
 
 @enduml

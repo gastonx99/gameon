@@ -98,19 +98,19 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
             LOGGER.debug("Do some good using service {}", service);
             switch (type) {
                 case country:
-                    service.fetchAndSaveCountries();
+                    service.fetchCountries();
                     break;
                 case team:
-                    service.fetchAndSaveTeams(getCountryId().get());
+                    service.fetchTeams(getCountryId().get());
                     break;
                 case league:
-                    service.fetchAndSaveLeagues(getCountryId());
+                    service.fetchLeagues(getCountryId());
                     break;
                 case season:
-                    service.fetchAndSaveSeasons(RemoteKey.of(getLeagueId()));
+                    service.fetchSeasons(RemoteKey.of(getLeagueId()));
                     break;
                 case match:
-                    service.fetchAndSaveMatches(RemoteKey.of(getSeasonId()));
+                    service.fetchMatches(RemoteKey.of(getSeasonId()));
                     break;
                 default:
                     throw new GameonRuntimeException("Unsupported type %s", type);

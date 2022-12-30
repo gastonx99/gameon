@@ -51,6 +51,8 @@
         <archunit.version>0.23.1</archunit.version>
         <picocli.version>4.6.3</picocli.version>
         <liquibase-slf4j.version>4.1.0</liquibase-slf4j.version>
+        <wildfly-jar-maven-plugin.version>7.0.1.Final</wildfly-jar-maven-plugin.version>
+        <wildfly.version>26.1.0.Final</wildfly.version>
     </properties>
 
 
@@ -130,6 +132,84 @@
                     <groupId>org.eclipse.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>${jetty-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-jar-maven-plugin</artifactId>
+                    <version>${wildfly-jar-maven-plugin.version}</version>
+                    <configuration>
+                        <feature-pack-location>wildfly@maven(org.jboss.universe:community-universe)#${wildfly.version}</feature-pack-location>
+                        <layers>
+                            <layer>management</layer>
+                            <!-- Some of these layers are redundant as Galleon dependencies take's care of most things -->
+<!--                            <layer>cloud-server</layer>-->
+<!--                            <layer>ejb-dist-cache</layer>-->
+<!--                            <layer>web-clustering</layer>-->
+<!--                            <layer>ee</layer>-->
+                            <layer>ejb-lite</layer>
+                            <layer>jaxrs</layer>
+                            <layer>jpa</layer>
+<!--                            <layer>jsf</layer>-->
+<!--                            <layer>jsonb</layer>-->
+<!--                            <layer>jsonp</layer>-->
+                            <!-- These go along with wildfly-datasources-preview-galleon-pack -->
+<!--                            <layer>datasources-web-server</layer>-->
+<!--                            <layer>postgresql-datasource</layer>-->
+                        </layers>
+                        <excluded-layers>
+                            <!-- Just here to demonstrate it can be done -->
+<!--                            <layer>core-management</layer>-->
+                            <layer>deployment-scanner</layer>
+<!--                            <layer>jmx-remoting</layer>-->
+<!--                            <layer>request-controller</layer>-->
+<!--                            <layer>security-manager</layer>-->
+                        </excluded-layers>
+<!--                        <log-time>true</log-time>-->
+<!--                        <cloud>-->
+<!--                            <type>kubernetes</type>-->
+<!--                        </cloud>-->
+<!--                        <context-root>false</context-root>-->
+<!--                        <feature-packs>-->
+<!--                            <feature-pack>-->
+<!--                                <location>wildfly-preview@maven(org.jboss.universe:community-universe)#${version.wildfly}-->
+<!--                                </location>-->
+<!--                            </feature-pack>-->
+<!--                            <feature-pack>-->
+<!--                                <groupId>org.wildfly</groupId>-->
+<!--                                <artifactId>wildfly-datasources-preview-galleon-pack</artifactId>-->
+<!--                                <version>${version.wildfly.datasources.galleon-pack}</version>-->
+<!--                            </feature-pack>-->
+<!--                        </feature-packs>-->
+                        <hollow-jar>false</hollow-jar>
+                        <plugin-options>
+                            <jboss-fork-embedded>true</jboss-fork-embedded>
+                        </plugin-options>
+                        <!-- Listen on all ports -->
+                        <arguments>
+                            <argument>-b=0.0.0.0</argument>
+                        </arguments>
+                        <!-- Make sure we can debug -->
+                        <jvmArguments>
+                            <arg>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</arg>
+                        </jvmArguments>
+                        <cli-sessions>
+                            <cli-session>
+                                <!-- Feed Wildfly Some Properties -->
+                                <properties-file>package_properties.properties</properties-file>
+                                <!-- Run some jboss-cli.sh commands against Wildfly -->
+                                <script-files>
+                                    <script>package_script.cli</script>
+                                </script-files>
+                            </cli-session>
+                        </cli-sessions>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>package</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

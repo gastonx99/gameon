@@ -6,13 +6,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface Api1Port {
-    Collection<Team> fetchTeams(Country country);
+    Collection<Team> fetchTeams(RemoteKey remoteKeyCountry);
 
-    Collection<Tournament> fetchLeagues(Optional<Country> country);
+    Collection<Tournament> fetchLeagues(Optional<RemoteKey> remoteKeyCountry);
 
     Collection<Country> fetchCountry();
 
-    Collection<Season> fetchSeasons(Tournament tournament);
+    Collection<Season> fetchSeasons(RemoteKey remoteKeyTournament);
 
-    Collection<Match> fetchMatches(Season season);
+    Collection<Match> fetchMatches(RemoteKey remoteKeySeason);
 }

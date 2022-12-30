@@ -27,14 +27,14 @@ public class TestBettingGameFactory {
     }
 
     public static BettingGame createBettingGameWorldCup2018() {
-        Tournament tournament = TestTournamentFactory.createTournamentWorldCup2018();
+        Tournament tournament = TestTournamentFactory.createCupWorldCup2018();
         Season season = tournament.getSeason("2018");
         String name = "Gurras World Cup 2018";
         return createBettingGame(season, name);
     }
 
     public static BettingGame createBettingGameEuro2021() {
-        Tournament tournament = TestTournamentFactory.createTournamentEuro2021();
+        Tournament tournament = TestTournamentFactory.createCupEuro2021();
         Season season = tournament.getSeason("2020");
         String name = "Gurras Euro 2021";
         return createBettingGame(season, name);

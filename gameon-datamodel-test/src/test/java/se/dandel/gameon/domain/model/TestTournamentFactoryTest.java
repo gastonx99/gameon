@@ -30,7 +30,7 @@ class TestTournamentFactoryTest {
         // Given
 
         // When
-        Tournament actual = TestTournamentFactory.createTournamentWorldCup2018();
+        Tournament actual = TestTournamentFactory.createCupWorldCup2018();
 
         // Then
         Season actualSeason = actual.getSeasons().iterator().next();

@@ -133,7 +133,7 @@ class MockServerExpectionsTestRunner {
     private Collection<Expectation> createExpecationTournaments() {
         Collection<Expectation> expectations = new ArrayList<>();
         {
-            Tournament tournament = TestTournamentFactory.createTournamentWorldCup2018();
+            Tournament tournament = TestTournamentFactory.createCupWorldCup2018();
             tournament.setPk(1);
             expectations.add(createTournament(tournament));
         }

@@ -25,7 +25,7 @@ public class TestTournamentFactory {
     public static final LocalTime EVENING = LocalTime.of(21, 0);
 
     public static Tournament createTournamentPremierLeague20202021() {
-        Tournament tournament = createTournament(TournamentType.LEAGUE, "Premier League");
+        Tournament tournament = createTournament(TestCountryFactory.createCountrySweden(), TournamentType.LEAGUE, "Premier League");
         Season season = createSeason(tournament, "2020/2021", LocalDate.parse("2020-09-10"));
         List<Team> teams = TestTeamFactory.createTeamsEngland2021();
         // Sort in predictable, but not apparent alphabetical, order
@@ -34,8 +34,8 @@ public class TestTournamentFactory {
         return tournament;
     }
 
-    public static Tournament createTournamentWorldCup2018() {
-        Tournament tournament = createTournament(TournamentType.CUP, "Men's Football World Cup");
+    public static Tournament createCupWorldCup2018() {
+        Tournament tournament = createTournament(null, TournamentType.CUP, "Men's Football World Cup");
         tournament.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
 
         Season season = createSeason(tournament, "2018", LocalDate.parse("2018-06-20"));
@@ -49,8 +49,8 @@ public class TestTournamentFactory {
         return tournament;
     }
 
-    public static Tournament createTournamentEuro2021() {
-        Tournament tournament = createTournament(TournamentType.CUP, "Men's Football Euro");
+    public static Tournament createCupEuro2021() {
+        Tournament tournament = createTournament(null, TournamentType.CUP, "Men's Football Euro");
         tournament.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
 
         Season season = createSeason(tournament, "2020", LocalDate.parse("2021-06-11"));
@@ -65,7 +65,7 @@ public class TestTournamentFactory {
         return tournament;
     }
 
-    private static Season createSeason(Tournament tournament, String seasonName, LocalDate seasonStartDate) {
+    public static Season createSeason(Tournament tournament, String seasonName, LocalDate seasonStartDate) {
         Season season = new Season();
         season.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
         season.setTournament(tournament);
@@ -129,7 +129,7 @@ public class TestTournamentFactory {
         LocalDate playoffMatchDay = maxMatchDay.plusDays(2);
         for (int i1 = 0; i1 < 8; i1++) {
             boolean even = (i1 % 2) == 0;
-            createMatch(season, stage, group, round, playoffMatchDay.atTime(even ? AFTERNOON : EVENING));
+            createCupMatch(season, stage, group, round, playoffMatchDay.atTime(even ? AFTERNOON : EVENING));
             if (!even) {
                 playoffMatchDay = playoffMatchDay.plusDays(1);
             }
@@ -138,18 +138,18 @@ public class TestTournamentFactory {
         playoffMatchDay = playoffMatchDay.plusDays(1);
         for (int i1 = 0; i1 < 4; i1++) {
             boolean even = (i1 % 2) == 0;
-            createMatch(season, stage, group, round, playoffMatchDay.atTime(even ? AFTERNOON : EVENING));
+            createCupMatch(season, stage, group, round, playoffMatchDay.atTime(even ? AFTERNOON : EVENING));
             playoffMatchDay = playoffMatchDay.plusDays(1);
         }
         round = "Semi-finals";
         playoffMatchDay = playoffMatchDay.plusDays(1);
-        createMatch(season, stage, group, round, playoffMatchDay.atTime(EVENING));
+        createCupMatch(season, stage, group, round, playoffMatchDay.atTime(EVENING));
         playoffMatchDay = playoffMatchDay.plusDays(1);
-        createMatch(season, stage, group, round, playoffMatchDay.atTime(EVENING));
+        createCupMatch(season, stage, group, round, playoffMatchDay.atTime(EVENING));
 
         round = "Final";
         playoffMatchDay = playoffMatchDay.plusDays(2);
-        createMatch(season, stage, group, round, playoffMatchDay.atTime(EVENING));
+        createCupMatch(season, stage, group, round, playoffMatchDay.atTime(EVENING));
 
     }
 
@@ -160,18 +160,29 @@ public class TestTournamentFactory {
         return matchStart;
     }
 
-    private static Tournament createTournament(TournamentType type, String name) {
+    public static Tournament createLeague() {
+        return createLeague(TestCountryFactory.createCountrySweden());
+    }
+
+    public static Tournament createLeague(Country country) {
+        return createTournament(country, TournamentType.LEAGUE, "Allsvenskan");
+    }
+
+    public static Tournament createTournament(Country country, TournamentType type, String name) {
         Tournament tournament = new Tournament(type);
         tournament.setName(name);
-        tournament.setCountry(TestCountryFactory.createCountry());
+        tournament.setCountry(country);
         tournament.setRemoteKey(RemoteKey.of(REMOTE_KEY.getAndIncrement()));
         return tournament;
     }
 
-    private static void createMatch(Season season, String stage, String group, String round, LocalDateTime matchStart) {
+    private static void createCupMatch(Season season, String stage, String group, String round, LocalDateTime matchStart) {
         Match match = createMatch(season, stage, group, round, null, null, matchStart);
     }
 
+    public static Match createLeagueMatch(Season season, String round, LocalDateTime matchStart, Team homeTeam, Team awayTeam) {
+        return createMatch(season, null, null, round, homeTeam, awayTeam, matchStart);
+    }
 
     private static Match createMatch(Season season, String stage, String group, String round, Team homeTeam, Team awayTeam, LocalDateTime matchStart) {
         RemoteKey remoteKey = RemoteKey.of(REMOTE_KEY.getAndIncrement());
@@ -187,6 +198,10 @@ public class TestTournamentFactory {
         match.setGroup(group);
         match.setRound(round);
         return match;
+    }
+
+    public static Season createSeason() {
+        return createSeason(TestTournamentFactory.createLeague(), "2021/22", LocalDate.of(2021, 4, 10));
     }
 
 }

@@ -7,7 +7,6 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import se.dandel.gameon.domain.model.Country;
 import se.dandel.gameon.domain.model.RemoteKey;
 import se.dandel.gameon.domain.model.Tournament;
 import se.dandel.gameon.domain.model.TournamentType;
@@ -25,6 +24,8 @@ import static org.mockito.Mockito.when;
 class Api1PortAdapterTest {
 
     private static final String COUNTRY_CODE = "se";
+    public static final RemoteKey REMOTE_KEY_COUNTRY = RemoteKey.of("114");
+    public static final RemoteKey REMOTE_KEY_TOURNAMENT = RemoteKey.of(17);
 
     @Mock
     private DtoMapper dtoMapper;
@@ -59,15 +60,14 @@ class Api1PortAdapterTest {
         // Given
         TeamDTO expected = new TeamDTO();
         when(invoker.invoke(any(), any(), any())).thenReturn(Collections.singletonList(expected));
-        Country country = createCountry();
 
         // When
-        adapter.fetchTeams(country);
+        adapter.fetchTeams(REMOTE_KEY_COUNTRY);
 
         // Then
         verify(invoker).invoke(any(), any(), mapArgumentCaptor.capture());
         assertTrue(mapArgumentCaptor.getValue().containsKey("country_id"));
-        assertTrue(mapArgumentCaptor.getValue().containsValue(country.getRemoteKey().getRemoteKey()));
+        assertTrue(mapArgumentCaptor.getValue().containsValue(REMOTE_KEY_COUNTRY.getRemoteKey()));
         verify(dtoMapper).fromDTO(expected);
     }
 
@@ -76,7 +76,6 @@ class Api1PortAdapterTest {
         // Given
         LeagueDTO expected = new LeagueDTO();
         when(invoker.invoke(any(), any(), any())).thenReturn(Collections.singletonList(expected));
-        Country country = createCountry();
 
         // When
         adapter.fetchLeagues(Optional.empty());
@@ -92,15 +91,14 @@ class Api1PortAdapterTest {
         // Given
         LeagueDTO expected = new LeagueDTO();
         when(invoker.invoke(any(), any(), any())).thenReturn(Collections.singletonList(expected));
-        Country country = createCountry();
 
         // When
-        adapter.fetchLeagues(Optional.of(country));
+        adapter.fetchLeagues(Optional.of(REMOTE_KEY_COUNTRY));
 
         // Then
         verify(invoker).invoke(any(), any(), mapArgumentCaptor.capture());
         assertTrue(mapArgumentCaptor.getValue().containsKey("country_id"));
-        assertTrue(mapArgumentCaptor.getValue().containsValue(country.getRemoteKey().getRemoteKey()));
+        assertTrue(mapArgumentCaptor.getValue().containsValue(REMOTE_KEY_COUNTRY.getRemoteKey()));
         verify(dtoMapper).fromDTO(expected);
     }
 
@@ -109,31 +107,15 @@ class Api1PortAdapterTest {
         // Given
         SeasonDTO expected = new SeasonDTO();
         when(invoker.invoke(any(), any(), any())).thenReturn(Collections.singletonList(expected));
-        Tournament tournament = createTournament();
 
         // When
-        adapter.fetchSeasons(tournament);
+        adapter.fetchSeasons(REMOTE_KEY_TOURNAMENT);
 
         // Then
         verify(invoker).invoke(any(), any(), mapArgumentCaptor.capture());
         assertTrue(mapArgumentCaptor.getValue().containsKey("league_id"));
-        assertTrue(mapArgumentCaptor.getValue().containsValue(tournament.getRemoteKey().getRemoteKey()));
+        assertTrue(mapArgumentCaptor.getValue().containsValue(REMOTE_KEY_TOURNAMENT.getRemoteKey()));
         verify(dtoMapper).fromDTO(expected);
-    }
-
-    private Tournament createTournament() {
-        Tournament tournament = new Tournament(TournamentType.LEAGUE);
-        tournament.setRemoteKey(RemoteKey.of(17));
-        return tournament;
-    }
-
-    private Country createCountry() {
-        Country country = new Country();
-        country.setName("Sweden");
-        country.setCountryCode("se");
-        country.setRemoteKey(RemoteKey.of("114"));
-        country.setContinent("Europe");
-        return country;
     }
 
 }

@@ -2,7 +2,6 @@ package se.dandel.gameon.application.service;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.client.MockServerClient;
@@ -11,26 +10,20 @@ import org.mockserver.junit.jupiter.MockServerSettings;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.MediaType;
 import se.dandel.gameon.ContainerTest;
-import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
-import se.dandel.gameon.domain.GameonRuntimeException;
-import se.dandel.gameon.domain.model.*;
-import se.dandel.gameon.domain.repository.AllPurposeTestRepository;
+import se.dandel.gameon.domain.model.RemoteKey;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
-import java.util.Arrays;
-import java.util.Collection;
+import javax.inject.Named;
+import javax.jms.JMSProducer;
+import javax.jms.Queue;
 import java.util.Optional;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.matchesPattern;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
-import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
 
 @ContainerTest
 @ExtendWith(MockServerExtension.class)
@@ -41,19 +34,31 @@ class FetchDataFromApi1ServiceTest {
 
     private static final String LEAGUE_ID = "567";
 
-    private static final String SEASON_ID = "42";
+    @Inject
+    private FetchDataFromApi1Service service;
 
     @Inject
-    FetchDataFromApi1Service service;
+    private JMSProducer jmsProducer;
 
     @Inject
-    PersistenceTestManager persistManager;
+    @Named("Team.Q")
+    private Queue teamQueue;
 
     @Inject
-    EntityManager entityManager;
+    @Named("Tournament.Q")
+    private Queue tournamentQueue;
 
     @Inject
-    AllPurposeTestRepository allPurposeTestRepository;
+    @Named("Season.Q")
+    private Queue seasonQueue;
+
+    @Inject
+    @Named("Match.Q")
+    private Queue matchQueue;
+
+    @Inject
+    @Named("Country.Q")
+    private Queue countryQueue;
 
     private MockServerClient mockServerClient;
 
@@ -63,132 +68,77 @@ class FetchDataFromApi1ServiceTest {
     }
 
     @Test
-    void fetchAndSaveCountries() throws Exception {
+    void fetchCountries() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-countries", "/api1/soccer/countries", "/json/api1/countries.json"));
 
         // When
-        persistManager.reset();
-        service.fetchAndSaveCountries();
+        service.fetchCountries();
 
         // Then
-        Collection<Country> actuals = allPurposeTestRepository.findAll(Country.class);
-        assertThat(actuals.size(), is(equalTo(43)));
+        verify(jmsProducer, times(43)).send(eq(countryQueue), anyString());
     }
 
     @Test
-    void fetchAndSaveTeams() throws Exception {
+    void fetchTeams() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-teams", "/api1/soccer/teams", "/json/api1/teams.json"));
-        allPurposeTestRepository.persist(TestCountryFactory.createCountry(REMOTE_KEY_COUNTRY));
 
         // When
-        persistManager.reset();
-        service.fetchAndSaveTeams(REMOTE_KEY_COUNTRY);
+        service.fetchTeams(REMOTE_KEY_COUNTRY);
 
         // Then
-        Collection<Team> actuals = allPurposeTestRepository.findAll(Team.class);
-        assertThat(actuals.size(), is(equalTo(3)));
+        verify(jmsProducer, times(3)).send(eq(teamQueue), anyString());
     }
 
     @Test
-    void fetchAndSaveAllLeagues() throws Exception {
+    void fetchAllLeagues() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-leagues", "/api1/soccer/leagues", "/json/api1/leagues.json"));
-        allPurposeTestRepository.persist(TestCountryFactory.createCountry(REMOTE_KEY_COUNTRY));
 
         // When
-        persistManager.reset();
-        service.fetchAndSaveLeagues(Optional.empty());
+        service.fetchLeagues(Optional.empty());
 
         // Then
-        Collection<Tournament> actuals = allPurposeTestRepository.findAll(Tournament.class);
-        assertThat(actuals.size(), is(equalTo(6)));
+        verify(jmsProducer, times(6)).send(eq(tournamentQueue), anyString());
     }
 
     @Test
-    void fetchAndSaveLeaguesForCountry() throws Exception {
+    void fetchLeaguesForCountry() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-leagues", "/api1/soccer/leagues", "/json/api1/leagues.json"));
-        allPurposeTestRepository.persist(TestCountryFactory.createCountry(REMOTE_KEY_COUNTRY));
 
         // When
-        persistManager.reset();
-        service.fetchAndSaveLeagues(Optional.of(REMOTE_KEY_COUNTRY));
+        service.fetchLeagues(Optional.of(REMOTE_KEY_COUNTRY));
 
         // Then
-        Collection<Tournament> actuals = allPurposeTestRepository.findAll(Tournament.class);
-        assertThat(actuals.size(), is(equalTo(6)));
+        verify(jmsProducer, times(6)).send(eq(tournamentQueue), anyString());
     }
 
     @Test
-    void fetchAndSaveSeasons() throws Exception {
+    void fetchSeasons() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-seasons", "/api1/soccer/seasons", "/json/api1/seasons.json"));
-        persistManager.deepPersist(createLeague());
 
         // When
-        persistManager.reset();
-        service.fetchAndSaveSeasons(RemoteKey.of(LEAGUE_ID));
+        service.fetchSeasons(RemoteKey.of(LEAGUE_ID));
 
         // Then
-        Collection<Season> actuals = allPurposeTestRepository.findAll(Season.class);
-        assertThat(actuals.size(), is(equalTo(3)));
+        verify(jmsProducer, times(3)).send(eq(seasonQueue), anyString());
     }
 
     @Test
-    void fetchAndSaveMatches() throws Exception {
+    void fetchMatches() throws Exception {
         // Given
         mockServerClient.upsert(createExpectation("api1-matches", "/api1/soccer/matches", "/json/api1/matches.json"));
-        Season season = createSeason(createLeague());
-        persistManager.deepPersist(season);
-
-        Arrays.asList(
-                createTeam("3993", "1. FC Union Berlin"), createTeam("4075", "FC Augsburg"),
-                createTeam("4070", "Werder Bremen"), createTeam("4067", "Hertha BSC"),
-                createTeam("3991", "1. FC Cologne"), createTeam("4079", "TSG 1899 Hoffenheim")
-        ).forEach(team -> persistManager.deepPersist(team));
 
         // When
-        persistManager.reset();
-        service.fetchAndSaveMatches(season.getRemoteKey());
+        service.fetchMatches(RemoteKey.of(1));
 
         // Then
-        Collection<Match> actuals = allPurposeTestRepository.findAll(Match.class);
-        assertThat(actuals.size(), is(equalTo(3)));
+        verify(jmsProducer, times(3)).send(eq(matchQueue), anyString());
     }
 
-    @Test
-    void fetchAndSaveMatchesTeamCountryIsMissing() throws Exception {
-        // Given
-        mockServerClient.upsert(createExpectation("api1-matches", "/api1/soccer/matches", "/json/api1/matches.json"));
-        Season season = createSeason(createLeague());
-        persistManager.deepPersist(season);
-
-        // When
-        persistManager.reset();
-        GameonRuntimeException actual = assertThrows(GameonRuntimeException.class, () -> service.fetchAndSaveMatches(season.getRemoteKey()));
-
-        // Then
-        assertThat(actual.getMessage(), matchesPattern("Persisted team .* does not exist"));
-    }
-
-    @Test
-    void fetchAndSaveMatchesAllowCreationOfTeamsIfCountryIsContinent() throws Exception {
-        // Given
-        mockServerClient.upsert(createExpectation("api1-matches", "/api1/soccer/matches", "/json/api1/matches.json"));
-        Season season = createSeason(createLeague());
-        season.getTournament().getCountry().setCountryCode(null);
-        persistManager.deepPersist(season);
-
-        // When
-        persistManager.reset();
-        service.fetchAndSaveMatches(season.getRemoteKey());
-
-        // Then
-        Collection<Match> actuals = allPurposeTestRepository.findAll(Match.class);
-        assertThat(actuals.size(), is(equalTo(3)));
-    }
 
     private Expectation createExpectation(String expectationId, String path, String resource) throws Exception {
         String expected = IOUtils.toString(getClass().getResourceAsStream(resource), "UTF-8");
@@ -204,32 +154,5 @@ class FetchDataFromApi1ServiceTest {
         ).withId(expectationId);
         return expectation;
     }
-
-    private Country createCountry() {
-        Country country = new Country();
-        country.setName("Sweden");
-        country.setCountryCode("se");
-        country.setRemoteKey(REMOTE_KEY_COUNTRY);
-        country.setContinent("Europe");
-        return country;
-    }
-
-    private Tournament createLeague() {
-        Tournament tournament = new Tournament(TournamentType.LEAGUE);
-        tournament.setName("Allsvenskan");
-        tournament.setRemoteKey(RemoteKey.of(LEAGUE_ID));
-        tournament.setCountry(createCountry());
-        return tournament;
-    }
-
-    private Season createSeason(Tournament league) {
-        Season season = new Season();
-        season.setName("Allsvenskan");
-        season.setRemoteKey(RemoteKey.of(SEASON_ID));
-        season.setTournament(league);
-        league.addSeason(season);
-        return season;
-    }
-
 
 }

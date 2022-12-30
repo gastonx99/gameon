@@ -18,6 +18,7 @@ public class ArchitectureTest {
 //            .adapter("cli", "se.dandel.gameon.adapter.cli..")
             .adapter("persistence", "se.dandel.gameon.adapter.jpa..")
             .adapter("out.rest", "se.dandel.gameon.adapter.out.rest..")
+            .adapter("out.message", "se.dandel.gameon.adapter.out.message..")
             .adapter("in.rest", "se.dandel.gameon.adapter.in.rest..");
 
 }

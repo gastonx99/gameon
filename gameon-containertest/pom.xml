@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>se.dandel.gameon</groupId>
-            <artifactId>gameon-impl</artifactId>
+            <artifactId>gameon-mdb</artifactId>
         </dependency>
         <dependency>
             <groupId>se.dandel.gameon</groupId>

@@ -28,7 +28,7 @@ class TournamentRepositoryTest {
     @Test
     void persist() {
         // Given
-        Country country = TestCountryFactory.createCountry();
+        Country country = TestCountryFactory.createCountrySweden();
         repository.persist(country);
         Tournament expected = new Tournament(TournamentType.LEAGUE);
         expected.setName("My league");
