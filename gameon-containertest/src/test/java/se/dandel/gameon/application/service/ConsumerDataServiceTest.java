@@ -1,10 +1,12 @@
 package se.dandel.gameon.application.service;
 
+import org.jboss.weld.junit5.auto.AddExtensions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.junit.jupiter.MockServerExtension;
 import org.mockserver.junit.jupiter.MockServerSettings;
 import se.dandel.gameon.ContainerTest;
+import se.dandel.gameon.DatabaseManagerExtension;
 import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.repository.AllPurposeTestRepository;
@@ -21,6 +23,7 @@ import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
 import static se.dandel.gameon.domain.model.TestTournamentFactory.createLeagueMatch;
 
 @ContainerTest
+@AddExtensions({DatabaseManagerExtension.class})
 @ExtendWith(MockServerExtension.class)
 @MockServerSettings(ports = {9999})
 class ConsumerDataServiceTest {

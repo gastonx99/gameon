@@ -1,7 +1,6 @@
 package se.dandel.gameon;
 
 import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.AddExtensions;
 import org.jboss.weld.junit5.auto.AddPackages;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
@@ -17,7 +16,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(TYPE)
 @Retention(RUNTIME)
 @EnableAutoWeld
-@AddExtensions({DatabaseManagerExtension.class})
 @AddPackages({se.dandel.gameon.adapter.EnvironmentConfig.class})
 @AddPackages({se.dandel.gameon.application.service.FetchDataFromApi1Service.class})
 @AddPackages({se.dandel.gameon.domain.port.Api1Port.class})
@@ -25,5 +23,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @AddPackages({se.dandel.gameon.ContainerTest.class})
 @AddBeanClasses({PersistenceTestManager.class})
 public @interface ContainerTest {
-
 }
