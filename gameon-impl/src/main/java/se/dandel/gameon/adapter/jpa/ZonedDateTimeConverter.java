@@ -1,10 +1,9 @@
 package se.dandel.gameon.adapter.jpa;
 
+import javax.persistence.AttributeConverter;
 import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-
-import javax.persistence.AttributeConverter;
 
 public class ZonedDateTimeConverter implements AttributeConverter<ZonedDateTime, Timestamp> {
     @Override

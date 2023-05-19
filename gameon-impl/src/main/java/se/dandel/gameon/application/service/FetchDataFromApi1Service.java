@@ -1,11 +1,12 @@
 package se.dandel.gameon.application.service;
 
-import se.dandel.gameon.domain.port.MessageProducerPort;
 import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.port.Api1Port;
+import se.dandel.gameon.domain.port.MessageProducerPort;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.util.Collection;
+import java.util.Optional;
 
 public class FetchDataFromApi1Service {
 

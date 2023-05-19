@@ -8,8 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import se.dandel.gameon.domain.model.RemoteKey;
-import se.dandel.gameon.domain.model.Tournament;
-import se.dandel.gameon.domain.model.TournamentType;
 
 import java.util.Collections;
 import java.util.Map;

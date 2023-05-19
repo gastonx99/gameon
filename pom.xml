@@ -142,44 +142,44 @@
                         <layers>
                             <layer>management</layer>
                             <!-- Some of these layers are redundant as Galleon dependencies take's care of most things -->
-<!--                            <layer>cloud-server</layer>-->
-<!--                            <layer>ejb-dist-cache</layer>-->
-<!--                            <layer>web-clustering</layer>-->
-<!--                            <layer>ee</layer>-->
+                            <!--                            <layer>cloud-server</layer>-->
+                            <!--                            <layer>ejb-dist-cache</layer>-->
+                            <!--                            <layer>web-clustering</layer>-->
+                            <!--                            <layer>ee</layer>-->
                             <layer>ejb-lite</layer>
                             <layer>jaxrs</layer>
                             <layer>jpa</layer>
-<!--                            <layer>jsf</layer>-->
-<!--                            <layer>jsonb</layer>-->
-<!--                            <layer>jsonp</layer>-->
+                            <!--                            <layer>jsf</layer>-->
+                            <!--                            <layer>jsonb</layer>-->
+                            <!--                            <layer>jsonp</layer>-->
                             <!-- These go along with wildfly-datasources-preview-galleon-pack -->
-<!--                            <layer>datasources-web-server</layer>-->
-<!--                            <layer>postgresql-datasource</layer>-->
+                            <!--                            <layer>datasources-web-server</layer>-->
+                            <!--                            <layer>postgresql-datasource</layer>-->
                         </layers>
                         <excluded-layers>
                             <!-- Just here to demonstrate it can be done -->
-<!--                            <layer>core-management</layer>-->
+                            <!--                            <layer>core-management</layer>-->
                             <layer>deployment-scanner</layer>
-<!--                            <layer>jmx-remoting</layer>-->
-<!--                            <layer>request-controller</layer>-->
-<!--                            <layer>security-manager</layer>-->
+                            <!--                            <layer>jmx-remoting</layer>-->
+                            <!--                            <layer>request-controller</layer>-->
+                            <!--                            <layer>security-manager</layer>-->
                         </excluded-layers>
-<!--                        <log-time>true</log-time>-->
-<!--                        <cloud>-->
-<!--                            <type>kubernetes</type>-->
-<!--                        </cloud>-->
-<!--                        <context-root>false</context-root>-->
-<!--                        <feature-packs>-->
-<!--                            <feature-pack>-->
-<!--                                <location>wildfly-preview@maven(org.jboss.universe:community-universe)#${version.wildfly}-->
-<!--                                </location>-->
-<!--                            </feature-pack>-->
-<!--                            <feature-pack>-->
-<!--                                <groupId>org.wildfly</groupId>-->
-<!--                                <artifactId>wildfly-datasources-preview-galleon-pack</artifactId>-->
-<!--                                <version>${version.wildfly.datasources.galleon-pack}</version>-->
-<!--                            </feature-pack>-->
-<!--                        </feature-packs>-->
+                        <!--                        <log-time>true</log-time>-->
+                        <!--                        <cloud>-->
+                        <!--                            <type>kubernetes</type>-->
+                        <!--                        </cloud>-->
+                        <!--                        <context-root>false</context-root>-->
+                        <!--                        <feature-packs>-->
+                        <!--                            <feature-pack>-->
+                        <!--                                <location>wildfly-preview@maven(org.jboss.universe:community-universe)#${version.wildfly}-->
+                        <!--                                </location>-->
+                        <!--                            </feature-pack>-->
+                        <!--                            <feature-pack>-->
+                        <!--                                <groupId>org.wildfly</groupId>-->
+                        <!--                                <artifactId>wildfly-datasources-preview-galleon-pack</artifactId>-->
+                        <!--                                <version>${version.wildfly.datasources.galleon-pack}</version>-->
+                        <!--                            </feature-pack>-->
+                        <!--                        </feature-packs>-->
                         <hollow-jar>false</hollow-jar>
                         <plugin-options>
                             <jboss-fork-embedded>true</jboss-fork-embedded>

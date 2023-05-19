@@ -1,10 +1,9 @@
 package se.dandel.gameon.adapter;
 
-import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.Config;
-
-import javax.inject.Inject;
 import org.eclipse.microprofile.config.ConfigProvider;
+
+import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class EnvironmentConfig {

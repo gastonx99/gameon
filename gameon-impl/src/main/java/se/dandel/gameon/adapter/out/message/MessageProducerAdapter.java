@@ -1,7 +1,7 @@
 package se.dandel.gameon.adapter.out.message;
 
-import se.dandel.gameon.domain.port.MessageProducerPort;
 import se.dandel.gameon.domain.model.*;
+import se.dandel.gameon.domain.port.MessageProducerPort;
 
 import javax.inject.Inject;
 import javax.inject.Named;

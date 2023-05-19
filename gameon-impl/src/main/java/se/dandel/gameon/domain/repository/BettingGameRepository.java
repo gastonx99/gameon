@@ -2,7 +2,6 @@ package se.dandel.gameon.domain.repository;
 
 import se.dandel.gameon.domain.model.bet.BettingGame;
 import se.dandel.gameon.domain.model.bet.BettingGameUser;
-import se.dandel.gameon.domain.repository.AbstractRepository;
 
 import javax.persistence.TypedQuery;
 import java.util.Collection;

@@ -2,7 +2,6 @@ package se.dandel.gameon.adapter.in.rest;
 
 import se.dandel.gameon.domain.model.bet.BettingGameUser;
 import se.dandel.gameon.domain.repository.BettingGameRepository;
-import se.dandel.gameon.adapter.in.rest.BettingGameUserModelMapper;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

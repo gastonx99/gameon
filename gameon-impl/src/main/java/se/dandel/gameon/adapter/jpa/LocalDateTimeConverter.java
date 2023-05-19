@@ -1,9 +1,8 @@
 package se.dandel.gameon.adapter.jpa;
 
+import javax.persistence.AttributeConverter;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
-import javax.persistence.AttributeConverter;
 
 public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
     @Override

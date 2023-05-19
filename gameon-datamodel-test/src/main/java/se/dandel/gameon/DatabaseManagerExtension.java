@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.*;
 import javax.persistence.EntityManager;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
