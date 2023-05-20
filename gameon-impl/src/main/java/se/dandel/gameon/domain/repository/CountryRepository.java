@@ -1,23 +1,13 @@
 package se.dandel.gameon.domain.repository;
 
+import org.springframework.data.repository.ListCrudRepository;
 import se.dandel.gameon.domain.model.Country;
 import se.dandel.gameon.domain.model.RemoteKey;
 
-import javax.persistence.TypedQuery;
 import java.util.Optional;
 
-public class CountryRepository extends AbstractRepository {
-    public Optional<Country> find(Country country) {
-        TypedQuery<Country> query =
-                getEntityManager().createQuery("select c from Country c where c.remoteKey = :remoteKey", Country.class);
-        query.setParameter("remoteKey", country.getRemoteKey());
-        return getSingleResult(query);
-    }
+public interface CountryRepository extends ListCrudRepository<Country, Long> {
+    Optional<Country> findByCountry(Country country);
 
-    public Optional<Country> findByRemoteKey(RemoteKey remoteKey) {
-        TypedQuery<Country> query =
-                getEntityManager().createQuery("select c from Country c where c.remoteKey = :remoteKey", Country.class);
-        query.setParameter("remoteKey", remoteKey);
-        return getSingleResult(query);
-    }
+    Optional<Country> findByRemoteKey(RemoteKey remoteKey);
 }

@@ -1,33 +1,28 @@
 package se.dandel.gameon.adapter.in.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import se.dandel.gameon.domain.model.Tournament;
 import se.dandel.gameon.domain.repository.TournamentRepository;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.Collection;
 
 import static java.util.stream.Collectors.toList;
 
-@Path("/tournament")
+@RestController("/tournament")
 public class TournamentAPI {
 
-    @Inject
+    @Autowired
     private TournamentRepository tournamentRepository;
 
-    @Inject
+    @Autowired
     private TournamentModelMapper mapper;
 
-    @GET
-    @Path("/all")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findAll() {
-        Collection<Tournament> tournaments = tournamentRepository.findAllTournaments();
-        return Response.ok(tournaments.stream().map(t -> mapper.toModel(t)).collect(toList())).build();
+    @GetMapping("/all")
+    public Collection<TournamentModel> findAll() {
+        Collection<Tournament> tournaments = tournamentRepository.findAll();
+        return tournaments.stream().map(t -> mapper.toModel(t)).collect(toList());
     }
 
 }

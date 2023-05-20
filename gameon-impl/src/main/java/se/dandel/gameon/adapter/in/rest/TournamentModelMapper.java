@@ -7,7 +7,7 @@ import se.dandel.gameon.domain.model.Season;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.Tournament;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "spring")
 public interface TournamentModelMapper {
     @Mapping(source = "country.name", target = "countryName")
     @Mapping(source = "country.countryCode", target = "countryCode")

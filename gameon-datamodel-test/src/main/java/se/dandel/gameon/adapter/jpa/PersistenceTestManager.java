@@ -1,19 +1,23 @@
 package se.dandel.gameon.adapter.jpa;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import se.dandel.gameon.domain.model.Season;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.Tournament;
 import se.dandel.gameon.domain.model.Venue;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import java.util.Collection;
 
+@Component
 public class PersistenceTestManager {
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    @Inject
+    @Autowired
     private EntityManager entityManager;
 
     private void commitAndBegin() {
@@ -47,5 +51,11 @@ public class PersistenceTestManager {
             entityManager.persist(team.getCountry());
             entityManager.persist(team);
         }
+    }
+
+    public <T> Collection<T> findAll(Class<T> clazz) {
+        Query query = entityManager.createQuery("select o from Object o where o.type = :clazz");
+        query.setParameter("clazz", clazz);
+        return query.getResultList();
     }
 }

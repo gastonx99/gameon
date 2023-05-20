@@ -1,6 +1,7 @@
 package se.dandel.gameon.adapter.jpa;
 
-import javax.persistence.AttributeConverter;
+import jakarta.persistence.AttributeConverter;
+
 import java.sql.Date;
 import java.time.LocalDate;
 

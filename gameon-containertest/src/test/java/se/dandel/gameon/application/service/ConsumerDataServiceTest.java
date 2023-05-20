@@ -1,17 +1,11 @@
 package se.dandel.gameon.application.service;
 
-import org.jboss.weld.junit5.auto.AddExtensions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockserver.junit.jupiter.MockServerExtension;
-import org.mockserver.junit.jupiter.MockServerSettings;
-import se.dandel.gameon.ContainerTest;
-import se.dandel.gameon.DatabaseManagerExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.*;
-import se.dandel.gameon.domain.repository.AllPurposeTestRepository;
 
-import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -22,20 +16,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static se.dandel.gameon.domain.model.TestTeamFactory.createTeam;
 import static se.dandel.gameon.domain.model.TestTournamentFactory.createLeagueMatch;
 
-@ContainerTest
-@AddExtensions({DatabaseManagerExtension.class})
-@ExtendWith(MockServerExtension.class)
-@MockServerSettings(ports = {9999})
+@Integrationstest
 class ConsumerDataServiceTest {
 
-    @Inject
     ConsumerDataService service;
 
-    @Inject
     PersistenceTestManager persistManager;
 
-    @Inject
-    AllPurposeTestRepository allPurposeTestRepository;
+    @Autowired
+    private TestEntityManager testEntityManager;
 
     @Test
     void saveCountries() {
@@ -50,7 +39,7 @@ class ConsumerDataServiceTest {
         service.saveCountries(countries);
 
         // Then
-        Collection<Country> actuals = allPurposeTestRepository.findAll(Country.class);
+        Collection<Country> actuals = persistManager.findAll(Country.class);
         assertThat(actuals.size(), is(equalTo(2)));
     }
 
@@ -58,7 +47,7 @@ class ConsumerDataServiceTest {
     void saveTeams() {
         // Given
         Country countrySweden = TestCountryFactory.createCountrySweden();
-        allPurposeTestRepository.persist(countrySweden);
+        testEntityManager.persist(countrySweden);
 
         // When
         persistManager.reset();
@@ -70,7 +59,7 @@ class ConsumerDataServiceTest {
         service.saveTeams(teams);
 
         // Then
-        Collection<Team> actuals = allPurposeTestRepository.findAll(Team.class);
+        Collection<Team> actuals = persistManager.findAll(Team.class);
         assertThat(actuals.size(), is(equalTo(3)));
     }
 
@@ -78,7 +67,7 @@ class ConsumerDataServiceTest {
     void saveTournaments() {
         // Given
         Country countrySweden = TestCountryFactory.createCountrySweden();
-        allPurposeTestRepository.persist(countrySweden);
+        testEntityManager.persist(countrySweden);
         Collection<Tournament> tournaments = asList(
                 TestTournamentFactory.createTournament(countrySweden, TournamentType.LEAGUE, "Allsvenskan"),
                 TestTournamentFactory.createTournament(countrySweden, TournamentType.LEAGUE, "Div 1")
@@ -89,7 +78,7 @@ class ConsumerDataServiceTest {
         service.saveTournaments(tournaments);
 
         // Then
-        Collection<Tournament> actuals = allPurposeTestRepository.findAll(Tournament.class);
+        Collection<Tournament> actuals = persistManager.findAll(Tournament.class);
         assertThat(actuals.size(), is(equalTo(2)));
     }
 
@@ -108,7 +97,7 @@ class ConsumerDataServiceTest {
         service.saveSeasons(tournament, seasons);
 
         // Then
-        Collection<Season> actuals = allPurposeTestRepository.findAll(Season.class);
+        Collection<Season> actuals = persistManager.findAll(Season.class);
         assertThat(actuals.size(), is(equalTo(2)));
     }
 
@@ -130,7 +119,7 @@ class ConsumerDataServiceTest {
         service.saveMatches(season, matches);
 
         // Then
-        Collection<Match> actuals = allPurposeTestRepository.findAll(Match.class);
+        Collection<Match> actuals = persistManager.findAll(Match.class);
         assertThat(actuals.size(), is(equalTo(2)));
     }
 
@@ -155,7 +144,7 @@ class ConsumerDataServiceTest {
         service.saveMatches(season, matches);
 
         // Then
-        Collection<Match> actuals = allPurposeTestRepository.findAll(Match.class);
+        Collection<Match> actuals = persistManager.findAll(Match.class);
         assertThat(actuals.size(), is(equalTo(2)));
     }
 

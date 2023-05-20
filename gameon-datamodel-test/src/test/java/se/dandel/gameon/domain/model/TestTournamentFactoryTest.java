@@ -22,7 +22,7 @@ class TestTournamentFactoryTest {
         Season actualSeason = actual.getSeasons().iterator().next();
         List<Match> matches = new ArrayList(actualSeason.getMatches());
         matches.sort(Comparator.comparing(Match::getMatchStart));
-        matches.forEach(m -> LOGGER.debug("Match: {}", m));
+        matches.forEach(m -> LOGGER.atDebug().log("Match: {}", m));
     }
 
     @Test
@@ -36,6 +36,6 @@ class TestTournamentFactoryTest {
         Season actualSeason = actual.getSeasons().iterator().next();
         List<Match> matches = new ArrayList(actualSeason.getMatches());
         matches.sort(Comparator.comparing(Match::getMatchStart));
-        matches.forEach(m -> LOGGER.debug("Match: {}", m));
+        matches.forEach(m -> LOGGER.atDebug().log("Match: {}", m));
     }
 }

@@ -14,14 +14,13 @@
     <description>${project.artifactId}</description>
 
     <dependencies>
+        <!-- Spring -->
+        <!-- END Spring -->
+
+
         <dependency>
             <groupId>se.dandel.gameon</groupId>
             <artifactId>gameon-common-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>se.dandel.gameon</groupId>
-            <artifactId>gameon-platform</artifactId>
-            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>se.dandel.gameon</groupId>

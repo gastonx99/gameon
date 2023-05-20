@@ -7,7 +7,7 @@ import se.dandel.gameon.domain.model.bet.BettingGameUser;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "spring")
 public interface BettingGameUserWidgetModelMapper {
 
     default BettingGameUserWidgetModel toModel(Collection<BettingGameUser> bettingGameUsers) {
