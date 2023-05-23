@@ -14,6 +14,7 @@ public class Team {
 
     private String name;
 
+    @Column(name = "SHORTCODE")
     private String shortCode;
 
     @ManyToOne

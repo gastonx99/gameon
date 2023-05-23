@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.*;
 
 import java.util.Collection;
@@ -24,9 +23,6 @@ class TournamentRepositoryTest {
     TournamentRepository repository;
 
     @Autowired
-    PersistenceTestManager persistManager;
-
-    @Autowired
     private TestEntityManager entityManager;
 
     @Test
@@ -41,7 +37,6 @@ class TournamentRepositoryTest {
         repository.save(expected);
 
         // When
-        persistManager.reset();
         Collection<Tournament> actuals = repository.findAll();
 
         // Then

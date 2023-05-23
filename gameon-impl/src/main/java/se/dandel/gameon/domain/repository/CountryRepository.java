@@ -7,7 +7,5 @@ import se.dandel.gameon.domain.model.RemoteKey;
 import java.util.Optional;
 
 public interface CountryRepository extends ListCrudRepository<Country, Long> {
-    Optional<Country> findByCountry(Country country);
-
     Optional<Country> findByRemoteKey(RemoteKey remoteKey);
 }

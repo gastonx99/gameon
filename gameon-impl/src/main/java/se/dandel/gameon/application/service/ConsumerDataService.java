@@ -100,7 +100,7 @@ public class ConsumerDataService {
     }
 
     private void createOrUpdateSeason(Tournament tournament, Season season) {
-        Optional<Season> persisted = seasonRepository.findByTournamentAndSeason(tournament, season);
+        Optional<Season> persisted = seasonRepository.findByTournament(tournament);
         if (persisted.isPresent()) {
             applySeason(season, persisted.get());
         } else {
@@ -115,7 +115,7 @@ public class ConsumerDataService {
     }
 
     private void createOrUpdateCountry(Country country) {
-        Optional<Country> persisted = countryRepository.findByCountry(country);
+        Optional<Country> persisted = countryRepository.findByRemoteKey(country.getRemoteKey());
         if (persisted.isPresent()) {
             applyCountry(country, persisted.get());
         } else {

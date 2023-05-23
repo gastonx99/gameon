@@ -18,8 +18,8 @@ public class BettingAPI {
 
     @GetMapping("/game/user/{id}")
     public BettingGameUserModel get(@RequestParam("id") long id) {
-        BettingGameUser bettingGame = bettingGameRepository.findByBettingGameUser(id);
-        return mapper.toModel(bettingGame);
+//        BettingGameUser bettingGame = bettingGameRepository.findByParticipants(id);
+        return mapper.toModel((BettingGameUser) null);
     }
 
 }

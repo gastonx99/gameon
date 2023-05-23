@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Import;
 import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
 import se.dandel.gameon.domain.model.Team;
 import se.dandel.gameon.domain.model.TestTeamFactory;
@@ -16,8 +17,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 @DataJpaTest
+@Import(PersistenceTestManager.class)
 class TeamRepositoryTest {
 
     Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -40,10 +43,10 @@ class TeamRepositoryTest {
 
         // When
         repository.save(persisted);
-        persistManager.reset();
 
         // Then
         assertThat(persisted.getPk(), is(greaterThan(0L)));
+        assertNotSame(persisted, repository.findById(persisted.getPk()));
     }
 
     @Test

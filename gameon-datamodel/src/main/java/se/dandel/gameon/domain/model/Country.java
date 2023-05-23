@@ -12,6 +12,7 @@ public class Country {
 
     private String name;
 
+    @Column(name = "COUNTRYCODE")
     private String countryCode;
 
     private String continent;

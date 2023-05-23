@@ -17,7 +17,7 @@
         <appender-ref ref="CONSOLE_APPENDER"/>
     </logger>
 
-    <logger name="se.dandel.gameon.domain.repository" level="INFO"/>
+    <logger name="se.dandel.gameon.domain" level="INFO"/>
 
     <logger name="liquibase" level="WARN"/>
 

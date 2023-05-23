@@ -20,19 +20,12 @@ public class PersistenceTestManager {
     @Autowired
     private EntityManager entityManager;
 
-    private void commitAndBegin() {
-        entityManager.getTransaction().commit();
-        entityManager.clear();
-        entityManager.getTransaction().begin();
-    }
-
-
     public EntityManager em() {
         return entityManager;
     }
 
     public void reset() {
-        commitAndBegin();
+        entityManager.clear();
     }
 
     public void deepPersist(Object entity) {

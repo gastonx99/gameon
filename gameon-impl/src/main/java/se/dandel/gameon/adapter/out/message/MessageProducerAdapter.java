@@ -1,8 +1,5 @@
 package se.dandel.gameon.adapter.out.message;
 
-import jakarta.jms.JMSException;
-import jakarta.jms.Session;
-import jakarta.jms.TextMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,33 +33,27 @@ public class MessageProducerAdapter implements MessageProducerPort {
 
     @Override
     public void produceMessage(Team team) {
-        jmsTemplate.send(qTeam, session -> getTextMessage(team, session));
+        jmsTemplate.convertAndSend(qTeam, team.toString());
     }
-
 
     @Override
     public void produceMessage(Tournament tournament) {
-        jmsTemplate.send(qTournament, session -> getTextMessage(tournament, session));
+        jmsTemplate.convertAndSend(qTournament, tournament.toString());
     }
 
     @Override
     public void produceMessage(Season season) {
-        jmsTemplate.send(qSeason, session -> getTextMessage(season, session));
+        jmsTemplate.convertAndSend(qSeason, season.toString());
     }
 
     @Override
     public void produceMessage(Match match) {
-        jmsTemplate.send(qMatch, session -> getTextMessage(match, session));
+        jmsTemplate.convertAndSend(qMatch, match.toString());
     }
 
     @Override
     public void produceMessage(Country country) {
-        jmsTemplate.send(qCountry, session -> getTextMessage(country, session));
+        jmsTemplate.convertAndSend(qCountry, country.toString());
     }
 
-    private static TextMessage getTextMessage(Object object, Session session) throws JMSException {
-        TextMessage textMessage = session.createTextMessage(object.toString());
-        LOGGER.atInfo().log("Sending message: {}".formatted(object));
-        return textMessage;
-    }
 }

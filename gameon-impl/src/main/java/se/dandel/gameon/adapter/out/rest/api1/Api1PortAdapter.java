@@ -35,10 +35,10 @@ public class Api1PortAdapter implements Api1Port {
 
     static final String PATH_SOCCER_MATCHES = "/soccer/matches";
 
-    @Value("se.dandel.gameon.api1.base.url")
+    @Value("${se.dandel.gameon.api1.base.url}")
     private String baseUrl;
 
-    @Value("se.dandel.gameon.api1.base.apikey")
+    @Value("${se.dandel.gameon.api1.base.apikey}")
     private String apiKey;
 
     @Autowired
@@ -53,10 +53,10 @@ public class Api1PortAdapter implements Api1Port {
     @Override
     public Collection<Country> fetchCountry() {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Collection<CountryDTO>> response = restTemplate.exchange(baseUrl + PATH_SOCCER_COUNTRIES, HttpMethod.GET, null, new ParameterizedTypeReference<>() {
+        ResponseEntity<EnvelopeDTO<Collection<CountryDTO>>> response = restTemplate.exchange(baseUrl + PATH_SOCCER_COUNTRIES, HttpMethod.GET, null, new ParameterizedTypeReference<>() {
         });
 
-        Collection<CountryDTO> dtos = response.getBody();
+        Collection<CountryDTO> dtos = response.getBody().getData();
 
         LOGGER.atDebug().log("Number of countries: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
@@ -69,10 +69,10 @@ public class Api1PortAdapter implements Api1Port {
         params.put("country_id", remoteKeyCountry.getRemoteKey());
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Collection<TeamDTO>> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, getHeaders(), new ParameterizedTypeReference<>() {
+        ResponseEntity<EnvelopeDTO<Collection<TeamDTO>>> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, getHeaders(), new ParameterizedTypeReference<>() {
         }, params);
 
-        Collection<TeamDTO> dtos = response.getBody();
+        Collection<TeamDTO> dtos = response.getBody().getData();
         LOGGER.atDebug().log("Number of teams: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
     }
@@ -85,25 +85,25 @@ public class Api1PortAdapter implements Api1Port {
         params.put("country_id", remoteKeyCountry.isEmpty() ? "" : remoteKeyCountry.get().getRemoteKey());
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Collection<LeagueDTO>> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, getHeaders(), new ParameterizedTypeReference<>() {
+        ResponseEntity<EnvelopeDTO<Map<Integer, LeagueDTO>>> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, getHeaders(), new ParameterizedTypeReference<>() {
         }, params);
 
-        Collection<LeagueDTO> dtos = response.getBody();
+        Collection<LeagueDTO> dtos = response.getBody().getData().values();
         LOGGER.atDebug().log("Number of leagues: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
     }
 
     @Override
     public Collection<Season> fetchSeasons(RemoteKey remoteKeyTournament) {
-        String urlTemplate = UriComponentsBuilder.fromHttpUrl(baseUrl + PATH_SOCCER_LEAGUES).queryParam("country_id", "{country_id}").encode().toUriString();
+        String urlTemplate = UriComponentsBuilder.fromHttpUrl(baseUrl + PATH_SOCCER_SEASONS).queryParam("league_id", "{league_id}").encode().toUriString();
         Map<String, String> params = new HashMap<>();
         params.put("league_id", remoteKeyTournament.getRemoteKey());
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Collection<SeasonDTO>> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, getHeaders(), new ParameterizedTypeReference<>() {
+        ResponseEntity<EnvelopeDTO<Collection<SeasonDTO>>> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, getHeaders(), new ParameterizedTypeReference<>() {
         }, params);
 
-        Collection<SeasonDTO> dtos = response.getBody();
+        Collection<SeasonDTO> dtos = response.getBody().getData();
         LOGGER.atDebug().log("Number of seasons: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
     }
@@ -115,11 +115,11 @@ public class Api1PortAdapter implements Api1Port {
         params.put("season_id", remoteKeySeason.getRemoteKey());
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Collection<MatchDTO>> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, getHeaders(), new ParameterizedTypeReference<>() {
+        ResponseEntity<EnvelopeDTO<Collection<MatchDTO>>> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, getHeaders(), new ParameterizedTypeReference<>() {
         }, params);
 
-        Collection<MatchDTO> dtos = response.getBody();
-        LOGGER.atDebug().log("Number of seasons: {}", dtos.size());
+        Collection<MatchDTO> dtos = response.getBody().getData();
+        LOGGER.atDebug().log("Number of matches: {}", dtos.size());
         return dtos.stream().map(dto -> dtoMapper.fromDTO(dto)).collect(toList());
 
     }

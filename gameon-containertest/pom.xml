@@ -20,7 +20,22 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-artemis</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-jms-server</artifactId>
+        </dependency>
         <!-- END SPRING -->
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-junit-5</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>se.dandel.gameon</groupId>
