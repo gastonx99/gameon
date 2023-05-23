@@ -1,5 +1,6 @@
 package se.dandel.gameon.application.service;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.junit.jupiter.MockServerExtension;
 import org.mockserver.junit.jupiter.MockServerSettings;
@@ -10,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
