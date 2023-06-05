@@ -1,19 +1,21 @@
 package se.dandel.gameon.application.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.port.Api1Port;
 import se.dandel.gameon.domain.port.MessageProducerPort;
 
-import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Optional;
 
+@Component
 public class FetchDataFromApi1Service {
 
-    @Inject
+    @Autowired
     private Api1Port api1Port;
 
-    @Inject
+    @Autowired
     private MessageProducerPort messageProducerPort;
 
     public void fetchTeams(RemoteKey remoteKeyCountry) {

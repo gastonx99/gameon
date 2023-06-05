@@ -1,8 +1,7 @@
 package se.dandel.gameon.domain.model;
 
+import jakarta.persistence.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import javax.persistence.*;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
@@ -15,6 +14,7 @@ public class Team {
 
     private String name;
 
+    @Column(name = "SHORTCODE")
     private String shortCode;
 
     @ManyToOne

@@ -1,18 +1,16 @@
 package se.dandel.gameon.adapter.cli;
 
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import picocli.CommandLine;
 import se.dandel.gameon.application.service.FetchDataFromApi1Service;
 import se.dandel.gameon.domain.GameonRuntimeException;
 import se.dandel.gameon.domain.model.RemoteKey;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
@@ -54,10 +52,9 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
                 properties.load(fis);
             }
             properties.entrySet().forEach(p -> System.setProperty(p.getKey().toString(), p.getValue().toString()));
-            Weld weld = new Weld().addBeanClasses().enableDiscovery();
-            WeldContainer container = weld.initialize();
-            Runner runner = container.select(Runner.class).get();
-            runner.start();
+
+            SpringApplication.run(Runner.class);
+
             return 0;
         } catch (Throwable t) {
             LOGGER.error(t.getMessage(), t);
@@ -65,37 +62,32 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
         }
     }
 
+    @SpringBootApplication
     public static class Runner {
         private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-        @Inject
+        @Autowired
         private FetchDataFromApi1Service service;
 
-        @Inject
-        private EntityManager entityManager;
-
-        @Inject
-        @ConfigProperty(name = TYPE)
+        @Value(TYPE)
         private FetchType type;
 
-        @Inject
-        private Config config;
+        @Value(PARAM_PREFIX + ".countryid")
+        private Optional<String> countryId;
+
+        @Value(PARAM_PREFIX + ".leagueid")
+        private String leagueId;
+
+        @Value(PARAM_PREFIX + ".seasonid")
+        private String seasonId;
+
 
         public void start() {
-            entityManager.getTransaction().begin();
-            try {
-                callService();
-                entityManager.getTransaction().commit();
-            } catch (Throwable t) {
-                if (entityManager.getTransaction().isActive()) {
-                    entityManager.getTransaction().rollback();
-                }
-                throw t;
-            }
+            callService();
         }
 
         private void callService() {
-            LOGGER.debug("Do some good using service {}", service);
+            LOGGER.atDebug().log("Do some good using service {}", service);
             switch (type) {
                 case country:
                     service.fetchCountries();
@@ -107,10 +99,10 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
                     service.fetchLeagues(getCountryId());
                     break;
                 case season:
-                    service.fetchSeasons(RemoteKey.of(getLeagueId()));
+                    service.fetchSeasons(RemoteKey.of(leagueId));
                     break;
                 case match:
-                    service.fetchMatches(RemoteKey.of(getSeasonId()));
+                    service.fetchMatches(RemoteKey.of(seasonId));
                     break;
                 default:
                     throw new GameonRuntimeException("Unsupported type %s", type);
@@ -118,18 +110,9 @@ public class FetchDataFromApi1Cli implements Callable<Integer> {
         }
 
         private Optional<RemoteKey> getCountryId() {
-            String propertyName = PARAM_PREFIX + ".countryid";
-            Optional<String> value = config.getOptionalValue(propertyName, String.class);
-            return value.isPresent() ? Optional.of(RemoteKey.of(value.get())) : Optional.empty();
+            return countryId.isPresent() ? Optional.of(RemoteKey.of(countryId.get())) : Optional.empty();
         }
 
-        private String getLeagueId() {
-            return config.getValue(PARAM_PREFIX + ".leagueid", String.class);
-        }
-
-        private String getSeasonId() {
-            return config.getValue(PARAM_PREFIX + ".seasonid", String.class);
-        }
     }
 
     public static void main(String... args) {

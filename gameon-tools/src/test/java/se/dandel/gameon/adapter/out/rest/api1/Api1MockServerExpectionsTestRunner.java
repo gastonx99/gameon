@@ -11,9 +11,6 @@ import org.mockserver.model.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -22,10 +19,6 @@ import static org.mockserver.model.HttpResponse.response;
 
 class Api1MockServerExpectionsTestRunner {
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
-
-    private static final JsonbConfig JSONB_CONFIG = new JsonbConfig();
-
-    private static final Jsonb jsonb = JsonbBuilder.create(JSONB_CONFIG);
 
     @Test
     @Disabled

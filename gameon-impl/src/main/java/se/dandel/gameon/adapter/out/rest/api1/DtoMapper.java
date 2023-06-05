@@ -8,7 +8,7 @@ import se.dandel.gameon.domain.model.*;
 
 import java.util.Set;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "spring")
 public interface DtoMapper {
     @Mapping(source = "countryId", target = "remoteKey.remoteKey")
     Country fromDTO(CountryDTO source);

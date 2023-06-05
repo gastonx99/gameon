@@ -1,11 +1,11 @@
 package se.dandel.gameon.domain.model.bet;
 
+import jakarta.persistence.*;
 import se.dandel.gameon.domain.model.Audit;
 import se.dandel.gameon.domain.model.Match;
 import se.dandel.gameon.domain.model.Score;
 import se.dandel.gameon.domain.model.User;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 

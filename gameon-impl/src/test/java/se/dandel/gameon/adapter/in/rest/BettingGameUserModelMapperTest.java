@@ -26,7 +26,7 @@ class BettingGameUserModelMapperTest {
 
         // When
         BettingGameUserModel actual = mapper.toModel(expected);
-        LOGGER.debug("BettingGameUserModel: {}", ReflectionToStringBuilder.toString(actual, new RecursiveToStringStyle()));
+        LOGGER.atDebug().log("BettingGameUserModel: {}", ReflectionToStringBuilder.toString(actual, new RecursiveToStringStyle()));
         Collection<BettingGameUserModel.BetModel> actualBets = actual.bets;
 
         // Then

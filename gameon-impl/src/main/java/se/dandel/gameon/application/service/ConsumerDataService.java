@@ -1,25 +1,31 @@
 package se.dandel.gameon.application.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import se.dandel.gameon.domain.GameonRuntimeException;
 import se.dandel.gameon.domain.model.*;
-import se.dandel.gameon.domain.repository.CountryRepository;
-import se.dandel.gameon.domain.repository.TeamRepository;
-import se.dandel.gameon.domain.repository.TournamentRepository;
+import se.dandel.gameon.domain.repository.*;
 
-import javax.inject.Inject;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
+@Component
 public class ConsumerDataService {
 
-    @Inject
+    @Autowired
     private TeamRepository teamRepository;
 
-    @Inject
+    @Autowired
     private TournamentRepository tournamentRepository;
 
-    @Inject
+    @Autowired
+    private SeasonRepository seasonRepository;
+
+    @Autowired
+    private MatchRepository matchRepository;
+
+    @Autowired
     private CountryRepository countryRepository;
 
     public void saveTeams(Collection<Team> teams) {
@@ -62,13 +68,13 @@ public class ConsumerDataService {
             Optional<Team> persisted = teamRepository.findByRemoteKey(team.getRemoteKey());
             if (!persisted.isPresent()) {
                 team.setCountry(getPersistedCountry(team.getCountry()));
-                teamRepository.persist(team);
+                teamRepository.save(team);
             }
         });
     }
 
     private void createOrUpdateMatch(Season season, Match match) {
-        Optional<Match> persisted = tournamentRepository.findMatchByRemoteKey(match.getRemoteKey());
+        Optional<Match> persisted = matchRepository.findByRemoteKey(match.getRemoteKey());
         if (persisted.isPresent()) {
             applyMatch(match, persisted.get());
         } else {
@@ -77,7 +83,7 @@ public class ConsumerDataService {
             match.setAwayTeam(getPersistedTeam(match.getAwayTeam()));
             match.setSeason(season);
             season.addMatch(match);
-            tournamentRepository.persist(match);
+            matchRepository.save(match);
         }
     }
 
@@ -94,13 +100,13 @@ public class ConsumerDataService {
     }
 
     private void createOrUpdateSeason(Tournament tournament, Season season) {
-        Optional<Season> persisted = tournamentRepository.find(tournament, season);
+        Optional<Season> persisted = seasonRepository.findByTournament(tournament);
         if (persisted.isPresent()) {
             applySeason(season, persisted.get());
         } else {
             season.setTournament(tournament);
             tournament.addSeason(season);
-            tournamentRepository.persist(season);
+            seasonRepository.save(season);
         }
     }
 
@@ -109,11 +115,11 @@ public class ConsumerDataService {
     }
 
     private void createOrUpdateCountry(Country country) {
-        Optional<Country> persisted = countryRepository.find(country);
+        Optional<Country> persisted = countryRepository.findByRemoteKey(country.getRemoteKey());
         if (persisted.isPresent()) {
             applyCountry(country, persisted.get());
         } else {
-            countryRepository.persist(country);
+            countryRepository.save(country);
         }
     }
 
@@ -130,7 +136,7 @@ public class ConsumerDataService {
             applyTeam(team, persisted.get());
         } else {
             team.setCountry(getPersistedCountry(team.getCountry()));
-            teamRepository.persist(team);
+            teamRepository.save(team);
         }
     }
 
@@ -142,12 +148,12 @@ public class ConsumerDataService {
     }
 
     private void createOrUpdateTournament(Tournament tournament) {
-        Optional<Tournament> persisted = tournamentRepository.find(tournament);
+        Optional<Tournament> persisted = tournamentRepository.findByRemoteKey(tournament.getRemoteKey());
         if (persisted.isPresent()) {
             applyTournament(tournament, persisted.get());
         } else {
             tournament.setCountry(getPersistedCountry(tournament.getCountry()));
-            tournamentRepository.persist(tournament);
+            tournamentRepository.save(tournament);
         }
     }
 

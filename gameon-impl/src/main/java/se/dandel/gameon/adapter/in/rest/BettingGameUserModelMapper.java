@@ -17,7 +17,7 @@ import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.*;
 
 @Mapper(
-        componentModel = "cdi",
+        componentModel = "spring",
         nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT
 )
 public interface BettingGameUserModelMapper {

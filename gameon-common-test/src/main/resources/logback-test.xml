@@ -17,18 +17,11 @@
         <appender-ref ref="CONSOLE_APPENDER"/>
     </logger>
 
-    <logger name="se.dandel.gameon.domain.repository" level="INFO"/>
-
-    <logger name="se.dandel.gameon.DbContentHandler" level="INFO"/>
-
-    <logger name="se.dandel.gameon.adapter.jpa.ContainerTestEntityManagerProducer" level="INFO"/>
+    <logger name="se.dandel.gameon.domain" level="INFO"/>
 
     <logger name="liquibase" level="WARN"/>
 
     <logger name="org.mockserver" level="ERROR"/>
-
-    <!-- Requires static { SLF4JBridgeHandler.install() } in JUnit5 tests -->
-    <logger name="org.glassfish.jersey.logging" level="ERROR"/>
 
     <!-- Loggnivå kan vara: TRACE, DEBUG, INFO, WARN, ERROR, ALL eller OFF -->
     <root level="ERROR">

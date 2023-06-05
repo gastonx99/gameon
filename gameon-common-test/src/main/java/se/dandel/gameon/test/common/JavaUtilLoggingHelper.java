@@ -17,7 +17,7 @@ public class JavaUtilLoggingHelper {
             return;
         }
         reloaded = true;
-        LOGGER.debug("Reloading JUL using {}", julPropertiesFilename);
+        LOGGER.atDebug().log("Reloading JUL using {}", julPropertiesFilename);
         InputStream stream = JavaUtilLoggingHelper.class.getClassLoader().getResourceAsStream(julPropertiesFilename);
         try {
             LogManager.getLogManager().reset();

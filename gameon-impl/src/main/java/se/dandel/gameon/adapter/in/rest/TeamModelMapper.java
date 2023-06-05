@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import se.dandel.gameon.domain.model.Team;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "spring")
 public interface TeamModelMapper {
     @Mapping(source = "country.name", target = "countryName")
     @Mapping(source = "country.countryCode", target = "countryCode")

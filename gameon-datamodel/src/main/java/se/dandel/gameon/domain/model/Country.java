@@ -1,8 +1,7 @@
 package se.dandel.gameon.domain.model;
 
+import jakarta.persistence.*;
 import org.apache.commons.lang3.StringUtils;
-
-import javax.persistence.*;
 
 @Entity
 public class Country {
@@ -13,6 +12,7 @@ public class Country {
 
     private String name;
 
+    @Column(name = "COUNTRYCODE")
     private String countryCode;
 
     private String continent;

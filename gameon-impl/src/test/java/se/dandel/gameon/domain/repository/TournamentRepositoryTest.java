@@ -3,42 +3,41 @@ package se.dandel.gameon.domain.repository;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.dandel.gameon.RepositoryTest;
-import se.dandel.gameon.adapter.jpa.PersistenceTestManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import se.dandel.gameon.domain.model.*;
 
-import javax.inject.Inject;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
-@RepositoryTest
+@DataJpaTest
 class TournamentRepositoryTest {
 
     Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    @Inject
+    @Autowired
     TournamentRepository repository;
 
-    @Inject
-    PersistenceTestManager persistManager;
+    @Autowired
+    private TestEntityManager entityManager;
 
     @Test
     void persist() {
         // Given
         Country country = TestCountryFactory.createCountrySweden();
-        repository.persist(country);
+        entityManager.persist(country);
         Tournament expected = new Tournament(TournamentType.LEAGUE);
         expected.setName("My league");
         expected.setRemoteKey(RemoteKey.of(1));
         expected.setCountry(country);
-        repository.persist(expected);
+        repository.save(expected);
 
         // When
-        persistManager.reset();
-        Collection<Tournament> actuals = repository.findAllTournaments();
+        Collection<Tournament> actuals = repository.findAll();
 
         // Then
         Tournament actual = actuals.iterator().next();

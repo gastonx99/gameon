@@ -1,5 +1,7 @@
 package se.dandel.gameon.adapter.in.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
@@ -13,9 +15,6 @@ import se.dandel.gameon.domain.model.*;
 import se.dandel.gameon.domain.model.bet.BettingGame;
 import se.dandel.gameon.domain.model.bet.BettingGameUser;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,10 +26,6 @@ import static org.mockserver.model.HttpResponse.response;
 
 class MockServerExpectionsTestRunner {
     final Logger LOGGER = LoggerFactory.getLogger(getClass());
-
-    private static final JsonbConfig JSONB_CONFIG = new JsonbConfig().withFormatting(true);
-
-    private static final Jsonb jsonb = JsonbBuilder.create(JSONB_CONFIG);
 
     private TournamentModelMapper tournamentModelMapper = new TournamentModelMapperImpl();
 
@@ -75,12 +70,12 @@ class MockServerExpectionsTestRunner {
         BettingGameUserWidgetModel modelCompletedGames = bettingGameUserWidgetModelMapper.toModel(List.of(bettingGameUser2));
 
         Expectation expectationActiveGames = createExpectation("game-user-active",
-                jsonb.toJson(modelActiveGames),
+                toJson(modelActiveGames),
                 "/api/game/user",
                 Collections.emptyList(),
                 Collections.singletonList(Parameter.param("gamestatus", "active")));
         Expectation expectationCompletedGames = createExpectation("game-user-completed",
-                jsonb.toJson(modelCompletedGames),
+                toJson(modelCompletedGames),
                 "/api/game/user",
                 Collections.emptyList(),
                 Collections.singletonList(Parameter.param("gamestatus", "completed")));
@@ -115,7 +110,7 @@ class MockServerExpectionsTestRunner {
             expectationId += "-post";
         }
         BettingGameUserModel bettingGameUserModel = bettingGameUserModelMapper.toModel(bettingGameUser);
-        String expected = jsonb.toJson(bettingGameUserModel);
+        String expected = toJson(bettingGameUserModel);
 
         Parameter parameter = Parameter.param("pk", String.valueOf(bettingGameUser.getPk()));
         Expectation expectation = createExpectation(expectationId, expected, "/api/game/user/{pk}", Collections.singletonList(parameter), Collections.emptyList());
@@ -125,7 +120,7 @@ class MockServerExpectionsTestRunner {
     private Expectation createExpectationTeams() {
         List<Team> teams = TestTeamFactory.createTeamsEuro2020();
         Collection<TeamModel> models = teams.stream().map(team -> teamModelMapper.toModel(team)).collect(toList());
-        String expected = jsonb.toJson(models);
+        String expected = toJson(models);
         Expectation expectation = createExpectation("teams", expected, "/api/team", Collections.emptyList(), Collections.emptyList());
         return expectation;
     }
@@ -149,14 +144,14 @@ class MockServerExpectionsTestRunner {
         Parameter parameter = Parameter.param("pk", String.valueOf(tournament.getPk()));
         String path = "/api/tournament/{pk}";
         Collection<TournamentModel> tournaments = Collections.singleton(tournamentModelMapper.toModel(tournament));
-        String expected = jsonb.toJson(tournaments);
+        String expected = toJson(tournaments);
         Expectation expectation = createExpectation(String.format("tournament-pk-%d", tournament.getPk()), expected, path, Collections.singletonList(parameter), Collections.emptyList());
         return expectation;
     }
 
     private Expectation createAllTournaments(Tournament... tournament) {
         Collection<TournamentModel> tournaments = Collections.singleton(tournamentModelMapper.toModel(tournament[0]));
-        String expected = jsonb.toJson(tournaments);
+        String expected = toJson(tournaments);
         String path = "/tournament";
         String expectationId = "tournament-all";
         Expectation expectation = createExpectation(expectationId, expected, path, Collections.emptyList(), Collections.emptyList());
@@ -164,7 +159,7 @@ class MockServerExpectionsTestRunner {
     }
 
     private Expectation createExpectation(String expectationId, String expected, String path, List<Parameter> pathParameters, List<Parameter> qsParameters) {
-        LOGGER.debug("Creating expectation {} with path {} and path parameters {} and querystring parameters {} with response\n---{}\n---", expectationId, path, pathParameters, qsParameters, expected);
+        LOGGER.atDebug().log("Creating expectation {} with path {} and path parameters {} and querystring parameters {} with response\n---{}\n---", expectationId, path, pathParameters, qsParameters, expected);
         HttpRequest request = request()
                 .withMethod("GET")
                 .withPath(path)
@@ -176,6 +171,15 @@ class MockServerExpectionsTestRunner {
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(expected)
         ).withId(expectationId).withPriority(pathParameters.isEmpty() ? -100 : 0);
+    }
+
+    private String toJson(Object object) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
 }
